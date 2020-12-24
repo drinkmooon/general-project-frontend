@@ -56,6 +56,12 @@ export default [
                 component: './ListTableList',
               },
               {
+                name: '商品信息',
+                icon: 'table',
+                path: '/table',
+                component: './TableList',
+              },
+              {
                 component: './404',
               },
             ],
