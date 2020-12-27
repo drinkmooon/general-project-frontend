@@ -4,35 +4,17 @@ export default [
     component: '../layouts/BlankLayout',
     routes: [
       {
-        path: '/user',
-        component: '../layouts/UserLayout',
-        routes: [
-          {
-            name: 'login',
-            path: '/user/login',
-            component: './user/login',
-          },
-        ],
-      },
-      {
         path: '/',
         component: '../layouts/BlankLayout',
         routes: [
           {
             path: '/',
             component: '../layouts/BasicLayout',
-            authority: ['admin', 'user'],
             routes: [
               {
                 path: '/',
                 redirect: '/statistics/general-statistics',
-              },
-              {
-                name: 'list.table-list',
-                icon: 'table',
-                path: '/list',
-                component: './ListTableList',
-              },
+              },         
               {
                 path: '/statistics',
                 name: 'statistics',

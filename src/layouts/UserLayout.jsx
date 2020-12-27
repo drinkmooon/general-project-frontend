@@ -42,19 +42,41 @@ const UserLayout = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Ant Design</span>
+                <span className={styles.title}>云销售</span>
               </Link>
             </div>
             <div className={styles.desc}>
               <FormattedMessage
                 id="pages.layouts.userLayout.title"
-                defaultMessage="Ant Design 是西湖区最具影响力的 Web 设计规范"
+                defaultMessage="云销售是云计算的课程项目"
               />
             </div>
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        <DefaultFooter
+          copyright={`${new Date().getFullYear()} 云计算课程小组`}
+          links={[
+            {
+              key: 'frontend',
+              title: '前端开发',
+              href: 'https://github.com/drinkmooon/general-project-frontend',
+              blankTarget: true,
+            },
+            {
+              key: 'backend',
+              title: '后端开发',
+              href: 'https://github.com/ComposeC/Sell',
+              blankTarget: true,
+            },
+            {
+              key: 'service',
+              title: '联系方式',
+              href: 'https://sse.tongji.edu.cn/',
+              blankTarget: true,
+            },      
+          ]}
+        />
       </div>
     </HelmetProvider>
   );

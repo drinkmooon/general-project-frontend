@@ -39,24 +39,24 @@ const menuDataRender = (menuList) =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} 蚂蚁集团体验技术部出品`}
+    copyright={`${new Date().getFullYear()} 云计算课程小组`}
     links={[
       {
-        key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
-        href: 'https://pro.ant.design',
+        key: 'frontend',
+        title: '前端开发',
+        href: 'https://github.com/drinkmooon/general-project-frontend',
         blankTarget: true,
       },
       {
-        key: 'github',
-        title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
+        key: 'backend',
+        title: '后端开发',
+        href: 'https://github.com/ComposeC/Sell',
         blankTarget: true,
       },
       {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
+        key: 'service',
+        title: '联系方式',
+        href: 'https://sse.tongji.edu.cn/',
         blankTarget: true,
       },
     ]}
@@ -130,8 +130,8 @@ const BasicLayout = (props) => {
         return first ? (
           <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
         ) : (
-          <span>{route.breadcrumbName}</span>
-        );
+            <span>{route.breadcrumbName}</span>
+          );
       }}
       footerRender={() => defaultFooterDom}
       menuDataRender={menuDataRender}
