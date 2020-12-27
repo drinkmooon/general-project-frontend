@@ -178,7 +178,7 @@ const GeneralStatistics = () => {
               >
                 <Line position="date*销售额" />
                 <Point position="date*销售额" />
-                <Tooltip showCrosshairs lock triggerOn='hover' />
+                <Tooltip showCrosshairs triggerOn='hover' />
               </Chart>
             </Card>
           </Col>
