@@ -7,7 +7,7 @@ const proSettings = {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Ant Design Pro',
+  title: '云销售',
   pwa: false,
   iconfontUrl: '',
 };

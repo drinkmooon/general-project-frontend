@@ -16,7 +16,7 @@ export default [
       },
       {
         path: '/',
-        component: '../layouts/SecurityLayout',
+        component: '../layouts/BlankLayout',
         routes: [
           {
             path: '/',
@@ -25,29 +25,7 @@ export default [
             routes: [
               {
                 path: '/',
-                redirect: '/welcome',
-              },
-              {
-                path: '/welcome',
-                name: 'welcome',
-                icon: 'smile',
-                component: './Welcome',
-              },
-              {
-                path: '/admin',
-                name: 'admin',
-                icon: 'crown',
-                component: './Admin',
-                authority: ['admin'],
-                routes: [
-                  {
-                    path: '/admin/sub-page',
-                    name: 'sub-page',
-                    icon: 'smile',
-                    component: './Welcome',
-                    authority: ['admin'],
-                  },
-                ],
+                redirect: '/statistics/general-statistics',
               },
               {
                 name: 'list.table-list',
@@ -56,11 +34,27 @@ export default [
                 component: './ListTableList',
               },
               {
-                name: '商品信息',
+                path: '/statistics',
+                name: 'statistics',
                 icon: 'table',
-                path: '/table',
-                component: './TableList',
-              },
+                routes: [
+                  {
+                    name: 'list.general-list',
+                    path: '/statistics/general-statistics',
+                    component: './Statistics/GeneralStatistics',
+                  },
+                  {
+                    name: 'list.user-list',
+                    path: '/statistics/user-statistics',
+                    component: './Statistics/UserStatistics',
+                  },
+                  {
+                    name: 'list.goods-list',
+                    path: '/statistics/goods-statistics',
+                    component: './Statistics/GoodsStatistics',
+                  },
+                ],               
+              },                                                        
               {
                 component: './404',
               },

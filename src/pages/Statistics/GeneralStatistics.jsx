@@ -6,8 +6,7 @@ import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import ProDescriptions from '@ant-design/pro-descriptions';
-// import UpdateForm from './components/UpdateForm';
-import { queryRule, getAllItems, updateRule, addRule, removeRule } from '../utils/ApiUtils';
+import { queryRule, getAllItems, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 /**
  * 添加节点
  * @param fields
@@ -73,7 +72,7 @@ const handleRemove = async (selectedRows) => {
   }
 };
 
-const TableList = () => {
+const GeneralStatistics = () => {
   /**
    * 新建窗口的弹窗
    */
@@ -96,19 +95,6 @@ const TableList = () => {
     {
       title: "商品名称",
       dataIndex: 'name',
-      /*   tip: '规则名称是唯一的 key',
-        render: (dom, entity) => {
-          return (
-            <a
-              onClick={() => {
-                setCurrentRow(entity);
-                setShowDetail(true);
-              }}
-            >
-              {dom}
-            </a>
-          );
-        },*/
     },
     {
       title: "描述",
@@ -123,66 +109,6 @@ const TableList = () => {
       renderText: (val) =>
         `${val}${' 元 '}`,
     },
-    // {
-    //   title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="状态" />,
-    //   dataIndex: 'status',
-    //   hideInForm: true,
-    //   valueEnum: {
-    //     0: {
-    //       text: (
-    //         <FormattedMessage id="pages.searchTable.nameStatus.default" defaultMessage="关闭" />
-    //       ),
-    //       status: 'Default',
-    //     },
-    //     1: {
-    //       text: (
-    //         <FormattedMessage id="pages.searchTable.nameStatus.running" defaultMessage="运行中" />
-    //       ),
-    //       status: 'Processing',
-    //     },
-    //     2: {
-    //       text: (
-    //         <FormattedMessage id="pages.searchTable.nameStatus.online" defaultMessage="已上线" />
-    //       ),
-    //       status: 'Success',
-    //     },
-    //     3: {
-    //       text: (
-    //         <FormattedMessage id="pages.searchTable.nameStatus.abnormal" defaultMessage="异常" />
-    //       ),
-    //       status: 'Error',
-    //     },
-    //   },
-    // },
-    // {
-    //   title: (
-    //     <FormattedMessage id="pages.searchTable.titleUpdatedAt" defaultMessage="上次调度时间" />
-    //   ),
-    //   sorter: true,
-    //   dataIndex: 'updatedAt',
-    //   valueType: 'dateTime',
-    //   renderFormItem: (item, { defaultRender, ...rest }, form) => {
-    //     const status = form.getFieldValue('status');
-
-    //     if (`${status}` === '0') {
-    //       return false;
-    //     }
-
-    //     if (`${status}` === '3') {
-    //       return (
-    //         <Input
-    //           {...rest}
-    //           placeholder={intl.formatMessage({
-    //             id: 'pages.searchTable.exception',
-    //             defaultMessage: '请输入异常原因！',
-    //           })}
-    //         />
-    //       );
-    //     }
-
-    //     return defaultRender(item);
-    //   },
-    // },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
       dataIndex: 'option',
@@ -226,11 +152,6 @@ const TableList = () => {
         search={{
           labelWidth: 120,
         }}
-        // toolBarRender={() => [
-        //   <Button type="primary" key="primary" onClick={() => handleModalVisible(true)}>
-        //     <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
-        //   </Button>,
-        // ]}
         request={(params, sorter, filter) => {
           return Promise.resolve({
             data: dataList,
@@ -318,26 +239,6 @@ const TableList = () => {
         />
         <ProFormTextArea width="m" name="desc" />
       </ModalForm>
-      {/* <UpdateForm
-        onSubmit={async (value) => {
-          const success = await handleUpdate(value);
-
-          if (success) {
-            handleUpdateModalVisible(false);
-            setCurrentRow(undefined);
-
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-        onCancel={() => {
-          handleUpdateModalVisible(false);
-          setCurrentRow(undefined);
-        }}
-        updateModalVisible={updateModalVisible}
-        values={currentRow || {}}
-      /> */}
 
       <Drawer
         width={600}
@@ -366,4 +267,4 @@ const TableList = () => {
   );
 };
 
-export default TableList;
+export default GeneralStatistics;
