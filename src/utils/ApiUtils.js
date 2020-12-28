@@ -1,25 +1,25 @@
 import request from '@/utils/request';
 
 
-const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x'
-
+//const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x'
+const BASE_URL = '/api/'
 
 export async function getAllItems() {
-  return request('/api/getAllItems',
+  return request('getAllItems',
     {
       prefix: BASE_URL,
     }
   );
 }
 export async function getAllUser() {
-  return request('/api/getAllUser',
+  return request('getAllUser',
     {
       prefix: BASE_URL,
     }
   );
 }
 export async function getAllOrder() {
-  return request('/api/getAllOrder',
+  return request('getAllOrder',
     {
       prefix: BASE_URL,
     }
