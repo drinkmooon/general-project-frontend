@@ -10,7 +10,7 @@ const GoodsStatistics = () => {
 
   
   const [dataList, setDataList] = useState([]);
-  
+  const [ chosenGoodsName,setChosenGoodsName] = useState("商品一号");
   useEffect(
     () => {
       getAllItems().then((res) => {
@@ -29,8 +29,9 @@ const GoodsStatistics = () => {
   ]);
 
 
-  const showSalesAnalysis = (userId) => {
-    getSalesAnalysisByItem(userId).then((res) => {
+  const showSalesAnalysis = (itemId) => {
+    getSalesAnalysisByItem(itemId).then((res) => {
+      if(!res.data) return;
       let newDailyData = [];
       const curDate = new Date();
       for (let i = 0; i < res.data.length; i++) {
@@ -42,6 +43,7 @@ const GoodsStatistics = () => {
           销售额: res.data[i],
         })
       }
+      setChosenGoodsName(itemId);
       setDailyData(newDailyData);
     })
   }
@@ -85,7 +87,7 @@ const GoodsStatistics = () => {
     },
   ];
 
-  const chosenGoodsName = "商品一号"
+
 
 
   return (
