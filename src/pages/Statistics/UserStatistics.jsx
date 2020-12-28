@@ -2,7 +2,7 @@ import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table } from '
 import React, { useState, useRef, useEffect } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { queryRule, getAllUser, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
+import { queryRule, getAllUser, getSalesAnalysisByUser,updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis } from 'bizcharts';
 
 const UserStatistics = () => {
@@ -11,6 +11,8 @@ const UserStatistics = () => {
   
   const [dataList, setDataList] = useState([]);
 
+  const [orderData,setOrderData] = useState([]);
+  const [isModalVisable,setIsModalVisable] = useState(false);
   useEffect(
     () => {
       getAllUser().then((res) => {
@@ -19,6 +21,13 @@ const UserStatistics = () => {
       })
     }, []);
 
+    const showSalesAnalysis = (userId) =>{
+      getSalesAnalysisByUser(userId).then((res)=>{
+        console.log(res);
+        setOrderData(res.data);
+        setIsModalVisable(true);
+      })
+    }
   const columns = [
     {
       title: "用户编号",
@@ -39,6 +48,7 @@ const UserStatistics = () => {
         text:'fuck',
         value:'fuck',
       }],
+      render:(text)=><a onClick = {()=>{showSalesAnalysis(text)}}>{text}</a>
     },
     {
       title: "电话",

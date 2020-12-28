@@ -5,10 +5,12 @@
  * For details, please see
  * https://pro.ant.design/docs/deploy
  */
+const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x';
 export default {
+  
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: BASE_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -17,7 +19,7 @@ export default {
   },
   test: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: BASE_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -26,7 +28,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: 'your pre url',
+      target: BASE_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',
