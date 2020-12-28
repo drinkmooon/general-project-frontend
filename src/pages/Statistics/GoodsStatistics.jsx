@@ -50,6 +50,7 @@ const GoodsStatistics = () => {
     {
       title:'商品ID',
       dataIndex:'id',
+      sorter:(a,b)=>a.id-b.id,
     },
     {
       title: "商品名称",
@@ -77,9 +78,9 @@ const GoodsStatistics = () => {
     {
       title: "价格",
       dataIndex: 'price',
-      sorter: true,
+      sorter: (a,b)=>a.price-b.price,
       hideInForm: true,
-      renderText: (val) =>
+      render: (val) =>
         `${val}${' 元 '}`,
     },
   ];

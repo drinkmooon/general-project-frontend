@@ -78,6 +78,7 @@ const GeneralStatistics = () => {
     {
       title: "订单编号",
       dataIndex: 'id',
+      sorter:(a,b)=>a.id-b.id,
     },
     {
       title: "用户ID",
@@ -97,19 +98,22 @@ const GeneralStatistics = () => {
     {
       title: "总金额",
       dataIndex: "payment",
-      sorter: true,
-      renderText: (val) =>
+      sorter: (a,b)=>a.payment-b.payment,
+      render: (val) =>
         `${val}${' 元 '}`,
     },
     {
       title: '下单时间',
       dataIndex: 'orderTime',
-      sorter: true,
+      sorter: (a,b)=>{
+        return (new Date(a.orderTime)>new Date(b.orderTime))?1:-1
+      },
     },
     {
       title: "备注",
       dataIndex: 'description',
       valueType: 'textarea',
+      render:(text)=>{if(!text){return '-'}}
     },
   ];
 

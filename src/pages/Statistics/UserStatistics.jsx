@@ -30,7 +30,6 @@ const UserStatistics = () => {
 
   const showSalesAnalysis = (userId) => {
     getSalesAnalysisByUser(userId).then((res) => {
-      console.log(res);
       let newDailyData = [];
       const curDate = new Date();
       for (let i = 0; i < res.data.length; i++) {
@@ -50,6 +49,7 @@ const UserStatistics = () => {
     {
       title: "用户编号",
       dataIndex: 'id',
+      sorter:(a,b)=>a.id-b.id,
     },
     {
       title: "用户名",
@@ -71,7 +71,6 @@ const UserStatistics = () => {
     {
       title: "电话",
       dataIndex: 'phone',
-      sorter: true,
       hideInForm: true,
     },
   ];
