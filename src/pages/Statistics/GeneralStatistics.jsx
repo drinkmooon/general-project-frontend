@@ -86,17 +86,21 @@ const GeneralStatistics = () => {
     {
       title: "用户ID",
       dataIndex: 'userId',
-      filters: dataList ? dataList.map((data) => {
-        return {
-          text: data.userId,
-          value: data.userId
-        }
+      filters: dataList ? Array.from(new Set(dataList.map((data) => {
+        return data.userId
       }
-      ) : [{
+      ))).map((data)=>{       
+         return {
+          text: data,
+          value: data
+        }}) : [{
         text: 'fuck',
         value: 'fuck',
       }],
-      onFilter: (value, record) => record.userId.indexOf(value) === 0,
+      onFilter: (value, record) => {
+        console.log(typeof(value));
+        console.log(typeof(record.userId));
+        return record.userId === value},
     },
     {
       title: "总金额",
