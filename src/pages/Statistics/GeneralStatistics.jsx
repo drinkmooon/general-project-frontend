@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { queryRule, getAllOrder, getAllItems, updateRule, addRule, removeRule, getAllOrders, getBestCustomer, getSalesAnalysisByItem, getSalesAnalysis } from '../../utils/ApiUtils';
+import { queryRule, getAllOrder, getAllItems, updateRule, addRule, removeRule, getAllOrders, getBestCustomer, getSalesAnalysisByItem, getSalesAnalysis, getTopSellingItem } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis, useView } from 'bizcharts';
 
 const GeneralStatistics = () => {
@@ -25,6 +25,7 @@ const GeneralStatistics = () => {
 
   useEffect(() => {
     getSalesAnalysis().then((res) => {
+      if(!res.data) return;
       let newDailyData = [];
       const curDate = new Date();
       for (let i = 0; i < res.data.length; i++) {
@@ -42,19 +43,21 @@ const GeneralStatistics = () => {
 
   useEffect(
     () => {
-      getBestCustomer().then((res) => {
+      getTopSellingItem().then((res) => {      
+        if(!res.data) return;
         let newStarData = [];
         for (let i = 0; i < res.data.length; i++) {
           newStarData.push({
-            source: '商品' + res.data[i].name,
-            金额: 2,
+            source: '商品 ' + res.data[i].name,
+            金额: res.data[i].total,
           })
         }
         getBestCustomer().then((res) => {
+          if(!res.data) return;
           for (let i = 0; i < res.data.length; i++) {
             newStarData.push({
-              source: '用户' + res.data[i].name,
-              金额: 1,
+              source: '用户 ' + res.data[i].name,
+              金额: res.data[i].total,
             })
           }
           console.log(newStarData);
