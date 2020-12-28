@@ -94,12 +94,10 @@ const GeneralStatistics = () => {
           text: data,
           value: data
         }}) : [{
-        text: 'fuck',
-        value: 'fuck',
+        text: 'placeholder',
+        value: 'placeholder',
       }],
       onFilter: (value, record) => {
-        console.log(typeof(value));
-        console.log(typeof(record.userId));
         return record.userId === value},
     },
     {
