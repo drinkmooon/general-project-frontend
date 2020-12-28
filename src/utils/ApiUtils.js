@@ -18,8 +18,8 @@ export async function getSalesAnalysisByUser(userId,startTime=  '1',endTime = '2
   return request('/api/getSalesAnalysisByUser'+'?userId='+userId+'&startTime='+startTime+'&endTime='+endTime);
 }
 
-export async function queryRule(params) {
-  return request('/api/getAllItems', {
+export async function queryRule(params){
+   return request('/api/getAllItems', {
     params,
   });
 }
