@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { queryRule, getAllOrder, getAllItems, updateRule, addRule, removeRule, getAllOrders, getBestCustomer } from '../../utils/ApiUtils';
+import { queryRule, getAllOrder, getAllItems, updateRule, addRule, removeRule, getAllOrders, getBestCustomer, getSalesAnalysisByItem, getSalesAnalysis } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis, useView } from 'bizcharts';
 
 const GeneralStatistics = () => {
@@ -14,30 +14,47 @@ const GeneralStatistics = () => {
 
   const [dailyData, setDailyData] = useState(
     [
-    { date: '12-21', 销售额: 38 },
-    { date: '12-22', 销售额: 48 },
-    { date: '12-23', 销售额: 28 },
-    { date: '12-24', 销售额: 8 },
-    { date: '12-25', 销售额: 8 },
-    { date: '12-26', 销售额: 108 },
-    { date: '12-27', 销售额: 38 },
-  ]);  
+      { date: '12-21', 销售额: 38 },
+      { date: '12-22', 销售额: 48 },
+      { date: '12-23', 销售额: 28 },
+      { date: '12-24', 销售额: 8 },
+      { date: '12-25', 销售额: 8 },
+      { date: '12-26', 销售额: 108 },
+      { date: '12-27', 销售额: 38 },
+    ]);
+
+  useEffect(() => {
+    getSalesAnalysis().then((res) => {
+      let newDailyData = [];
+      const curDate = new Date();
+      for (let i = 0; i < res.data.length; i++) {
+        let historyDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000 * i);
+        let month = historyDate.getMonth() + 1;
+        let date = historyDate.getDate();
+        newDailyData.push({
+          date: month + '-' + date,
+          销售额: res.data[i],
+        })
+      }
+      setDailyData(newDailyData);
+    })
+  }, []);
 
   useEffect(
-    ()=>{
-      getBestCustomer().then((res)=>{
+    () => {
+      getBestCustomer().then((res) => {
         let newStarData = [];
-        for(let i =0;i<res.data.length;i++){
+        for (let i = 0; i < res.data.length; i++) {
           newStarData.push({
-            source:'商品'+res.data[i].name,
-            金额:2,
+            source: '商品' + res.data[i].name,
+            金额: 2,
           })
-        }          
-        getBestCustomer().then((res)=>{
-          for(let i =0;i<res.data.length;i++){
+        }
+        getBestCustomer().then((res) => {
+          for (let i = 0; i < res.data.length; i++) {
             newStarData.push({
-              source:'用户'+res.data[i].name,
-              金额:1,
+              source: '用户' + res.data[i].name,
+              金额: 1,
             })
           }
           console.log(newStarData);
@@ -46,7 +63,7 @@ const GeneralStatistics = () => {
           )
         })
       })
-    },[]
+    }, []
   )
 
   useEffect(
@@ -56,7 +73,7 @@ const GeneralStatistics = () => {
       })
     }, []
   );
-  
+
   const columns = [
     {
       title: "订单编号",

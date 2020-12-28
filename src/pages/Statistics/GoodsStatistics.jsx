@@ -31,7 +31,6 @@ const GoodsStatistics = () => {
 
   const showSalesAnalysis = (userId) => {
     getSalesAnalysisByItem(userId).then((res) => {
-      console.log(res);
       let newDailyData = [];
       const curDate = new Date();
       for (let i = 0; i < res.data.length; i++) {

@@ -21,6 +21,10 @@ export async function getSalesAnalysisByItem(itemId,startTime=  '1',endTime = '2
   return request('/api/getSalesAnalysisByItem'+'?itemId='+itemId+'&startTime='+startTime+'&endTime='+endTime);
 }
 
+export async function getSalesAnalysis(){
+  return request('/api/getSalesAnalysis?startTime=1&endTime=2');
+}
+
 export async function getBestCustomer(){
   return request('/api/getBestCustomer');
 }
@@ -29,9 +33,7 @@ export async function getTopSellingItem(){
   return request('/api/getTopSellingItem');
 }
 
-export async function getSalesAnalysis(){
-  return request('/api/getSalesAnalysis?startTime=1&endTime=2');
-}
+
 
 ////////////////
 export async function queryRule(params){
