@@ -17,6 +17,9 @@ export async function getAllOrder(){
 export async function getSalesAnalysisByUser(userId,startTime=  '1',endTime = '2'){
   return request('/api/getSalesAnalysisByUser'+'?userId='+userId+'&startTime='+startTime+'&endTime='+endTime);
 }
+export async function getSalesAnalysisByItem(itemId,startTime=  '1',endTime = '2'){
+  return request('/api/getSalesAnalysisByItem'+'?itemId='+itemId+'&startTime='+startTime+'&endTime='+endTime);
+}
 
 export async function queryRule(params){
    return request('/api/getAllItems', {

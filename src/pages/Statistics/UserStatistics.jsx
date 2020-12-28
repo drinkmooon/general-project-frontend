@@ -1,18 +1,15 @@
-import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table } from 'antd';
+import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table, Modal } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { queryRule, getAllUser, getSalesAnalysisByUser,updateRule, addRule, removeRule } from '../../utils/ApiUtils';
+import { queryRule, getAllUser, getSalesAnalysisByUser, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis } from 'bizcharts';
 
 const UserStatistics = () => {
-  const [selectedRowsState, setSelectedRows] = useState([]);
 
-  
+
   const [dataList, setDataList] = useState([]);
 
-  const [orderData,setOrderData] = useState([]);
-  const [isModalVisable,setIsModalVisable] = useState(false);
   useEffect(
     () => {
       getAllUser().then((res) => {
@@ -20,14 +17,36 @@ const UserStatistics = () => {
         setDataList(res.data);
       })
     }, []);
+  
+  const [dailyData, setDailyData] = useState([
+    { date: '12-21', 购物金额: 38 },
+    { date: '12-22', 购物金额: 48 },
+    { date: '12-23', 购物金额: 28 },
+    { date: '12-24', 购物金额: 8 },
+    { date: '12-25', 购物金额: 8 },
+    { date: '12-26', 购物金额: 108 },
+    { date: '12-27', 购物金额: 38 },
+  ]);
 
-    const showSalesAnalysis = (userId) =>{
-      getSalesAnalysisByUser(userId).then((res)=>{
-        console.log(res);
-        setOrderData(res.data);
-        setIsModalVisable(true);
-      })
-    }
+
+  const showSalesAnalysis = (userId) => {
+    getSalesAnalysisByUser(userId).then((res) => {
+      console.log(res);
+      let newDailyData = [];
+      const curDate = new Date();
+      for (let i = 0; i < res.data.length; i++) {
+        let historyDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000 * i);
+        let month = historyDate.getMonth() + 1;
+        let date = historyDate.getDate();
+        newDailyData.push({
+          date: month + '-' + date,
+          购物金额: res.data[i],
+        })
+      }
+      setDailyData(newDailyData);
+    })
+  }
+
   const columns = [
     {
       title: "用户编号",
@@ -37,18 +56,17 @@ const UserStatistics = () => {
       title: "用户名",
       dataIndex: 'name',
       valueType: 'textarea',
-      filters: dataList ? dataList.map((data) =>
-      {
+      filters: dataList ? dataList.map((data) => {
         return {
           text: data.name,
           value: data.name
         }
       }
-      ) : [        {
-        text:'fuck',
-        value:'fuck',
+      ) : [{
+        text: 'fuck',
+        value: 'fuck',
       }],
-      render:(text)=><a onClick = {()=>{showSalesAnalysis(text)}}>{text}</a>
+      render: (text) => <a onClick={() => { showSalesAnalysis(text) }}>{text}</a>
     },
     {
       title: "电话",
@@ -56,16 +74,6 @@ const UserStatistics = () => {
       sorter: true,
       hideInForm: true,
     },
-  ];
-
-  const dailyData = [
-    { date: '12-21', 销售额: 38 },
-    { date: '12-22', 销售额: 48 },
-    { date: '12-23', 销售额: 28 },
-    { date: '12-24', 销售额: 8 },
-    { date: '12-25', 销售额: 8 },
-    { date: '12-26', 销售额: 108 },
-    { date: '12-27', 销售额: 38 },
   ];
 
   return (
@@ -79,10 +87,10 @@ const UserStatistics = () => {
                 autoFit
                 height={300}
                 data={dailyData}
-                scale={{ 销售额: { min: 0 } }}
+                scale={{ 购物金额: { min: 0 } }}
               >
-                <Line position="date*销售额" />
-                <Point position="date*销售额" />
+                <Line position="date*购物金额" />
+                <Point position="date*购物金额" />
                 <Tooltip showCrosshairs triggerOn='hover' />
               </Chart>
             </Card>
@@ -94,6 +102,14 @@ const UserStatistics = () => {
         dataSource={dataList}
         columns={columns}
       />
+      {/* <Modal 
+          visible={isModalVisable}
+          onOk = {()=>{setIsModalVisable(false)}}
+        >
+        <Table 
+          columns = {orderColumns}
+          dataSource = {orderData}/>
+      </Modal> */}
       {/* <ProTable
         headerTitle={intl.formatMessage({
           id: 'pages.generalSearchTable.title',

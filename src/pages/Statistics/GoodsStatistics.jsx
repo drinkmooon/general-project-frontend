@@ -3,15 +3,50 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { queryRule, getAllItems, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
+import { queryRule, getAllItems,getSalesAnalysisByItem, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis } from 'bizcharts';
 
 const GoodsStatistics = () => {
-  const actionRef = useRef();
-  const [selectedRowsState, setSelectedRows] = useState([]);
 
+  
   const [dataList, setDataList] = useState([]);
-  const intl = useIntl();
+  
+  useEffect(
+    () => {
+      getAllItems().then((res) => {
+        setDataList(res.data);
+      })
+    }, []);
+
+  const [dailyData, setDailyData] = useState([
+    { date: '12-21', 销售额: 38 },
+    { date: '12-22', 销售额: 48 },
+    { date: '12-23', 销售额: 28 },
+    { date: '12-24', 销售额: 8 },
+    { date: '12-25', 销售额: 8 },
+    { date: '12-26', 销售额: 108 },
+    { date: '12-27', 销售额: 38 },
+  ]);
+
+
+  const showSalesAnalysis = (userId) => {
+    getSalesAnalysisByItem(userId).then((res) => {
+      console.log(res);
+      let newDailyData = [];
+      const curDate = new Date();
+      for (let i = 0; i < res.data.length; i++) {
+        let historyDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000 * i);
+        let month = historyDate.getMonth() + 1;
+        let date = historyDate.getDate();
+        newDailyData.push({
+          date: month + '-' + date,
+          销售额: res.data[i],
+        })
+      }
+      setDailyData(newDailyData);
+    })
+  }
+
   const columns = [
     {
       title:'商品ID',
@@ -30,9 +65,10 @@ const GoodsStatistics = () => {
           text:'fuck',
           value:'fuck',
         }
-      ]
-      // filters:true,
+      ],
+      render: (text) => <a onClick={() => { showSalesAnalysis(text) }}>{text}</a>
     },
+
     {
       title: "商品描述",
       dataIndex: 'description',
@@ -48,25 +84,8 @@ const GoodsStatistics = () => {
     },
   ];
 
-
-  const dailyData = [
-    { date: '12-21', 销售额: 38 },
-    { date: '12-22', 销售额: 48 },
-    { date: '12-23', 销售额: 28 },
-    { date: '12-24', 销售额: 8 },
-    { date: '12-25', 销售额: 8 },
-    { date: '12-26', 销售额: 108 },
-    { date: '12-27', 销售额: 38 },
-  ];
-
   const chosenGoodsName = "商品一号"
 
-  useEffect(
-    () => {
-      getAllItems().then((res) => {
-        setDataList(res.data);
-      })
-    }, []);
 
   return (
     <PageContainer>
