@@ -92,6 +92,7 @@ const GeneralStatistics = () => {
         text: 'fuck',
         value: 'fuck',
       }],
+      onFilter: (value, record) => record.userId.indexOf(value) === 0,
     },
     {
       title: "总金额",

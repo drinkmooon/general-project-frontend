@@ -65,6 +65,7 @@ const GoodsStatistics = () => {
           value:'fuck',
         }
       ],
+      onFilter: (value, record) => record.name.indexOf(value) === 0,
       render: (text) => <a onClick={() => { showSalesAnalysis(text) }}>{text}</a>
     },
 

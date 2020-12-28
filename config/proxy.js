@@ -6,6 +6,7 @@
  * https://pro.ant.design/docs/deploy
  */
 const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x';
+// const BASE_URL = 'http://8.133.173.118:8899';
 export default {
   
   dev: {
