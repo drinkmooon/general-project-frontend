@@ -2,7 +2,6 @@ import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table } from '
 import React, { useState, useRef, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import ProTable from '@ant-design/pro-table';
 import { queryRule, getAllOrder, getAllItems, updateRule, addRule, removeRule, getAllOrders, getBestCustomer, getSalesAnalysisByItem, getSalesAnalysis, getTopSellingItem } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis, useView } from 'bizcharts';
 
@@ -12,16 +11,7 @@ const GeneralStatistics = () => {
 
   const [starData, setStarData] = useState([]);
 
-  const [dailyData, setDailyData] = useState(
-    [
-      { date: '12-21', 销售额: 38 },
-      { date: '12-22', 销售额: 48 },
-      { date: '12-23', 销售额: 28 },
-      { date: '12-24', 销售额: 8 },
-      { date: '12-25', 销售额: 8 },
-      { date: '12-26', 销售额: 108 },
-      { date: '12-27', 销售额: 38 },
-    ]);
+  const [dailyData, setDailyData] = useState([]);
 
   useEffect(() => {
     getSalesAnalysis().then((res) => {
@@ -166,24 +156,6 @@ const GeneralStatistics = () => {
         dataSource={dataList}
         columns={columns}
       />
-      {/* <ProTable
-        headerTitle={intl.formatMessage({
-          id: 'pages.generalSearchTable.title',
-          defaultMessage: '订单列表',
-        })}
-        actionRef={actionRef}
-        rowKey='name'
-        request={(params, sorter, filter) => {
-          return Promise.resolve({
-            data: dataList,
-            success: true,
-          })
-        }}
-        columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => setSelectedRows(selectedRows),
-        }}
-      /> */}
     </PageContainer>
   );
 };

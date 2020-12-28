@@ -1,7 +1,6 @@
 import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table, Modal } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import ProTable from '@ant-design/pro-table';
 import { queryRule, getAllUser, getSalesAnalysisByUser, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis } from 'bizcharts';
 
@@ -9,6 +8,7 @@ const UserStatistics = () => {
 
 
   const [dataList, setDataList] = useState([]);
+  const [chosenUserName,setChosenUserName] = useState("请选择用户");
 
   useEffect(
     () => {
@@ -17,18 +17,10 @@ const UserStatistics = () => {
       })
     }, []);
   
-  const [dailyData, setDailyData] = useState([
-    { date: '12-21', 购物金额: 38 },
-    { date: '12-22', 购物金额: 48 },
-    { date: '12-23', 购物金额: 28 },
-    { date: '12-24', 购物金额: 8 },
-    { date: '12-25', 购物金额: 8 },
-    { date: '12-26', 购物金额: 108 },
-    { date: '12-27', 购物金额: 38 },
-  ]);
+  const [dailyData, setDailyData] = useState([]);
 
 
-  const showSalesAnalysis = (userId) => {
+  const showSalesAnalysis = (userId, text) => {
     getSalesAnalysisByUser(userId).then((res) => {
       let newDailyData = [];
       const curDate = new Date();
@@ -41,6 +33,7 @@ const UserStatistics = () => {
           购物金额: res.data[i],
         })
       }
+      setChosenUserName(text);
       setDailyData(newDailyData);
     })
   }
@@ -62,11 +55,11 @@ const UserStatistics = () => {
         }
       }
       ) : [{
-        text: 'fuck',
-        value: 'fuck',
+        text: 'placeholder',
+        value: 'placeholder',
       }],
       onFilter: (value, record) => record.name.indexOf(value) === 0,
-      render: (text,record) => <a onClick={() => { showSalesAnalysis(record.id) }}>{text}</a>
+      render: (text,record) => <a onClick={() => { showSalesAnalysis(record.id,text) }}>{text}</a>
     },
     {
       title: "电话",
@@ -80,7 +73,7 @@ const UserStatistics = () => {
       <div className="general-statistics-wrapper">
         <Row gutter={16}>
           <Col span={24}>
-            <Card title="购物金额" style={{ width: '100%' }}>
+            <Card title={chosenUserName} style={{ width: '100%' }}>
               <Chart
                 padding={[10, 20, 50, 50]}
                 autoFit
@@ -101,33 +94,6 @@ const UserStatistics = () => {
         dataSource={dataList}
         columns={columns}
       />
-      {/* <Modal 
-          visible={isModalVisable}
-          onOk = {()=>{setIsModalVisable(false)}}
-        >
-        <Table 
-          columns = {orderColumns}
-          dataSource = {orderData}/>
-      </Modal> */}
-      {/* <ProTable
-        headerTitle={intl.formatMessage({
-          id: 'pages.generalSearchTable.title',
-          defaultMessage: '用户列表',
-        })}
-        actionRef={actionRef}
-        rowKey='name'
-        search={false}
-        request={(params, sorter, filter) => {
-          return Promise.resolve({
-            data: dataList,
-            success: true,
-          })
-        }}
-        columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => setSelectedRows(selectedRows),
-        }}
-      /> */}
     </PageContainer>
   );
 };

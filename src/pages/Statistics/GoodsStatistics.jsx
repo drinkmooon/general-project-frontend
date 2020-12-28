@@ -2,7 +2,6 @@ import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table } from '
 import React, { useState, useRef, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import ProTable from '@ant-design/pro-table';
 import { getAllItems,getSalesAnalysisByItem, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis } from 'bizcharts';
 
@@ -10,7 +9,7 @@ const GoodsStatistics = () => {
 
   
   const [dataList, setDataList] = useState([]);
-  const [ chosenGoodsName,setChosenGoodsName] = useState("商品一号");
+  const [ chosenGoodsName,setChosenGoodsName] = useState("请选择商品");
   useEffect(
     () => {
       getAllItems().then((res) => {
@@ -18,15 +17,7 @@ const GoodsStatistics = () => {
       })
     }, []);
 
-  const [dailyData, setDailyData] = useState([
-    { date: '12-21', 销售额: 38 },
-    { date: '12-22', 销售额: 48 },
-    { date: '12-23', 销售额: 28 },
-    { date: '12-24', 销售额: 8 },
-    { date: '12-25', 销售额: 8 },
-    { date: '12-26', 销售额: 108 },
-    { date: '12-27', 销售额: 38 },
-  ]);
+  const [dailyData, setDailyData] = useState([]);
 
 
   const showSalesAnalysis = (itemId,text) => {
@@ -64,8 +55,8 @@ const GoodsStatistics = () => {
       }}):
       [
         {
-          text:'fuck',
-          value:'fuck',
+          text:'placeholder',
+          value:'placeholder',
         }
       ],
       onFilter: (value, record) => record.name.indexOf(value) === 0,
@@ -116,24 +107,6 @@ const GoodsStatistics = () => {
         dataSource = {dataList}
         columns = {columns}
       />
-      {/* <ProTable
-        headerTitle={intl.formatMessage({
-          id: 'pages.generalSearchTable.title',
-          defaultMessage: '商品列表',
-        })}
-        actionRef={actionRef}
-        rowKey='name'
-        request={(params, sorter, filter) => {
-          return Promise.resolve({
-            data: dataList,
-            success: true,
-          })
-        }}
-        columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => setSelectedRows(selectedRows),
-        }}
-      /> */}
     </PageContainer>
   );
 };
