@@ -1,4 +1,4 @@
-import { Button, message, Input, Drawer, Card, Col, Row, Divider } from 'antd';
+import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
@@ -10,14 +10,31 @@ const GoodsStatistics = () => {
   const actionRef = useRef();
   const [selectedRowsState, setSelectedRows] = useState([]);
 
+  const [dataList, setDataList] = useState([]);
   const intl = useIntl();
   const columns = [
     {
-      title: "订单编号",
-      dataIndex: 'name',
+      title:'商品ID',
+      dataIndex:'id',
     },
     {
-      title: "描述",
+      title: "商品名称",
+      dataIndex: 'name',
+      filters:
+      dataList?dataList.map((data)=>{return {
+        text:data.name,
+        value:data.name,
+      }}):
+      [
+        {
+          text:'fuck',
+          value:'fuck',
+        }
+      ]
+      // filters:true,
+    },
+    {
+      title: "商品描述",
       dataIndex: 'description',
       valueType: 'textarea',
     },
@@ -44,14 +61,10 @@ const GoodsStatistics = () => {
 
   const chosenGoodsName = "商品一号"
 
-  const [dataList, setDataList] = useState([]);
-
   useEffect(
     () => {
       getAllItems().then((res) => {
-        console.log(res.data);
         setDataList(res.data);
-        actionRef.current.reload();
       })
     }, []);
 
@@ -77,14 +90,17 @@ const GoodsStatistics = () => {
         </Row>
       </div>
       <Divider />
-      <ProTable
+      <Table
+        dataSource = {dataList}
+        columns = {columns}
+      />
+      {/* <ProTable
         headerTitle={intl.formatMessage({
           id: 'pages.generalSearchTable.title',
           defaultMessage: '商品列表',
         })}
         actionRef={actionRef}
         rowKey='name'
-        search={false}
         request={(params, sorter, filter) => {
           return Promise.resolve({
             data: dataList,
@@ -95,7 +111,7 @@ const GoodsStatistics = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-      />
+      /> */}
     </PageContainer>
   );
 };

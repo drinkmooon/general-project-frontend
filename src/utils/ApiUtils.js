@@ -1,11 +1,20 @@
 import request from '@/utils/request';
 
-export async function getAllItems(){
-  return request('http://mockjs.docway.net/mock/1b5MYNv513x/api/getAllItems');
-}
 
+const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x'
+
+
+export async function getAllItems(){
+  return request(BASE_URL+'/api/getAllItems');
+}
+export async function getAllUser(){
+  return request(BASE_URL+'/api/getAllUser');
+}
+export async function getAllOrder(){
+  return request(BASE_URL+'/api/getAllOrders');
+}
 export async function queryRule(params) {
-  return request('http://mockjs.docway.net/mock/1b5MYNv513x/api/getAllItems', {
+  return request(BASE_URL+'/api/getAllItems', {
     params,
   });
 }

@@ -1,33 +1,50 @@
-import { Button, message, Input, Drawer, Card, Col, Row, Divider } from 'antd';
+import { Button, message, Input, Drawer, Card, Col, Row, Divider, Table } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { queryRule, getAllItems, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
+import { queryRule, getAllUser, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis } from 'bizcharts';
 
 const UserStatistics = () => {
-  const actionRef = useRef();
   const [selectedRowsState, setSelectedRows] = useState([]);
 
-  const intl = useIntl();
+  
+  const [dataList, setDataList] = useState([]);
+
+  useEffect(
+    () => {
+      getAllUser().then((res) => {
+        console.log(res.data);
+        setDataList(res.data);
+      })
+    }, []);
+
   const columns = [
     {
-      title: "订单编号",
+      title: "用户编号",
+      dataIndex: 'id',
+    },
+    {
+      title: "用户名",
       dataIndex: 'name',
-    },
-    {
-      title: "描述",
-      dataIndex: 'description',
       valueType: 'textarea',
+      filters: dataList ? dataList.map((data) =>
+      {
+        return {
+          text: data.name,
+          value: data.name
+        }
+      }
+      ) : [        {
+        text:'fuck',
+        value:'fuck',
+      }],
     },
     {
-      title: "价格",
-      dataIndex: 'price',
+      title: "电话",
+      dataIndex: 'phone',
       sorter: true,
       hideInForm: true,
-      renderText: (val) =>
-        `${val}${' 元 '}`,
     },
   ];
 
@@ -40,17 +57,6 @@ const UserStatistics = () => {
     { date: '12-26', 销售额: 108 },
     { date: '12-27', 销售额: 38 },
   ];
-
-  const [dataList, setDataList] = useState([]);
-
-  useEffect(
-    () => {
-      getAllItems().then((res) => {
-        console.log(res.data);
-        setDataList(res.data);
-        actionRef.current.reload();
-      })
-    }, []);
 
   return (
     <PageContainer>
@@ -74,7 +80,11 @@ const UserStatistics = () => {
         </Row>
       </div>
       <Divider />
-      <ProTable
+      <Table
+        dataSource={dataList}
+        columns={columns}
+      />
+      {/* <ProTable
         headerTitle={intl.formatMessage({
           id: 'pages.generalSearchTable.title',
           defaultMessage: '用户列表',
@@ -92,7 +102,7 @@ const UserStatistics = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-      />
+      /> */}
     </PageContainer>
   );
 };
