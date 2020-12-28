@@ -25,7 +25,7 @@ const GeneralStatistics = () => {
 
   useEffect(() => {
     getSalesAnalysis().then((res) => {
-      if(!res.data) return;
+      if (!res.data) return;
       let newDailyData = [];
       const curDate = new Date();
       for (let i = 0; i < res.data.length; i++) {
@@ -43,8 +43,8 @@ const GeneralStatistics = () => {
 
   useEffect(
     () => {
-      getTopSellingItem().then((res) => {      
-        if(!res.data) return;
+      getTopSellingItem().then((res) => {
+        if (!res.data) return;
         let newStarData = [];
         for (let i = 0; i < res.data.length; i++) {
           newStarData.push({
@@ -53,7 +53,7 @@ const GeneralStatistics = () => {
           })
         }
         getBestCustomer().then((res) => {
-          if(!res.data) return;
+          if (!res.data) return;
           for (let i = 0; i < res.data.length; i++) {
             newStarData.push({
               source: '用户 ' + res.data[i].name,
@@ -81,7 +81,7 @@ const GeneralStatistics = () => {
     {
       title: "订单编号",
       dataIndex: 'id',
-      sorter:(a,b)=>a.id-b.id,
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: "用户ID",
@@ -101,22 +101,22 @@ const GeneralStatistics = () => {
     {
       title: "总金额",
       dataIndex: "payment",
-      sorter: (a,b)=>a.payment-b.payment,
+      sorter: (a, b) => a.payment - b.payment,
       render: (val) =>
         `${val}${' 元 '}`,
     },
     {
       title: '下单时间',
       dataIndex: 'orderTime',
-      sorter: (a,b)=>{
-        return (new Date(a.orderTime)>new Date(b.orderTime))?1:-1
+      sorter: (a, b) => {
+        return (new Date(a.orderTime) > new Date(b.orderTime)) ? 1 : -1
       },
     },
     {
       title: "备注",
       dataIndex: 'description',
       valueType: 'textarea',
-      render:(text)=>{if(!text){return '-'}}
+      render: (text) => { if (!text) { return '-' } }
     },
   ];
 
