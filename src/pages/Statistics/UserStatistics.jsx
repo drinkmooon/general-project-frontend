@@ -13,7 +13,6 @@ const UserStatistics = () => {
   useEffect(
     () => {
       getAllUser().then((res) => {
-        console.log(res.data);
         setDataList(res.data);
       })
     }, []);

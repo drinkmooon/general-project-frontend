@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { queryRule, getAllItems,getSalesAnalysisByItem, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
+import { getAllItems,getSalesAnalysisByItem, updateRule, addRule, removeRule } from '../../utils/ApiUtils';
 import { Chart, Interval, Line, Point, Tooltip, Axis } from 'bizcharts';
 
 const GoodsStatistics = () => {
