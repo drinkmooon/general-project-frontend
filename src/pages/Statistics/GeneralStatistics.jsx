@@ -42,19 +42,19 @@ const GeneralStatistics = () => {
 
   useEffect(
     () => {
-      getBestCustomer().then((res) => {
+      getTopSellingItem().then((res) => {
         let newStarData = [];
         for (let i = 0; i < res.data.length; i++) {
           newStarData.push({
             source: '商品' + res.data[i].name,
-            金额: 2,
+            金额: res.data[i].total,
           })
         }
         getBestCustomer().then((res) => {
           for (let i = 0; i < res.data.length; i++) {
             newStarData.push({
               source: '用户' + res.data[i].name,
-              金额: 1,
+              金额: res.data[i].total,
             })
           }
           console.log(newStarData);
