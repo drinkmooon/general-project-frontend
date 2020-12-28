@@ -32,7 +32,7 @@ const UserStatistics = () => {
     getSalesAnalysisByUser(userId).then((res) => {
       let newDailyData = [];
       const curDate = new Date();
-      for (let i = 0; i < res.data.length; i++) {
+      for (let i = res.data.length - 1; i >= 0 ; i--) {
         let historyDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000 * i);
         let month = historyDate.getMonth() + 1;
         let date = historyDate.getDate();
@@ -66,7 +66,7 @@ const UserStatistics = () => {
         value: 'fuck',
       }],
       onFilter: (value, record) => record.name.indexOf(value) === 0,
-      render: (text) => <a onClick={() => { showSalesAnalysis(text) }}>{text}</a>
+      render: (text,record) => <a onClick={() => { showSalesAnalysis(record.id) }}>{text}</a>
     },
     {
       title: "电话",

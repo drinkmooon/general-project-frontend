@@ -28,7 +28,7 @@ const GeneralStatistics = () => {
       if (!res.data) return;
       let newDailyData = [];
       const curDate = new Date();
-      for (let i = 0; i < res.data.length; i++) {
+      for (let i = res.data.length - 1; i >= 0 ; i--) {
         let historyDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000 * i);
         let month = historyDate.getMonth() + 1;
         let date = historyDate.getDate();
@@ -99,6 +99,15 @@ const GeneralStatistics = () => {
       }],
       onFilter: (value, record) => {
         return record.userId === value},
+    },
+    {
+      title: "商品Id",
+      dataIndex: 'itemId',
+    },
+    {
+      title: "订购数量",
+      dataIndex: 'count',
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: "总金额",

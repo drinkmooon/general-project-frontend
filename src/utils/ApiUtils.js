@@ -14,15 +14,15 @@ export async function getAllOrder(){
   return request('/api/getAllOrders');
 }
 
-export async function getSalesAnalysisByUser(userId,startTime=  '1',endTime = '2'){
+export async function getSalesAnalysisByUser(userId,startTime='2020-11-22 00:00:00',endTime ='2020-11-29 00:00:00'){
   return request('/api/getSalesAnalysisByUser'+'?userId='+userId+'&startTime='+startTime+'&endTime='+endTime);
 }
-export async function getSalesAnalysisByItem(itemId,startTime=  '1',endTime = '2'){
+export async function getSalesAnalysisByItem(itemId,startTime='2020-11-22 00:00:00',endTime ='2020-11-29 00:00:00'){
   return request('/api/getSalesAnalysisByItem'+'?itemId='+itemId+'&startTime='+startTime+'&endTime='+endTime);
 }
 
 export async function getSalesAnalysis(){
-  return request('/api/getSalesAnalysis?startTime=1&endTime=2');
+  return request('/api/getSalesAnalysis?startTime=2020-11-22 00:00:00&endTime=2020-11-29 00:00:00');
 }
 
 export async function getBestCustomer(){
