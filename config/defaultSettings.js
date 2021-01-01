@@ -7,7 +7,7 @@ const proSettings = {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '云销售',
+  title: '数据仓库',
   pwa: false,
   iconfontUrl: '',
 };

@@ -39,12 +39,12 @@ const menuDataRender = (menuList) =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} JAVAEE Group`}
+    copyright={`${new Date().getFullYear()} 数据仓库小组`}
     links={[
       {
         key: 'frontend',
         title: 'Frontend',
-        href: 'https://github.com/drinkmooon/general-project-frontend/JAVAEE',
+        href: 'https://github.com/drinkmooon/general-project-frontend/tree/DataWarehouse',
         blankTarget: true,
       },
       {

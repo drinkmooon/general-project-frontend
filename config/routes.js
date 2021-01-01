@@ -4,6 +4,17 @@ export default [
     component: '../layouts/BlankLayout',
     routes: [
       {
+        path: '/user',
+        component: '../layouts/UserLayout',
+        routes: [
+          {
+            name: 'login',
+            path: '/user/login',
+            component: './user/login/index',
+          },
+        ],
+      },
+      {
         path: '/',
         component: '../layouts/BlankLayout',
         routes: [
