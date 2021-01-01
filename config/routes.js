@@ -40,6 +40,11 @@ export default [
                     name: 'ScoreAnalysis',
                     path: 'score-analysis',
                     component: './Analysis/ScoreAnalysis',
+                  },
+                  {
+                    name: 'PeopleAnalysis',
+                    path: 'people-analysis',
+                    component: './Analysis/PeopleAnalysis',
                   }
                 ]
                 
@@ -50,9 +55,9 @@ export default [
                 icon: 'table',
                 routes:[
                   {
-                    name: 'by-name',
-                    path: 'by-name',
-                    component: './Movies/MoviesByName'
+                    name: 'by-score',
+                    path: 'by-score',
+                    component: './Movies/MoviesByScore'
                   }
                 ]
               },
