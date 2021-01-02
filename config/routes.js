@@ -45,6 +45,11 @@ export default [
                     name: 'PeopleAnalysis',
                     path: 'people-analysis',
                     component: './Analysis/PeopleAnalysis',
+                  },
+                  {
+                    name: 'TimeAnalysis',
+                    path: 'time-analysis',
+                    component: './Analysis/TimeAnalysis',
                   }
                 ]
                 
@@ -55,9 +60,14 @@ export default [
                 icon: 'table',
                 routes:[
                   {
-                    name: 'by-score',
+                    name: 'ByScore',
                     path: 'by-score',
                     component: './Movies/MoviesByScore'
+                  },
+                  {
+                    name: 'ByName',
+                    path: 'by-name',
+                    component: './Movies/MoviesByName'
                   }
                 ]
               },

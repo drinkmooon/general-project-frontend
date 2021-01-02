@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 
 import request from '@/utils/request';
-
+import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
 const { Option } = Select;
-const { Search } = Input;
+
 const GeneralStatistics = () => {
 
     const [dataList, setDataList] = useState([{
@@ -17,22 +17,6 @@ const GeneralStatistics = () => {
     }]);
 
     const [database, setDatabase] = useState('mysql');
-    const [starData, setStarData] = useState(
-        [
-            {
-                score: 'test',
-                count: 15,
-            },
-            {
-                score: 'test/12',
-                count: 123,
-            },
-            {
-                score: 'test3',
-                count: 1234,
-            }
-        ]
-    );
 
     const [scoreType, setScoreType] = useState('score');//score / emotionScore
     const [upOrDown, setUpOrDown] = useState('gt');//gt/lt/eq
@@ -89,7 +73,7 @@ const GeneralStatistics = () => {
     };
 
     const scoreChange = value => {
-        console.log(value);
+        setScore(value);
     }
     const Search = () => {
         if (database && scoreType)
@@ -126,6 +110,8 @@ const GeneralStatistics = () => {
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
+                <DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/>
+                <Divider/>
                 <Row gutter={10}>
                     <span>{scoreTypeSelector()}</span>
                     <span>{upOrDownSelector()}</span>

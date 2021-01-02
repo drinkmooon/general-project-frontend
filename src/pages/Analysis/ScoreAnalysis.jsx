@@ -4,7 +4,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Chart, Interval} from 'bizcharts';
 
 import request from '@/utils/request';
-
+import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
 const { Option } = Select;
 const GeneralStatistics = () => {
 
@@ -32,9 +32,10 @@ const GeneralStatistics = () => {
         if (database && scoreType)
             request(database + '/analysis/' + scoreType).
                 then((res) => {
-                    //setStarData(res.data)
+                    setStarData(res.data)
                 })
     }, [scoreType]);
+    
     const scoreTypeSelector = () => {
         const handleChange = value => {
             setScoreType(value);
@@ -53,6 +54,8 @@ const GeneralStatistics = () => {
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
+                <DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/>
+                <Divider/>
                 <Row gutter={10}>
                     <span>{scoreTypeSelector()}</span>
                 </Row>
