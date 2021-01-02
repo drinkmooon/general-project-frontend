@@ -4,22 +4,17 @@ import { PageContainer } from '@ant-design/pro-layout';
 
 import request from '@/utils/request';
 import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
+import Timer from '@/components/Timer/Timer';
 const { Option } = Select;
 
 const GeneralStatistics = () => {
 
-    const [dataList, setDataList] = useState([{
-        productId:'0001',
-        title:'test',
-        versionCount:3,
-        score:4.5,
-        emotionScore:0.93,
-    }]);
+    const [dataList, setDataList] = useState([]);
 
     const [database, setDatabase] = useState('mysql');
-
+    const [time,setTime] = useState(0);
     const [scoreType, setScoreType] = useState('score');//score / emotionScore
-    const [upOrDown, setUpOrDown] = useState('gt');//gt/lt/eq
+    const [upOrDown, setUpOrDown] = useState('eq');//gt/lt/eq
     const [numInputSetting, setNumInputSetting] = useState({
         min: 0,
         max: 5,
@@ -77,11 +72,18 @@ const GeneralStatistics = () => {
     }
     const Search = () => {
         if (database && scoreType)
-            request(database + '/getMovie/'
+            request('/api/v1/'+database + '/getMovie/'
                 + scoreType + '?value=' + score +
                 '&comp=' + upOrDown + '&limit=5').
                 then((res) => {
-                    setDataList(res.data);
+                    setTime(res.time);
+                    setDataList(res.data.map((da)=>({
+                        productId: da.productId,
+                        title: da.title,
+                        score: da.score/100,
+                        versionCount: da.versionCount,
+                        emotionScore: da.emotionScore/100
+                    })));
                 })
     }
 
@@ -110,6 +112,7 @@ const GeneralStatistics = () => {
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
+                <Timer time={time}/>
                 <DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/>
                 <Divider/>
                 <Row gutter={10}>

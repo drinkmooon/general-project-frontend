@@ -5,33 +5,23 @@ import { Chart, Interval } from 'bizcharts';
 
 import request from '@/utils/request';
 import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
+import Timer from '@/components/Timer/Timer';
 const { Option } = Select;
 
 const GeneralStatistics = () => {
 
     const [database, setDatabase] = useState('mysql');
-    const [starData, setStarData] = useState(
-        [
-            {
-                name: 'test',
-                count: 15,
-            },
-            {
-                name: 'test/12',
-                count: 123,
-            },
-            {
-                name: 'test3',
-                count: 1234,
-            }
-        ]);
+    const [time,setTime] = useState(0);
+    const [starData, setStarData] = useState([]);
 
     const getWithLimit = async (param) => {
-        return request(database + param + '?limit=5');
+        console.log(database + param + '?limit=5');
+        return request('/api/v1/'+ database +'/analysis/'+ param + '?limit=5');
     }
     //analysisByString label/Actor/Director/Cooperate
     const analysisByString = (param) => {
         getWithLimit(param).then((res) => {
+            setTime(res.time);
             setStarData(res.data.map((da) => {
                 return {
                     name: da.name,
@@ -58,6 +48,7 @@ const GeneralStatistics = () => {
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
+                <Timer time={time}/>
                 <DatabaseSelector changeDatabase={value => { setDatabase(value) }} />
                 <Divider />
                 <Row gutter={10}>

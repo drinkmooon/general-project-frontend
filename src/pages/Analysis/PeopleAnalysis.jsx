@@ -4,33 +4,21 @@ import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import { Chart, Interval } from 'bizcharts';
 import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
 import request from '@/utils/request';
-
+import Timer from '@/components/Timer/Timer';
 const { Option } = Select;
 const { Search } = Input;
 const GeneralStatistics = () => {
 
     const [database, setDatabase] = useState('mysql');
-    const [starData, setStarData] = useState(
-        [
-            {
-                name: 'test',
-                count: 15,
-            },
-            {
-                name: 'test/12',
-                count: 123,
-            },            
-            {
-                name: 'test3',
-                count: 1234,
-            }
-        ]);
+    const [time,setTime] = useState(0);
+    const [starData, setStarData] = useState([]);
 
     const [relationType,setRelationType] = useState('a-a');//a-a/a-d/d-d/d-a
 
     const SearchPeople = name =>{
-        request(database+'/getCooperation?type='+relationType+'&name='+name+'&limit=5')
+        request('/api/v1/'+database+'/getCooperation?type='+relationType+'&name='+name+'&limit=5')
         .then((res)=>{
+            setTime(res.time);
             setStarData(res.data);
         })
     }
@@ -53,6 +41,7 @@ const GeneralStatistics = () => {
 
     return (
         <PageContainer>
+            <Timer time={time}/>
             <DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/>
             <Divider />
             <div className="general-statistics-wrapper">

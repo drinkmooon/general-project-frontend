@@ -5,34 +5,22 @@ import { Chart, Interval } from 'bizcharts';
 
 import request from '@/utils/request';
 import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
+import Timer from '@/components/Timer/Timer';
 const { Option } = Select;
 const GeneralStatistics = () => {
 
     const [database, setDatabase] = useState('mysql');
-    const [starData, setStarData] = useState(
-        [
-            {
-                score: 'test',
-                count: 15,
-            },
-            {
-                score: 'test/12',
-                count: 123,
-            },
-            {
-                score: 'test3',
-                count: 1234,
-            }
-        ]
-    );
+    const [time, setTime] = useState(0);
+    const [starData, setStarData] = useState([]);
 
     const [scoreType, setScoreType] = useState('score');//score / emotionScore
 
     useEffect(() => {
         if (database && scoreType)
-            request(database + '/analysis/' + scoreType).
+            request('/api/v1/'+database + '/analysis/' + scoreType).
                 then((res) => {
-                    setStarData(res.data)
+                    setTime(res.time);
+                    setStarData(res.data.map((da)=>({score:da.score/100,count:da.count})))
                 })
     }, [scoreType]);
 
@@ -52,6 +40,7 @@ const GeneralStatistics = () => {
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
+                <Timer time={time}/>
                 <DatabaseSelector changeDatabase={value => { setDatabase(value) }} />
                 <Divider />
                 <Row gutter={10}>

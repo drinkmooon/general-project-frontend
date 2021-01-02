@@ -4,21 +4,16 @@ import { PageContainer } from '@ant-design/pro-layout';
 
 import request from '@/utils/request';
 import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
+import Timer from '@/components/Timer/Timer';
 
 const { Option } = Select;
 const { Search } = Input;
 const GeneralStatistics = () => {
 
-    const [dataList, setDataList] = useState([{
-        productId:'0001',
-        title:'test',
-        versionCount:3,
-        score:4.5,
-        emotionScore:0.93,
-    }]);
+    const [dataList, setDataList] = useState([]);
 
     const [database, setDatabase] = useState('mysql');
-
+    const [time,setTime] = useState(0);
     const [nameType, setNameType] = useState('title');//title/director/actor/label
 
     const nameTypeSelector = () => {
@@ -40,10 +35,17 @@ const GeneralStatistics = () => {
 
     const SearchByName = value => {
         if (database && nameType && value)
-            request(database + '/getMovie/'
+            request('/api/v1/'+database + '/getMovie/'
                 + nameType + '?'+nameType+'=' + value + '&limit=5').
                 then((res) => {
-                    setDataList(res.data);
+                    setTime(res.time);
+                    setDataList(res.data.map((da)=>({
+                        productId: da.productId,
+                        title: da.title,
+                        score: da.score/100,
+                        versionCount: da.versionCount,
+                        emotionScore: da.emotionScore/100
+                    })));
                 })
     }
 
@@ -72,6 +74,7 @@ const GeneralStatistics = () => {
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
+                <Timer time={time}/>
                 <Row><DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/></Row>
                 <Divider/>
                 <Row gutter={10}>

@@ -39,7 +39,7 @@ const menuDataRender = (menuList) =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} 数据仓库小组`}
+    copyright={`${new Date().getFullYear()} 1752459 曾泽 1851007 武信庭 1851594 王思桐 1852652 孙文麒`}
     links={[
       {
         key: 'frontend',
