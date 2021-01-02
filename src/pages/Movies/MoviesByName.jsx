@@ -1,5 +1,5 @@
 import { Button, Select, Input, Col, Row, Divider, Table,InputNumber } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 
 import request from '@/utils/request';

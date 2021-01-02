@@ -1,9 +1,7 @@
 import { Button, message, Select, Input, Drawer, Card, Col, Row, Divider, Table } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage } from 'umi';
+import React, { useState } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, getAllOrder, getAllItems, updateRule, addRule, removeRule, getAllOrders, getBestCustomer, getSalesAnalysisByItem, getSalesAnalysis, getTopSellingItem } from '../../utils/ApiUtils';
-import { Chart, Interval, Line, Point, Tooltip, Axis, useView } from 'bizcharts';
+import { Chart, Interval } from 'bizcharts';
 import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
 import request from '@/utils/request';
 
@@ -30,6 +28,12 @@ const GeneralStatistics = () => {
 
     const [relationType,setRelationType] = useState('a-a');//a-a/a-d/d-d/d-a
 
+    const SearchPeople = name =>{
+        request(database+'/getCooperation?type='+relationType+'&name='+name+'&limit=5')
+        .then((res)=>{
+            setStarData(res.data);
+        })
+    }
     const selector = () => {
         const handleChange = value => {
             setRelationType(value);
@@ -46,12 +50,7 @@ const GeneralStatistics = () => {
             </>
         );
     };
-    const SearchPeople = name =>{
-        request(database+'/getCooperation?type='+relationType+'&name='+name+'&limit=5')
-        .then((res)=>{
-            setStarData(res.data);
-        })
-    }
+
     return (
         <PageContainer>
             <DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/>

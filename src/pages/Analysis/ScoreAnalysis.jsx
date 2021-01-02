@@ -1,7 +1,7 @@
 import { Button, Select, Input, Col, Row, Divider } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Chart, Interval} from 'bizcharts';
+import { Chart, Interval } from 'bizcharts';
 
 import request from '@/utils/request';
 import DatabaseSelector from '@/components/DatabaseSelector/DatabaseSelector';
@@ -35,27 +35,25 @@ const GeneralStatistics = () => {
                     setStarData(res.data)
                 })
     }, [scoreType]);
-    
+
     const scoreTypeSelector = () => {
         const handleChange = value => {
             setScoreType(value);
         };
 
         return (
-            <>
-                <Select defaultValue="score" style={{ width: 120 }} onChange={handleChange}>
-                    <Option value="score">评分</Option>
-                    <Option value="emotionScore">情感评价</Option>
-                </Select>
-            </>
+            <Select defaultValue="score" style={{ width: 120 }} onChange={handleChange}>
+                <Option value="score">评分</Option>
+                <Option value="emotionScore">情感评价</Option>
+            </Select>
         );
     };
 
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
-                <DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/>
-                <Divider/>
+                <DatabaseSelector changeDatabase={value => { setDatabase(value) }} />
+                <Divider />
                 <Row gutter={10}>
                     <span>{scoreTypeSelector()}</span>
                 </Row>

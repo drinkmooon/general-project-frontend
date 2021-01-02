@@ -49,15 +49,13 @@ const GeneralStatistics = () => {
             setTimeType(value);
         };
 
-        return (
-            <>
+        return (    
                 <Select defaultValue="year" style={{ width: 120 }} onChange={handleChange}>
                     <Option value="year">年</Option>
                     <Option value="season">季度</Option>
                     <Option value="month">月</Option>
                     <Option value="day">天</Option>
                 </Select>
-            </>
         );
     };
 

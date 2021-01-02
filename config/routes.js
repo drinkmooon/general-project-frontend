@@ -24,8 +24,25 @@ export default [
             routes: [
               {
                 path: '/',
-                redirect: '/statistics/general-statistics',
+                redirect: '/movies/by-name',
               },
+              {
+                path: '/movies',
+                name: 'movies',
+                icon: 'table',
+                routes:[
+                  {
+                    name: 'ByName',
+                    path: 'by-name',
+                    component: './Movies/MoviesByName'
+                  },
+                  {
+                    name: 'ByScore',
+                    path: 'by-score',
+                    component: './Movies/MoviesByScore'
+                  }
+                ]
+              },  
               {
                 path: '/analysis',
                 name: 'analysis',
@@ -54,67 +71,7 @@ export default [
                 ]
                 
               },
-              {
-                path: '/movies',
-                name: 'movies',
-                icon: 'table',
-                routes:[
-                  {
-                    name: 'ByScore',
-                    path: 'by-score',
-                    component: './Movies/MoviesByScore'
-                  },
-                  {
-                    name: 'ByName',
-                    path: 'by-name',
-                    component: './Movies/MoviesByName'
-                  }
-                ]
-              },
-              {
-                path: '/statistics',
-                name: 'statistics',
-                icon: 'table',
-                routes: [
-                  {
-                    name: 'list.general-list',
-                    path: '/statistics/general-statistics',
-                    component: './Statistics/GeneralStatistics',
-                  },
-                  {
-                    name: 'list.user-list',
-                    path: '/statistics/user-statistics',
-                    component: './Statistics/UserStatistics',
-                  },
-                  {
-                    name: 'list.goods-list',
-                    path: '/statistics/goods-statistics',
-                    component: './Statistics/GoodsStatistics',
-                  },
-                ],               
-              },  
-              {
-                path: '/movies',
-                name: 'movies',
-                icon: 'table',
-                routes: [
-                  {
-                    name: 'list.general-list',
-                    path: '/statistics/general-statistics',
-                    component: './Statistics/GeneralStatistics',
-                  },
-                  {
-                    name: 'list.user-list',
-                    path: '/statistics/user-statistics',
-                    component: './Statistics/UserStatistics',
-                  },
-                  {
-                    name: 'list.goods-list',
-                    path: '/statistics/goods-statistics',
-                    component: './Statistics/GoodsStatistics',
-                  },
-                ],               
-              },                                                                    
+                                                                  
               {
                 component: './404',
               },
