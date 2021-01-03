@@ -49,14 +49,14 @@ const GeneralStatistics = () => {
         <PageContainer>
             <div className="general-statistics-wrapper">
                 <Timer time={time}/>
-                <DatabaseSelector changeDatabase={value => { setDatabase(value) }} />
+                <DatabaseSelector changeDatabase={value => { setStarData([]); setDatabase(value) }} />
                 <Divider />
                 <Row gutter={10}>
                     <Col span={8}>{selector()}</Col>
                 </Row>
             </div>
             <Divider />
-            <Chart height={300} autoFit data={starData} >
+            <Chart height={300} autoFit data={starData} placeholder={'加载中'} >
 
                 <Interval position="name*count" />
             </Chart>
