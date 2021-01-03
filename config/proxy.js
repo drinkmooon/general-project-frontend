@@ -6,34 +6,56 @@
  * https://pro.ant.design/docs/deploy
  */
 // const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x';
-const BASE_URL = 'http://47.107.74.210:18000';
+const MYSQL_URL = 'http://47.107.74.210:18000';
+const HIVE_URL = 'http://47.107.74.210:8888';
 export default {
   
   dev: {
-    '/api/v1/': {
-      target: BASE_URL,
+    '/api/v1/mysql': {
+      target: MYSQL_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',
       },
+    },
+    '/api/v1/hive':{
+      target: HIVE_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      }
     },
   },
   test: {
-    '/api/v1/': {
-      target: BASE_URL,
+    '/api/v1/mysql': {
+      target: MYSQL_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      },
+    },   
+    '/api/v1/hive':{
+      target: HIVE_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      }
+    },
+  },
+  pre: {
+    '/api/v1/mysql': {
+      target: MYSQL_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',
       },
     },
-  },
-  pre: {
-    '/api/v1/': {
-      target: BASE_URL,
+    '/api/v1/hive':{
+      target: HIVE_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',
-      },
+      }
     },
   },
 };
