@@ -16,13 +16,19 @@ export default [
                 redirect: '/cart/cart',
               }, 
               {
+                path: '/test',
+                name: 'test-page',
+                hideInMenu: true,
+                component: './test/test',
+              },
+              {
                 path:'/cart',
                 name: 'cart-container',
                 icon: 'table',
                 routes: [
                   {
                     name: 'cart',
-                    path: '/cart/cart',
+                    path: '/cart/:userId',
                     component: './Cart/Cart',
                   },
                 ]
@@ -33,7 +39,7 @@ export default [
                 icon: 'table',
                 routes: [
                   {
-                    path: '/home/:params',
+                    path: '/home/home',
                     name: 'index',
                     component: './Home/index',
                   },
