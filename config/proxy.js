@@ -8,6 +8,7 @@
 // const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x';
 const MYSQL_URL = 'http://47.107.74.210:18000';
 const HIVE_URL = 'http://47.107.74.210:8888';
+const NEO4J_URL = 'http://localhost:8004'
 export default {
   
   dev: {
@@ -20,6 +21,13 @@ export default {
     },
     '/api/v1/hive':{
       target: HIVE_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      }
+    },
+    '/api/v1/neo4j':{
+      target: NEO4J_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -41,6 +49,13 @@ export default {
         '^': '',
       }
     },
+    '/api/v1/neo4j':{
+      target: NEO4J_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      }
+    },
   },
   pre: {
     '/api/v1/mysql': {
@@ -52,6 +67,13 @@ export default {
     },
     '/api/v1/hive':{
       target: HIVE_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      }
+    },
+    '/api/v1/neo4j':{
+      target: NEO4J_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',

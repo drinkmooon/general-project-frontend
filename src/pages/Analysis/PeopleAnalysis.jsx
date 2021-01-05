@@ -19,7 +19,8 @@ const GeneralStatistics = () => {
         request('/api/v1/'+database+'/getCooperation?type='+relationType+'&name='+name+'&limit=5')
         .then((res)=>{
             setTime(res.time);
-            setStarData(res.data);
+            if(database == 'neo4j'){setStarData(res.data.map((da)=>({name:da.name,count:parseInt(da.count) })))}
+            else {setStarData(res.data);}
         })
     }
     const selector = () => {

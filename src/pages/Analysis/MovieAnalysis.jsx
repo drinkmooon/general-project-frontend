@@ -22,12 +22,13 @@ const GeneralStatistics = () => {
     const analysisByString = (param) => {
         getWithLimit(param).then((res) => {
             setTime(res.time);
-            setStarData(res.data.map((da) => {
+            if(database == 'neo4j'){setStarData(res.data.map((da)=>({name:da.name,count:parseInt(da.count) })))}
+            else {setStarData(res.data.map((da) => {
                 return {
                     name: da.name,
                     count: da.count,
                 }
-            }));
+            }));}
         })
     }
 

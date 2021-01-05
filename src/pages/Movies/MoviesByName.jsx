@@ -1,4 +1,4 @@
-import { Button, Select, Input, Col, Row, Divider, Table,InputNumber } from 'antd';
+import { Button, Select, Input, Col, Row, Divider, Table, InputNumber } from 'antd';
 import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 
@@ -13,7 +13,7 @@ const GeneralStatistics = () => {
     const [dataList, setDataList] = useState([]);
 
     const [database, setDatabase] = useState('mysql');
-    const [time,setTime] = useState(0);
+    const [time, setTime] = useState(0);
     const [nameType, setNameType] = useState('title');//title/director/actor/label
 
     const nameTypeSelector = () => {
@@ -35,17 +35,28 @@ const GeneralStatistics = () => {
 
     const SearchByName = value => {
         if (database && nameType && value)
-            request('/api/v1/'+database + '/getMovie/'
-                + nameType + '?'+nameType+'=' + value + '&limit=5').
+            request('/api/v1/' + database + '/getMovie/'
+                + nameType + '?' + nameType + '=' + value + '&limit=5').
                 then((res) => {
                     setTime(res.time);
-                    setDataList(res.data.map((da)=>({
-                        productId: da.productId,
-                        title: da.title,
-                        score: da.score/100,
-                        versionCount: da.versionCount,
-                        emotionScore: da.emotionScore/100
-                    })));
+                    if (database == 'neo4j') {
+                        setDataList(res.movieList.map((da) => ({
+                            productId: da.productId,
+                            title: da.title,
+                            score: parseInt(da.score) / 100,
+                            versionCount: parseInt(da.versionCount.replace('\"','')),
+                            emotionScore: parseInt(da.emotionScore) / 100
+                        })))
+                    }
+                    else {
+                        setDataList(res.data.map((da) => ({
+                            productId: da.productId,
+                            title: da.title,
+                            score: da.score / 100,
+                            versionCount: da.versionCount,
+                            emotionScore: da.emotionScore / 100
+                        })));
+                    }
                 })
     }
 
@@ -74,16 +85,16 @@ const GeneralStatistics = () => {
     return (
         <PageContainer>
             <div className="general-statistics-wrapper">
-                <Timer time={time}/>
-                <Row><DatabaseSelector changeDatabase={value=>{setDatabase(value)}}/></Row>
-                <Divider/>
+                <Timer time={time} />
+                <Row><DatabaseSelector changeDatabase={value => { setDatabase(value) }} /></Row>
+                <Divider />
                 <Row gutter={10}>
                     <span>{nameTypeSelector()}</span>
-                    <Search onSearch={SearchByName} style={{width: 150}}></Search>
+                    <Search onSearch={SearchByName} style={{ width: 150 }}></Search>
                 </Row>
             </div>
             <Divider />
-            <Table dataSource={dataList} columns={columns}/>
+            <Table dataSource={dataList} columns={columns} />
         </PageContainer>
     );
 };

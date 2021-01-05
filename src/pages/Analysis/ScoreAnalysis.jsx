@@ -20,7 +20,8 @@ const GeneralStatistics = () => {
             request('/api/v1/'+database + '/analysis/' + scoreType).
                 then((res) => {
                     setTime(res.time);
-                    setStarData(res.data.map((da)=>({score:da.score/100,count:da.count})))
+                    if(database == 'neo4j'){setStarData(res.data.map((da)=>({score:parseInt(da.score),count:parseInt(da.count.replace('\"','')) })))}
+                    else {setStarData(res.data.map((da)=>({score:da.score/100,count:da.count})))}
                 })
     }, [scoreType]);
 
