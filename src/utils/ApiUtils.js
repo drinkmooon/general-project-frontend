@@ -1,40 +1,109 @@
 import request from '@/utils/request';
+import { method } from 'lodash';
 
-const Server = 'http://8.133.173.118:8899';
-const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x'
+class ApiUtil{
+  searchBook= async name=>{
+    return request(`/api/book/SearchBook?query=${name}`);
+  }
 
+  getBookDetail = async bookId => {
+    return request(`/api/book/GetBookDetail?bookId=${bookId}`);
+  }
 
-export async function getAllItems(){
-  return request('/api/getAllItems');
+  getAddr = async () => {
+    return request(`/api/GetAddr`);
+  }
+
+  //@params: new Addr. of current user
+  addAddr = async params => {
+    return request('/api/AddAddr', {
+      method: 'POST',
+      data: { ...params,},
+    });
+  }
+
+  delAddr = async addrId => {
+    return request('/api/DelAddr', {
+      method: 'DELETE',
+      data: { addrId: addrId, },
+    });
+  }
+
+  editAddr = async params =>{
+    return request('/api/EditAddr', {
+      method: 'POST',
+      data: { ...params, },
+    })
+  }  
+
+  checkCart = async () => {
+    return request('/api/CheckCart');
+  }
+
+  addCart = async params => {
+    return request('/api/AddCart', {
+      method: 'POST',
+      data: { ...params, }
+    });
+  }
+
+  delCart = async bookId => {
+    return request('/api/DelCart', {
+      method: 'DELETE',
+      data: { bookId: bookId },
+    });
+  }
+
+  editCart = async params => {
+    return request('/api/EditCart', {
+      method: 'POST',
+      data: { ...params }
+    });
+  }
+
+  addOrder = async params => {
+    return request('/api/addOrder', {
+      method: 'POST',
+      data: {...params},
+    });
+  }
+
+  getOrders = async () => {
+    return request('/api/GetOrders');
+  }
+
+  getOrderDetail = async orderId => {
+    return request(`/api/GetOrderDetail?orderId=${orderId}`);
+  }
+
+  editOrder = async params => {
+    return request('api/EditOrder', {
+      method: 'POST',
+      data: { ...params },
+    })
+  }
+
+  delOrder = async orderId => {
+    return request('/api/DelOrder', {
+      method: 'DELETE',
+      data: { orderId },
+    })
+  }
+
+  payOrder = async orderId => {
+    return request(`/api/PayOrder?orderId=${orderId}`);
+  }
+
+  userLogin = async username => {
+    return request(`/api/user/login?username=${username}`);
+  }
+
+  userRegister = async params => {
+    return request(`/api/user/register?username=${params.username}&password=${params.password}`);
+  }
+
 }
-export async function getAllUser(){
-  return request('/api/getAllUser');
-}
-export async function getAllOrder(){
-  return request('/api/getAllOrders');
-}
-
-export async function getSalesAnalysisByUser(userId,startTime='2020-12-22 00:00:00',endTime ='2020-12-29 00:00:00'){
-  return request('/api/getSalesAnalysisByUser'+'?userId='+userId+'&startTime='+startTime+'&endTime='+endTime);
-}
-export async function getSalesAnalysisByItem(itemId,startTime='2020-12-22 00:00:00',endTime ='2020-12-29 00:00:00'){
-  return request('/api/getSalesAnalysisByItem'+'?itemId='+itemId+'&startTime='+startTime+'&endTime='+endTime);
-}
-
-export async function getSalesAnalysis(){
-  return request('/api/getSalesAnalysis?startTime=2020-12-22 00:00:00&endTime=2020-12-29 00:00:00');
-}
-
-export async function getBestCustomer(){
-  return request('/api/getBestCustomer');
-}
-
-export async function getTopSellingItem(){
-  return request('/api/getTopSellingItem');
-}
-
-
-
+export default new ApiUtil();
 ////////////////
 export async function queryRule(params){
    return request('/api/getAllItems', {

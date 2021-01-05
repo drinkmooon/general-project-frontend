@@ -1,7 +1,8 @@
 const proSettings = {
-  navTheme: 'dark',
+  navTheme: 'light',
   // 拂晓蓝
-  primaryColor: '#000000',//'#1890ff',
+  //taobaocheng
+  primaryColor: '#ff551c',//'#1890ff',
   layout: 'top',
   contentWidth: 'Fluid',
   fixedHeader: false,
