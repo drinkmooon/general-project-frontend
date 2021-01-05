@@ -13,30 +13,55 @@ export default [
             routes: [
               {
                 path: '/',
-                redirect: '/statistics/general-statistics',
-              },         
+                redirect: '/cart/cart',
+              }, 
               {
-                path: '/statistics',
-                name: 'statistics',
+                path:'/cart',
+                name: 'cart-container',
                 icon: 'table',
                 routes: [
                   {
-                    name: 'list.general-list',
-                    path: '/statistics/general-statistics',
-                    component: './Statistics/GeneralStatistics',
+                    name: 'cart',
+                    path: '/cart/cart',
+                    component: './Cart/Cart',
                   },
+                ]
+              },
+              {
+                path: '/home',
+                name: 'home-container',
+                icon: 'table',
+                routes: [
                   {
-                    name: 'list.user-list',
-                    path: '/statistics/user-statistics',
-                    component: './Statistics/UserStatistics',
+                    path: '/home/:params',
+                    name: 'index',
+                    component: './Home/index',
                   },
-                  {
-                    name: 'list.goods-list',
-                    path: '/statistics/goods-statistics',
-                    component: './Statistics/GoodsStatistics',
-                  },
-                ],               
-              },                                                        
+                ],
+                
+              }, 
+              // {
+              //   path: '/statistics',
+              //   name: 'statistics',
+              //   icon: 'table',
+              //   routes: [
+              //     {
+              //       name: 'list.general-list',
+              //       path: '/statistics/general-statistics',
+              //       component: './Statistics/GeneralStatistics',
+              //     },
+              //     {
+              //       name: 'list.user-list',
+              //       path: '/statistics/user-statistics',
+              //       component: './Statistics/UserStatistics',
+              //     },
+              //     {
+              //       name: 'list.goods-list',
+              //       path: '/statistics/goods-statistics',
+              //       component: './Statistics/GoodsStatistics',
+              //     },
+              //   ],               
+              // },                                                        
               {
                 component: './404',
               },

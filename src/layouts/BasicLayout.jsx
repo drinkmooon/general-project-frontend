@@ -6,8 +6,8 @@
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Link, useIntl, connect, history } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getMatchMenu } from '@umijs/route-utils';
@@ -43,13 +43,13 @@ const defaultFooterDom = (
     links={[
       {
         key: 'frontend',
-        title: 'Frontend',
-        href: 'https://github.com/drinkmooon/general-project-frontend/JAVAEE',
+        title: <><GithubOutlined /><span>Frontend</span></>,
+        href: 'https://github.com/drinkmooon/general-project-frontend/tree/JAVAEE',
         blankTarget: true,
       },
       {
         key: 'backend',
-        title: 'Backend',
+        title: <><GithubOutlined /><span>Backend</span></>,
         href: 'https://github.com/ComposeC/Sell',
         blankTarget: true,
       },
@@ -107,6 +107,7 @@ const BasicLayout = (props) => {
       formatMessage={formatMessage}
       {...props}
       {...settings}
+
       onCollapse={handleMenuCollapse}
       onMenuHeaderClick={() => history.push('/')}
       menuItemRender={(menuItemProps, defaultDom) => {

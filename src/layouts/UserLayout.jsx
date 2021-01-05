@@ -42,13 +42,13 @@ const UserLayout = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>云销售</span>
+                <span className={styles.title}>BookHub</span>
               </Link>
             </div>
             <div className={styles.desc}>
               <FormattedMessage
                 id="pages.layouts.userLayout.title"
-                defaultMessage="云销售是云计算的课程项目"
+                defaultMessage="BookHub is an online book store. Project of JAVAEE course."
               />
             </div>
           </div>
