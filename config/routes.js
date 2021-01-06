@@ -4,6 +4,35 @@ export default [
     component: '../layouts/BlankLayout',
     routes: [
       {
+        path: '/user',
+        component: '../layouts/UserLayout',
+        routes: [
+          {
+            path: '/user',
+            redirect: '/User/login',
+          },
+          {
+            name: '注册结果',
+            path: '/user/register-result',
+            component: './User/register-result',
+          },
+          {
+            name: '注册',
+            path: '/user/register',
+            component: './User/register',
+          },
+          {
+            name: '登录',
+            icon: 'smile',
+            path: '/user/login',
+            component: './User/Login',
+          },
+          {
+            component: '404',
+          },
+        ],
+      },
+      {
         path: '/',
         component: '../layouts/BlankLayout',
         routes: [
@@ -14,9 +43,27 @@ export default [
               {
                 path: '/',
                 redirect: '/cart/cart',
-              }, 
+              },
               {
-                path:'/cart',
+                path: '/item',
+                name: '在线商城',
+                icon: 'shop',
+                redirect: '/item/browse',
+                routes: [
+                  {
+                    name: '浏览商品',
+                    path: '/item/browse',
+                    component: './Item/ItemsBrowse',
+                  },
+                  {
+                    name: '商品详情',
+                    path: '/item/detail',
+                    component: './Item/ItemDetail',
+                  },
+                ],
+              },              
+              {
+                path: '/cart',
                 name: 'cart-container',
                 icon: 'table',
                 routes: [
@@ -35,33 +82,11 @@ export default [
                   {
                     path: '/home/:params',
                     name: 'index',
-                    component: './Home/index',
+                    component: './Account/Settings',
                   },
                 ],
-                
-              }, 
-              // {
-              //   path: '/statistics',
-              //   name: 'statistics',
-              //   icon: 'table',
-              //   routes: [
-              //     {
-              //       name: 'list.general-list',
-              //       path: '/statistics/general-statistics',
-              //       component: './Statistics/GeneralStatistics',
-              //     },
-              //     {
-              //       name: 'list.user-list',
-              //       path: '/statistics/user-statistics',
-              //       component: './Statistics/UserStatistics',
-              //     },
-              //     {
-              //       name: 'list.goods-list',
-              //       path: '/statistics/goods-statistics',
-              //       component: './Statistics/GoodsStatistics',
-              //     },
-              //   ],               
-              // },                                                        
+
+              },
               {
                 component: './404',
               },

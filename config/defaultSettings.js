@@ -1,7 +1,6 @@
 const proSettings = {
   navTheme: 'light',
-  // 拂晓蓝
-  //taobaocheng
+  // 淘宝橙
   primaryColor: '#ff551c',//'#1890ff',
   layout: 'top',
   contentWidth: 'Fluid',

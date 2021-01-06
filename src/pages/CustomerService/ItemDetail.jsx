@@ -1,5 +1,5 @@
 import React from 'react';
-import { history, useParams,Link } from 'umi';
+import { history, useParams } from 'umi';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Card, Button } from 'antd';
 
@@ -8,9 +8,8 @@ export default () => {
     return (
         <PageHeaderWrapper>
             <Card>
-
-                <h1>这是用来编辑内容的页面</h1>
-                <p>参数 ID: {params.params}</p>
+                <h1>商品详情页</h1>
+                <p>参数商品ID: {params.itemId}</p>
                 <Button
                     onClick={() => {
                         history.goBack();
