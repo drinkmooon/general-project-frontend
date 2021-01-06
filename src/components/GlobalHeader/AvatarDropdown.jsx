@@ -1,4 +1,4 @@
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, SettingOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons';
 import { Avatar, Menu, Spin } from 'antd';
 import React from 'react';
 import { history, connect } from 'umi';
@@ -7,7 +7,19 @@ import styles from './index.less';
 
 class AvatarDropdown extends React.Component {
   onMenuClick = (event) => {
-    history.push(`/user/login`);
+    const { key } = event
+    if (key === 'logout') {
+      const { dispatch } = this.props
+      if (dispatch) {
+        dispatch({
+          type: 'login/logout',
+        })
+      }
+      return
+    }
+    else {
+      history.push(`/user/login`);
+    }
   };
 
   render() {
@@ -20,14 +32,22 @@ class AvatarDropdown extends React.Component {
     } = this.props;
     const menuHeaderDropdown = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
-        <Menu.Item key="frontpage">
-          <LogoutOutlined />
-          立即登录
-        </Menu.Item>
+        {!currentUser.name && (
+          <Menu.Item key='login'>
+            <LoginOutlined  />
+            立即登录
+          </Menu.Item>
+        )}
+        {currentUser.name && (
+          <Menu.Item key='logout'>
+            <LogoutOutlined />
+            退出登录
+          </Menu.Item>
+        )}
       </Menu>
-    );
+    )
     const DefaultAvatar = require('../../assets/avatar.jpg')
-    if (currentUser.name === ''){
+    if (currentUser.name === '') {
       currentUser.name = "亲，请登录"
     }
     return currentUser && currentUser.name ? (

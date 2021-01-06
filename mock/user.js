@@ -13,26 +13,4 @@ async function getFakeCaptcha(req, res) {
 
 export default {
   // 支持值为 Object 和 Array
-  'POST /api/user/login': async (req, res) => {
-    const { password, id } = req.body;
-    await waitTime(200);
-    if (password == "test" && id == "test") {
-      res.send({
-        status: '200',
-        currentAuthority: 'user',
-      });
-      return;
-    }
-
-    res.send({
-      status: '403',
-      currentAuthority: 'guest',
-    });
-  },
-  'POST /api/register': (req, res) => {
-    res.send({
-      status: 'ok',
-      currentAuthority: 'user',
-    });
-  },
 };
