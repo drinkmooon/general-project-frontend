@@ -28,9 +28,14 @@ export default [
                 routes: [
                   {
                     name: 'cart',
-                    path: '/cart/:userId',
+                    path: '/cart/cart',
                     component: './Cart/Cart',
                   },
+                  {
+                    name: 'create-order',
+                    path: '/cart/create-order',
+                    component: './Cart/CreateOrder'
+                  }
                 ]
               },
               {

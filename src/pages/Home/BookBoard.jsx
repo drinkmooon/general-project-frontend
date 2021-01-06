@@ -1,12 +1,15 @@
 import React from 'react';
-import { Button, Col, Grid, Row, Space } from 'antd';
+import { Button, Col, Grid, Row, Space, message } from 'antd';
 
 import BookCard from '@/components/BookCard';
+import ApiUtils from '@/utils/ApiUtils';
 
 const BookBoard = ({ bookList }) => {
     const ITEM_PER_ROW = 4;
     const addBook = (book) => {
-
+        ApiUtils.addCart({bookId:book.bookId,quantity:1}).then((res)=>{
+            if(true||res.msg==='OK') message.success('Add Book Successfully!');
+        })
     }
     const CardList = () => {
         let list = [];
