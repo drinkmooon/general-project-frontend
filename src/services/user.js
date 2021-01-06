@@ -1,5 +1,5 @@
 import request from '@/utils/request';
 
 export async function queryCurrent() {
-  return request('/api/users/info');
+  return request('/api/user/info');
 }
