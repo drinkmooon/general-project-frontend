@@ -7,7 +7,7 @@ const proSettings = {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'BookHub',
+  title: '书汇',
   pwa: false,
   iconfontUrl: '',
 };

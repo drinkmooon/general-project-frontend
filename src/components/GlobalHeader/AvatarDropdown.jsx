@@ -7,14 +7,14 @@ import styles from './index.less';
 
 class AvatarDropdown extends React.Component {
   onMenuClick = (event) => {
-    history.push(`/item/browse`);
+    history.push(`/user/login`);
   };
 
   render() {
     const {
       currentUser = {
         avatar: '',
-        name: '王经理',
+        name: '',
       },
       menu,
     } = this.props;
@@ -22,11 +22,14 @@ class AvatarDropdown extends React.Component {
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
         <Menu.Item key="frontpage">
           <LogoutOutlined />
-          返回首页
+          立即登录
         </Menu.Item>
       </Menu>
     );
     const DefaultAvatar = require('../../assets/avatar.jpg')
+    if (currentUser.name === ''){
+      currentUser.name = "亲，请登录"
+    }
     return currentUser && currentUser.name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>

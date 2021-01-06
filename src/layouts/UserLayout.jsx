@@ -1,6 +1,7 @@
 import { DefaultFooter, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link, SelectLang, useIntl, connect, FormattedMessage } from 'umi';
+import { GithubOutlined } from '@ant-design/icons';
 import React from 'react';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
@@ -42,30 +43,30 @@ const UserLayout = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>BookHub</span>
+                <span className={styles.title}>书汇</span>
               </Link>
             </div>
             <div className={styles.desc}>
               <FormattedMessage
                 id="pages.layouts.userLayout.title"
-                defaultMessage="BookHub is an online book store. Project of JAVAEE course."
+                defaultMessage="书汇是作为 Java EE 课程项目的在线书城"
               />
             </div>
           </div>
           {children}
         </div>
         <DefaultFooter
-          copyright={`${new Date().getFullYear()} 云计算课程小组`}
+          copyright={`${new Date().getFullYear()} Java EE 课程小组`}
           links={[
             {
               key: 'frontend',
-              title: '前端开发',
-              href: 'https://github.com/drinkmooon/general-project-frontend',
+              title: <><GithubOutlined /><span>前端仓库</span></>,
+              href: 'https://github.com/drinkmooon/general-project-frontend/tree/JAVAEE',
               blankTarget: true,
             },
             {
               key: 'backend',
-              title: '后端开发',
+              title: <><GithubOutlined /><span>后端仓库</span></>,
               href: 'https://github.com/ComposeC/Sell',
               blankTarget: true,
             },
@@ -74,7 +75,7 @@ const UserLayout = (props) => {
               title: '联系方式',
               href: 'https://sse.tongji.edu.cn/',
               blankTarget: true,
-            },      
+            },
           ]}
         />
       </div>

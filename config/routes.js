@@ -39,6 +39,7 @@ export default [
           {
             path: '/',
             component: '../layouts/BasicLayout',
+            Routes: ['src/pages/Authorized'],
             routes: [
               {
                 path: '/',
@@ -49,12 +50,14 @@ export default [
                 name: 'shop-container',
                 icon: 'shop',
                 component: './Item/ItemsBrowse',
+                authority: ['user', 'guest'],
                 routes: [
                   {
                     name: 'book-detail',
                     path: '/item/detail',
                     hideInMenu: true,
                     component: './Item/ItemDetail',
+                    authority: ['user'],
                   },
                 ],
               },              
@@ -63,18 +66,21 @@ export default [
                 name: 'cart-container',
                 icon: 'ShoppingCart',
                 component: './Cart/Cart',
+                authority: ['user', 'guest'],
               },
               {
                 path:'/order',
                 name: 'order-container',
                 icon: 'dollar',
                 component: './Order/OrdersBrowse',
+                authority: ['user'],
               },              
               {
                 path: '/home',
                 name: 'home-container',
                 icon: 'home',
                 component: './Account/Settings',
+                authority: ['user'],
               },
               {
                 component: './404',
