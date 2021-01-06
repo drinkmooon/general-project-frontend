@@ -34,7 +34,7 @@ export default [
       },
       {
         path: '/',
-        component: '../layouts/BlankLayout',
+        component: '../layouts/SecurityLayout',
         routes: [
           {
             path: '/',
@@ -42,56 +42,39 @@ export default [
             routes: [
               {
                 path: '/',
-                redirect: '/cart/cart',
+                redirect: '/item/browse',
               },
               {
                 path: '/item',
-                name: '在线商城',
+                name: 'shop-container',
                 icon: 'shop',
-                redirect: '/item/browse',
+                component: './Item/ItemsBrowse',
                 routes: [
                   {
-                    name: '浏览商品',
-                    path: '/item/browse',
-                    component: './Item/ItemsBrowse',
-                  },
-                  {
-                    name: '商品详情',
+                    name: 'book-detail',
                     path: '/item/detail',
+                    hideInMenu: true,
                     component: './Item/ItemDetail',
                   },
                 ],
               },              
               {
-                path: '/test',
-                name: 'test-page',
-                hideInMenu: true,
-                component: './test/test',
-              },
-              {
                 path:'/cart',
                 name: 'cart-container',
-                icon: 'table',
-                routes: [
-                  {
-                    name: 'cart',
-                    path: '/cart/:userId',
-                    component: './Cart/Cart',
-                  },
-                ]
+                icon: 'ShoppingCart',
+                component: './Cart/Cart',
               },
+              {
+                path:'/order',
+                name: 'order-container',
+                icon: 'dollar',
+                component: './Order/OrdersBrowse',
+              },              
               {
                 path: '/home',
                 name: 'home-container',
-                icon: 'table',
-                routes: [
-                  {
-                    path: '/home/home',
-                    name: 'index',
-                    component: './Account/Settings',
-                  },
-                ],
-
+                icon: 'home',
+                component: './Account/Settings',
               },
               {
                 component: './404',

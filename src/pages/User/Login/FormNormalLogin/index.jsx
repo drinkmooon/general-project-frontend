@@ -38,7 +38,7 @@ const NormalLoginForm = (props) => {
         onFinish={props.onFinish}
       >
         <Form.Item
-          name='user_id'
+          name='id'
           rules={[
             {
               required: true,
@@ -68,21 +68,11 @@ const NormalLoginForm = (props) => {
             type='password'
           />
         </Form.Item>
-        <Form.Item>
-          <Form.Item name='remember' valuePropName='checked' noStyle>
-            <Checkbox>记住我</Checkbox>
-          </Form.Item>
-
-          {/* <a className='login-form-forgot' href=''>
-          Forgot password
-        </a> */}
-        </Form.Item>
 
         <Form.Item>
           <Button size='large' type='primary' htmlType='submit' className={styles.submit}>
             登录
           </Button>
-          {/* Or{' '} */}
           <Link className={styles.login} to='/user/register'>
             现在就去注册！
           </Link>

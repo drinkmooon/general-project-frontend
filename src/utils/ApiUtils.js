@@ -94,37 +94,9 @@ class ApiUtil{
     return request(`/api/PayOrder?orderId=${orderId}`);
   }
 
-  userLogin = async username => {
-    return request(`/api/user/login?username=${username}`);
-  }
-
   userRegister = async params => {
     return request(`/api/user/register?username=${params.username}&password=${params.password}`);
   }
 
 }
 export default new ApiUtil();
-////////////////
-export async function queryRule(params){
-   return request('/api/getAllItems', {
-    params,
-  });
-}
-export async function removeRule(params) {
-  return request('/api/rule', {
-    method: 'POST',
-    data: { ...params, method: 'delete' },
-  });
-}
-export async function addRule(params) {
-  return request('/api/rule', {
-    method: 'POST',
-    data: { ...params, method: 'post' },
-  });
-}
-export async function updateRule(params) {
-  return request('/api/rule', {
-    method: 'POST',
-    data: { ...params, method: 'update' },
-  });
-}

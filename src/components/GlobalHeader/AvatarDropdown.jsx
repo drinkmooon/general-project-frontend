@@ -7,7 +7,7 @@ import styles from './index.less';
 
 class AvatarDropdown extends React.Component {
   onMenuClick = (event) => {
-    history.push(`/statistics/general-statistics`);
+    history.push(`/item/browse`);
   };
 
   render() {
