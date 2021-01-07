@@ -55,21 +55,16 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
       payload: { ...values, prefix },
     }).then((response) => {
       console.log(response)
-      if (response.isSuccess) {
-        const account = response.data.userId
+      if (response.success) {
         message.success('注册成功！')
         history.push({
           pathname: '/user/register-result',
-          state: {
-            account,
-          },
         })
       }
       else {
-        const errorText = response.error.message
         notification.error({
           message: `注册失败`,
-          description: errorText,
+          description: `注册申请不符合要求。`,
         })        
       }
     })
