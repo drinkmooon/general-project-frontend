@@ -8,8 +8,6 @@ import { Select, Tag, List, Col, Row, Button, message, Avatar, Card } from 'antd
 const { Option } = Select;
 export default ({ bookWithCountList, closeModal }) => {
 
-
-    console.log(bookWithCountList)
     const [loading,setLoading] = useState(false);
     const [visibility, setVisibility] = useState('hidden');//visible
     const [addrId, setAddrId] = useState();
@@ -55,7 +53,9 @@ export default ({ bookWithCountList, closeModal }) => {
             .then((res) => {
                 if (true || res.msg == 'OK') {
                     message.success('Place an order successfully!');
+                    
                     closeModal();
+                    setLoading(false);
                 }
             })
     }
