@@ -20,7 +20,9 @@ export default () => {
     }, [modalVisible])
 
     const fresh = () => {
-        window.location.reload(true);
+        ApiUtils.getAddr().then((res) => {
+            setAddrList(res.data);
+        })
     }
 
     const deleteAddr = addrId => {
