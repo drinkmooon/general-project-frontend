@@ -18,6 +18,7 @@ export default () => {
             title: '订单编号',
             dataIndex: 'orderId',
             key: 'orderId',
+            sorter: (a, b) => a.orderId - b.orderId,
         },
         {
             title: '姓名',
@@ -51,16 +52,16 @@ export default () => {
             `${val}${' 元 '}`,            
             sorter: (a, b) => a.total - b.total,
         },        
-        {
-            title: '操作',
-            key: 'action',
-            render: (text, record) => (
-                <Space size="middle">
-                    <a>查看订单</a>
-                    <a>修改订单</a>
-                </Space>
-            ),
-        },
+        // {
+        //     title: '操作',
+        //     key: 'action',
+        //     render: (text, record) => (
+        //         <Space size="middle">
+        //             <a>查看订单</a>
+        //             <a>修改订单</a>
+        //         </Space>
+        //     ),
+        // },
     ];
 
     return (
