@@ -5,7 +5,7 @@ import BookCard from '@/components/BookCard';
 import ApiUtils from '@/utils/ApiUtils';
 import useModal from 'antd/lib/modal/useModal';
 import CreateOrder from '../Cart/CreateOrder';
-import {ShoppingCartOutlined, DollarCircleOutlined} from '@ant-design/icons';
+import { ShoppingCartOutlined, DollarCircleOutlined } from '@ant-design/icons';
 const BookBoard = ({ bookList }) => {
 
     const [modal, contextHolder] = useModal();
@@ -29,28 +29,28 @@ const BookBoard = ({ bookList }) => {
                                     <BookCard
                                         book={book}
                                         action={[
-                                            <Button 
-                                            icon={<ShoppingCartOutlined />}
-                                            onClick={() => { addBook(book) }}>添加购物车</Button>,
-                                            <Button 
-                                            icon={<DollarCircleOutlined />}
+                                            <Button
+                                                icon={<ShoppingCartOutlined />}
+                                                onClick={() => { addBook(book) }}>添加购物车</Button>,
+                                            <Button
+                                                icon={<DollarCircleOutlined />}
                                                 type='primary'
                                                 onClick={() => {
                                                     console.log(book);
-                                                const createOrderModal = modal.info({
-                                                    closable: true,
-                                                    okButtonProps: { style: { display: 'none' } },
-                                                    icon: null,
-                                                    width:1000,
-                                                    content:
-                                                        <CreateOrder
-                                                            style={{ height: 800 }}
-                                                            bookWithCountList={[{ ...book, quantity: 1, }]}
-                                                            closeModal={() => { createOrderModal.destroy(); }}
-                                                        />
-                                                });
-                                            }
-                                            }
+                                                    const createOrderModal = modal.info({
+                                                        closable: true,
+                                                        okButtonProps: { style: { display: 'none' } },
+                                                        icon: null,
+                                                        width: 1000,
+                                                        content:
+                                                            <CreateOrder
+                                                                style={{ height: 800 }}
+                                                                bookWithCountList={[{ ...book, quantity: 1, }]}
+                                                                closeModal={() => { createOrderModal.destroy(); }}
+                                                            />
+                                                    });
+                                                }
+                                                }
                                             >
                                                 立即下单！
                                             </Button>,
