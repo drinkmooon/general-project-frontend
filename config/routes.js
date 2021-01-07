@@ -49,14 +49,14 @@ export default [
                 path: '/item',
                 name: 'shop-container',
                 icon: 'shop',
-                component: './Item/ItemsBrowse',
+                component: './Shop/ItemsBrowse',
                 authority: ['user', 'guest'],
                 routes: [
                   {
                     name: 'book-detail',
                     path: '/item/detail',
                     hideInMenu: true,
-                    component: './Item/ItemDetail',
+                    component: './Shop/ItemDetail',
                     authority: ['user'],
                   },
                 ],
