@@ -16,16 +16,16 @@ const BookBoard = ({ bookList }) => {
         })
     }
 
-    const ITEM_PER_ROW = 5;
+    const ITEM_PER_ROW = 4;
     const cardList = () => {
         if (bookList) {
             let list = [];
             for (let i = 0; i < bookList.length / ITEM_PER_ROW; i++) {
                 list.push(
-                    <Row gutter={16}>{
+                    <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>{
                         bookList.slice(i * ITEM_PER_ROW, (i + 1) * ITEM_PER_ROW).map
                             ((book) => (
-                                <Col className="gutter-row" span={4.8}>
+                                <Col className="gutter-row" flex="auto">
                                     <BookCard
                                         book={book}
                                         action={[
@@ -60,7 +60,7 @@ const BookBoard = ({ bookList }) => {
                                 </Col>))
                     }</Row>)
             }
-            return <Space direction='vertical'>{list}</Space>
+            return list
         }
         return <></>
     }

@@ -18,7 +18,7 @@ export default function BookCard({ book, action }) {
             <p>{book.bookName}</p>
           </>
         } description={book.abstract.slice(0,30)+'...'} />
-        <Tag style={{float:'right'}}color='#f50'>{book.price * book.discount}</Tag>
+        <Tag style={{float:'right'}}color='#f50'>{(book.price * book.discount).toFixed(2) + " 元"}</Tag>
       </Link>
     </Card>
   );
