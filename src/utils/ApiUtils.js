@@ -6,6 +6,10 @@ class ApiUtil{
     return request(`/api/book/SearchBook?query=${name}`);
   }
 
+  getAllBook = async () => {
+    return request('/api/book/GetAllBook');
+  }
+
   getBookDetail = async bookId => {
     return request(`/api/book/GetBookDetail?bookId=${bookId}`);
   }
@@ -29,9 +33,10 @@ class ApiUtil{
     });
   }
 
-  editAddr = async addrId =>{
+  editAddr = async (addrId, params) =>{
     return request(`/api/addresses/EditAddr/${addrId}`, {
       method: 'POST',
+      data: { ...params },
     })
   }  
 

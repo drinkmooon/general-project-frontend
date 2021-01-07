@@ -8,7 +8,7 @@ import BookBoard from './BookBoard';
 export default () => {
     const testBookList = () => {
         const book = {
-            name: '概率论',
+            bookName: '概率论',
             image: '',
             publisher: '同济大学出版社',
             author: '',
@@ -19,7 +19,7 @@ export default () => {
             ISBN: '1245362789',
             bookAbstract: '???',
             inventory: '15',
-            id: '114514',
+            bookId: '114514',
         };
         let booklist = [];
         for (let i = 0; i < 6; i++) {
@@ -31,9 +31,9 @@ export default () => {
     const [bookList, setBookList] = useState(testBookList());
 
     useEffect(() => {
-        ApiUtil.getBookDetail('testBookId')
+        ApiUtil.getAllBook()
             .then((res) => {
-                setBookList(testBookList().slice(0, 5));
+                setBookList(res.data)
             })
     }, []);
 
