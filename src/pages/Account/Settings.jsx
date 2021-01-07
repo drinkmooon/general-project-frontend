@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { history, useParams,useLocation } from 'umi';
+import { history, useParams, useLocation } from 'umi';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProList from '@ant-design/pro-list';
 import { Card, Button, Modal } from 'antd';
 import ApiUtils from '@/utils/ApiUtils';
 import AddressForm from '@/components/UserAddress/AddressForm';
+import useModal from 'antd/lib/modal/useModal';
 
 export default () => {
 
     const [addrList, setAddrList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modal, contextHolder] = useModal();
 
     useEffect(() => {
         ApiUtils.getAddr().then((res) => {
@@ -17,18 +19,20 @@ export default () => {
         })
     }, [])
 
-    const fresh = () =>{
+    const fresh = () => {
         window.location.reload(true);
     }
 
     const deleteAddr = addrId => {
-        ApiUtils.delAddr(addrId).then((res)=>{
-            fresh();}
+        ApiUtils.delAddr(addrId).then((res) => {
+            fresh();
+        }
         )
     }
 
     return (
         <PageHeaderWrapper>
+            {contextHolder}
             <ProList
                 dataSource={addrList}
                 toolBarRender={() => {
@@ -40,14 +44,13 @@ export default () => {
                 }}
                 metas={{
                     title: {
-                        render:(dom, entity, index) => {
+                        render: (dom, entity) => {
                             return (`${entity.name} ${entity.phone}`)
                         }
                     },
                     description: {
-                        render: (dom,entity,index) => {
-                            return `${entity.province} ${entity.city} ${entity.location}`; 
-                            return 'Ant Design, a design language for background applications, is refined by Ant UED Team';
+                        render: (dom, entity) => {
+                            return `${entity.province} ${entity.city} ${entity.location}`;
                         },
                     },
                     avatar: {},
@@ -58,7 +61,19 @@ export default () => {
                                     danger
                                     onClick={() => { deleteAddr(entity.id) }}>
                                     删除
-                            </Button>,
+                                </Button>,
+                                <Button key='12'
+                                    onClick={() => {
+                                        const changeAddr = modal.info({
+                                            closable: true,
+                                            icon: null,
+                                            okButtonProps:{style:{display:'none'}},
+                                            content:
+                                                <AddressForm preAddr={entity} closeModal={() => { console.log(1); fresh(); changeAddr.destroy() }} />,
+                                        });
+                                    }}>
+                                    修改
+                                </Button>
                             ];
                         },
                     },
@@ -66,8 +81,9 @@ export default () => {
             ></ProList>
             <Modal
                 visible={modalVisible}
-                footer={false}
+                footer={null}
                 onCancel={()=>{setModalVisible(false)}}
+                
             >
                 <AddressForm closeModal={()=>{fresh();setModalVisible(false)}}/>
             </Modal>

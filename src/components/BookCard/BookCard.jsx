@@ -8,19 +8,19 @@ export default function BookCard({book,action}){
 
     <Card
         hoverable
-        style={{ width: 240 }}
-        actions={[action]}
-        cover={<Link to='/cart/cart'><img alt="example" src={book.image} /></Link>}
+        style={{ width: 250 }}
+        actions={action}
+        // cover={<Link to='/cart/cart'><img alt="example" src={book.image} /></Link>}
+        cover={<img alt="example" src={book.image} />}
     >
-          <Link href='/cart/cart'>
+          {/* <Link href='/cart/cart'></Link> */}
             <Meta title={
             <>
               <p>{book.name}</p>
               <p>售价：{book.price*book.discount}</p>
-              <p>库存:{book.inventory}</p>
             </>
             } {...book} />
-          </Link>
+          
     </Card>
   );
 }

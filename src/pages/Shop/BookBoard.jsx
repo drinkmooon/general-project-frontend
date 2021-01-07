@@ -3,9 +3,14 @@ import { Button, Col, Grid, Row, Space, message } from 'antd';
 
 import BookCard from '@/components/BookCard';
 import ApiUtils from '@/utils/ApiUtils';
-
+import Modal from 'antd/lib/modal/Modal';
+import useModal from 'antd/lib/modal/useModal';
+import AddressForm from '@/components/UserAddress/AddressForm';
+import CreateOrder from '../Cart/CreateOrder';
+import {ShoppingCartOutlined, DollarCircleOutlined} from '@ant-design/icons';
 const BookBoard = ({ bookList }) => {
 
+    const [modal, contextHolder] = useModal();
     const addBook = (book) => {
         console.log(book)
         ApiUtils.addCart({ bookId: book.bookId, quantity: 1 }).then((res) => {
@@ -25,8 +30,34 @@ const BookBoard = ({ bookList }) => {
                                 <Col className="gutter-row" span={4.8}>
                                     <BookCard
                                         book={book}
-                                        action={
-                                            <Button onClick={() => { addBook(book) }}>添加到购物车</Button>}
+                                        action={[
+                                            <Button 
+                                            icon={<ShoppingCartOutlined />}
+                                            onClick={() => { addBook(book) }}>添加购物车</Button>,
+                                            <Button 
+                                            icon={<DollarCircleOutlined />}
+                                                type='primary'
+                                                onClick={() => {
+                                                    console.log(book);
+                                                const createOrderModal = modal.info({
+                                                    closable: true,
+                                                    okButtonProps: { style: { display: 'none' } },
+                                                    icon: null,
+                                                    width:1000,
+                                                    content:
+                                                        <CreateOrder
+                                                            style={{ height: 800 }}
+                                                            bookWithCountList={[{ ...book, quantity: 1, }]}
+                                                            closeModal={() => { createOrderModal.destroy(); }}
+                                                        />
+                                                });
+                                            }
+                                            }
+                                            >
+                                                立即下单！
+                                            </Button>,
+                                        ]
+                                        }
                                     />
                                 </Col>))
                     }</Row>)
@@ -36,7 +67,7 @@ const BookBoard = ({ bookList }) => {
         return <></>
     }
 
-    return (<div id='book-card'>{cardList()}</div>)
+    return (<div id='book-card'>{contextHolder}{cardList()}</div>)
 }
 
 export default BookBoard;

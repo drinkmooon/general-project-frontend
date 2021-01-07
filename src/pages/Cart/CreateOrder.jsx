@@ -36,7 +36,6 @@ export default ({ bookWithCountList, closeModal }) => {
             .then((res) => {
                 if (true || res.msg == 'OK') {
                     message.success('Place an order successfully!');
-                    
                     closeModal();
                     setLoading(false);
                 }
@@ -47,7 +46,7 @@ export default ({ bookWithCountList, closeModal }) => {
         <>
             <Row style={{ height: 400 }}>
                 <Col span={8}>
-                    <Select size='large' style={{ width: 300 }} onSelect={(value) => { console.log(value); setAddrId(value); }}>
+                    <Select size='large' style={{ width: 300 }} onSelect={(value) => setAddrId(value)}>
                     {addrList.map((address) => (<Option value={address.id}>{`${address.name} ${address.location}`}</Option>))}
                     </Select>
                     <AddrCard style={{ visibility: visibility }} addr={addrList.filter((add) => (add.d == addrId))[0]}></AddrCard></Col>
@@ -58,8 +57,8 @@ export default ({ bookWithCountList, closeModal }) => {
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta
-                                    title={item.title}
-                                    description={item.description}
+                                    title={item.bookName}
+                                    description={item.publisher}
                                 />
                                 <Tag color='#f50'>{item.quantity}</Tag>
                             </List.Item>)

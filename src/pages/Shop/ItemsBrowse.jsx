@@ -30,12 +30,12 @@ export default () => {
 
     const [bookList, setBookList] = useState(testBookList());
 
-    useEffect(() => {
-        ApiUtil.getAllBook()
-            .then((res) => {
-                setBookList(res.data)
-            })
-    }, []);
+    // useEffect(() => {
+    //     ApiUtil.getAllBook()
+    //         .then((res) => {
+    //             setBookList(res.data)
+    //         })
+    // }, []);
 
     return (
         <PageHeaderWrapper>
