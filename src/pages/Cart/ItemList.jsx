@@ -5,34 +5,6 @@ import { useParams } from 'umi';
 import ApiUtils from '@/utils/ApiUtils';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import CreateOrder from './CreateOrder';
-const dataSource = [
-    {
-        title: '语雀的天空',
-        avatar:
-            'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-        bookId: 1,
-    },
-    {
-        title: 'Ant Design',
-        avatar:
-            'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-        bookId: 2,
-
-    },
-    {
-        title: '蚂蚁金服体验科技',
-        avatar:
-            'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-        bookId: 3,
-
-    },
-    {
-        title: 'TechUI',
-        avatar:
-            'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-        bookId: 4,
-    },
-];
 
 function usePrevious(value) {
     const ref = useRef();
@@ -50,7 +22,6 @@ export default () => {
 
     const [selectedBooks, setSelectedBooks] = useState([]);
     const [isOrderModalVisable, setOrderModal] = useState(false);
-    //const [isAddrModalVisable, setAddrOrderModal] = useState(false);
 
     useEffect(() => {
         if (selectedBooks && selectedBooks.length !== 0) {
@@ -99,13 +70,9 @@ export default () => {
     const deleteBook = bookId => {
         ApiUtils.delCart(bookId)
             .then((res) => {
-                if (true || res.msg === 'OK') {
                     message.success('Delete Book Successfully!');
                     setBookList(bookList.filter((book) => (book.bookId !== bookId)));
-                }
-                else {
-                    message.error('Something goes wrong. Please try it again.')
-                }
+
 
             })
     }
@@ -138,27 +105,23 @@ export default () => {
         <div>
             <ProList
                 toolBarRender={() => {
-                    return [<Button onClick={() => { console.log(bookList);console.log(counts); }}>DEBUG</Button>,
+                    return [
                     <Button key="3" type='primary' disabled={selectedRowKeys.length === 0 ? true : false} onClick={placeSelected} >
                         下单
-          </Button>,
+                    </Button>,
                     <Button key="3" danger onClick={deleteAllBooks} disabled={bookList.length === 0 ? true : false}>
                         清空购物车
-        </Button>
+                    </Button>
                     ];
                 }}
                 metas={{
                     title: { render: (dom, entity) => (entity.bookName) },
-                    description: {
-                        render: () => {
-                            return 'Ant Design, a design language for background applications, is refined by Ant UED Team';
-                        },
-                    },
+                    description: {},
                     avatar: { render: (dom, entity) => (<img src={entity.image}/>) },
                     actions: {
                         render: (dom, entity, index) => {
                             return [
-                                <Tag color='#f50'>{entity.price}</Tag>
+                                <Tag  color='#f50'><h1>{entity.price}</h1></Tag>
                                 ,
                                 <Button
                                     ey='10'
