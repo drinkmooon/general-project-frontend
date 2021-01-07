@@ -64,6 +64,7 @@ const Model = {
           }),
         });
       }
+      window.location.reload(true);
     },
   },
   reducers: {
