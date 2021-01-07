@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { history, useParams } from 'umi';
+import { history, useParams,useLocation } from 'umi';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProList from '@ant-design/pro-list';
 import { Card, Button, Modal } from 'antd';
@@ -17,18 +17,18 @@ export default () => {
         })
     }, [])
 
+    const fresh = () =>{
+        window.location.reload(true);
+    }
+
+    const deleteAddr = addrId => {
+        ApiUtils.delAddr(addrId).then((res)=>{
+            fresh();}
+        )
+    }
+
     return (
         <PageHeaderWrapper>
-            <Card>
-                <h1>商品详情页</h1>
-                <p>参数商品ID: { }</p>
-                <Button
-                    onClick={() => {
-                        history.goBack();
-                    }}
-                >            返回
-          </Button>
-            </Card>
             <ProList
                 dataSource={addrList}
                 toolBarRender={() => {
@@ -39,9 +39,14 @@ export default () => {
                     ];
                 }}
                 metas={{
-                    title: {},
+                    title: {
+                        render:(dom, entity, index) => {
+                            return (`${entity.name} ${entity.phone}`)
+                        }
+                    },
                     description: {
-                        render: () => {
+                        render: (dom,entity,index) => {
+                            return `${entity.province} ${entity.city} ${entity.location}`; 
                             return 'Ant Design, a design language for background applications, is refined by Ant UED Team';
                         },
                     },
@@ -51,7 +56,7 @@ export default () => {
                             return [
                                 <Button key='11'
                                     danger
-                                    onClick={() => { deleteBook(entity.bookId) }}>
+                                    onClick={() => { deleteAddr(entity.id) }}>
                                     删除
                             </Button>,
                             ];
@@ -64,7 +69,7 @@ export default () => {
                 footer={false}
                 onCancel={()=>{setModalVisible(false)}}
             >
-                <AddressForm closeModal={()=>{history.push('/home') ;setModalVisible(false)}}/>
+                <AddressForm closeModal={()=>{fresh();setModalVisible(false)}}/>
             </Modal>
         </PageHeaderWrapper>);
 };

@@ -11,34 +11,17 @@ export default ({ bookWithCountList, closeModal }) => {
     const [loading,setLoading] = useState(false);
     const [visibility, setVisibility] = useState('hidden');//visible
     const [addrId, setAddrId] = useState();
-    const [addrList, setAddrList] = useState([
-        {
-            addrId: -4584937065136388,
-            receiver: "kUld",
-            phone: "0Udckx",
-            country: "Re2Qx",
-            province: "[W1X0",
-            city: "yZLe",
-            district: "jd*$FUy",
-            postCode: -782543423262296,
-            location: "ivRp"
-        }
-    ]);
+    const [addrList, setAddrList] = useState([]);
 
     useEffect(() => {
         if (addrId == null) { return }
-        console.log(addrId)
         setVisibility('visible');
     }, [addrId])
-    // useEffect(()=>{
-    //     ApiUtils.getAddr((res)=>{
-    //         setAddrList(res.addrList);
-    //     })
-    // },[])
-
-    const AddrList = () => {
-        return addrList.map((address) => (<Option value={address.addrId}>{address.location}</Option>))
-    }
+    useEffect(()=>{
+        ApiUtils.getAddr().then((res)=>{
+            setAddrList(res.data);
+        })
+    },[])
 
     const placeOrder = () => {
         setLoading(true);
@@ -65,9 +48,9 @@ export default ({ bookWithCountList, closeModal }) => {
             <Row style={{ height: 400 }}>
                 <Col span={8}>
                     <Select size='large' style={{ width: 300 }} onSelect={(value) => { console.log(value); setAddrId(value); }}>
-                        {AddrList()}
+                    {addrList.map((address) => (<Option value={address.id}>{`${address.name} ${address.location}`}</Option>))}
                     </Select>
-                    <AddrCard style={{ visibility: visibility }} addr={addrList.filter((add) => (add.addrId == addrId))[0]}></AddrCard></Col>
+                    <AddrCard style={{ visibility: visibility }} addr={addrList.filter((add) => (add.d == addrId))[0]}></AddrCard></Col>
                 <Col span={8}>
                     <List
                         bordered

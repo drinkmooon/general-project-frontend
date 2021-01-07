@@ -27,9 +27,8 @@ class ApiUtil{
   }
 
   delAddr = async addrId => {
-    return request('/api/addresses/DelAddr', {
+    return request(`/api/addresses/DelAddr/${addrId}`, {
       method: 'DELETE',
-      data: { addrId: addrId, },
     });
   }
 

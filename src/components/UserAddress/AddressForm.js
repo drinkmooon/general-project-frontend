@@ -27,7 +27,7 @@ export default function AddressForm({preAddr,closeModal}) {
             onFinish={onFinish}
             initialValues={preAddr}
         >
-            <Form.Item label="姓名" name="reciever">
+            <Form.Item label="姓名" name="name">
                 <Input 
                     style={{width:240}}
                     placeholder={"请输入收货人姓名"}
