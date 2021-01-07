@@ -32,12 +32,12 @@ export default () => {
 
     const [bookList, setBookList] = useState(testBookList());
 
-    // useEffect(() => {
-    //     ApiUtil.getAllBook()
-    //         .then((res) => {
-    //             setBookList(res.data)
-    //         })
-    // }, []);
+    useEffect(() => {
+        ApiUtil.getAllBook()
+            .then((res) => {
+                setBookList(res.data)
+            })
+    }, []);
 
     const search_book = string => {
         ApiUtil.searchBook(string).then((res)=>{

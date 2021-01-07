@@ -34,8 +34,9 @@ export default [
       },
       {
         path: '/',
-        component: '../layouts/SecurityLayout',
+        component: '../layouts/BlankLayout',
         routes: [
+
           {
             path: '/',
             component: '../layouts/BasicLayout',
@@ -46,44 +47,43 @@ export default [
                 redirect: '/item/browse',
               },
               {
-                path: '/item',
+                name: 'book-detail',
+                path: '/item/detail/:itemId',
+                hideInMenu: true,
+                component: './Shop/ItemDetail',
+                authority: ['user', 'guest'],
+              },
+              {
+                path: '/item/browse',
                 name: 'shop-container',
                 icon: 'shop',
                 component: './Shop/ItemsBrowse',
                 authority: ['user', 'guest'],
-                routes: [
-                  {
-                    name: 'book-detail',
-                    path: '/item/detail/:itemId',
-                    hideInMenu: true,
-                    component: './Shop/ItemDetail',
-                    authority: ['user'],
-                  },
-                ],
-              },              
+              },
+
               {
-                path:'/cart',
+                path: '/cart',
                 name: 'cart-container',
                 icon: 'ShoppingCart',
                 component: './Cart/Cart',
                 authority: ['user', 'guest'],
               },
               {
-                path:'/order',
+                path: '/order',
                 name: 'order-container',
                 icon: 'dollar',
                 component: './Order/OrdersBrowse',
                 authority: ['user'],
-                routes:[
+                routes: [
                   {
                     name: 'order-detail',
                     path: '/order/detail/:orderId',
-                    hideInMenu:true,
+                    hideInMenu: true,
                     component: './Order/OrderDetail',
                     authority: ['user'],
                   }
                 ]
-              },              
+              },
               {
                 path: '/home',
                 name: 'home-container',
