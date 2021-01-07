@@ -45,7 +45,7 @@ function usePrevious(value) {
 export default () => {
 
     const [bookList, setBookList] = useState(dataSource);
-    const [counts, setCounts] = useState([1, 1, 1, 10]);
+    const [counts, setCounts] = useState([2, 4, 6, 8]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     const [selectedBooks,setSelectedBooks] = useState([]);
@@ -63,7 +63,6 @@ export default () => {
         ApiUtils.checkCart().then((res) => {
             if (res.message == 'OK') {
                 setBookList(res.data);
-
             }
         })
     }, []);
@@ -73,15 +72,10 @@ export default () => {
     useEffect(() => {
         if (bookList && bookList.length != 0) {
             if (prevBookList) {
-                let delIndex = 0;
-                for (let i = 0; i < prevBookList.length; i++) {
-                    if (bookList[i].bookId !== prevBookList[i].bookId) {
-                        delIndex = i;
-                        break;
-                    }
-                }
-                setSelectedRowKeys(selectedRowKeys.filter((k,i)=>(i!=delIndex)))
-                setCounts(counts.filter((count, index) =>(index != delIndex )))
+                const delList = prevBookList.filter((p)=>(!bookList.includes(p))).map((bk)=>(prevBookList.indexOf(bk)))
+                setSelectedRowKeys(selectedRowKeys.filter((k,i)=>(!delList.includes(i))))
+                console.log(counts.filter((count, index) =>((!delList.includes(index)))))
+                setCounts(counts.filter((count, index) =>((!delList.includes(index)))))
             }
         }
         else {
@@ -96,14 +90,11 @@ export default () => {
     };
 
     const deleteBooks = bookIds => {
+        
         for(let i = 0;i<bookIds.length;i++){
             ApiUtils.delCart(bookIds[i])
-            .then((res)=>{
-                if(true||res.msg==='OK'){
-                    setBookList(bookList.filter((b)=>(b.bookId!=bookIds[i])));
-                }
-            })
         }
+        setBookList(bookList.filter((b)=> (!bookIds.includes(b.bookId))));
     }
 
     const deleteBook = bookId => {
@@ -181,6 +172,7 @@ export default () => {
                                 <InputNumber
                                     min={1}
                                     defaultValue={counts[index]}
+                                    value={counts[index]}
                                     onChange={value => { changeBookNum(index, value) }}
                                 />
                             ];
