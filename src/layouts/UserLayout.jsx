@@ -67,7 +67,7 @@ const UserLayout = (props) => {
             {
               key: 'backend',
               title: <><GithubOutlined /><span>后端仓库</span></>,
-              href: 'https://github.com/ComposeC/Sell',
+              href: 'https://github.com/Nntraveler/BookHub_backend',
               blankTarget: true,
             },
             {
