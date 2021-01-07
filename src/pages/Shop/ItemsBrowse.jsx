@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { history, useParams, Link } from 'umi';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Button } from 'antd';
+import { Card, Button, Input, Row } from 'antd';
 import ApiUtil from '@/utils/ApiUtils';
 import BookBoard from './BookBoard';
+
+const {Search} = Input;
 
 export default () => {
     const testBookList = () => {
@@ -37,8 +39,19 @@ export default () => {
     //         })
     // }, []);
 
+    const search_book = string => {
+        ApiUtil.searchBook(string).then((res)=>{
+            setBookList(res.data);
+        })
+    }
+    
+
     return (
         <PageHeaderWrapper>
+            {/* <Row>
+                <Search width={1000} onSearch={search_book}></Search>
+            </Row> */}
+            
             <BookBoard
                 bookList={bookList} />
         </PageHeaderWrapper>);

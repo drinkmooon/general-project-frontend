@@ -5,41 +5,19 @@ import { Card, Button } from 'antd';
 import ApiUtil from '@/utils/ApiUtils';
 import ItemsBrowse from './ItemsBrowse';
 
-export default () => {
-    const testBookList = () => {
-        const book = {
-            name: '概率论',
-            image: '',
-            publisher: '同济大学出版社',
-            author: '',
-            category: ['学术', '教育'],
-            price: '38',
-            discount: '1',
-            secondhand: true,
-            ISBN: '1245362789',
-            bookAbstract: '???',
-            inventory: '15',
-            id: '114514',
-        };
-        let booklist = [];
-        for (let i = 0; i < 6; i++) {
-            booklist.push(book);
-        }
-        return booklist;
-    }
+const ItemDetail = () => {
 
-    const [bookList, setBookList] = useState(testBookList());
-
-    useEffect(() => {
-        ApiUtil.getBookDetail('testBookId')
-            .then((res) => {
-                setBookList(testBookList().slice(0, 5));
-            })
-    }, []);
-
+    const {bookId} = useParams();
+    let book = {};
+    useEffect(()=>{
+        ApiUtil.getBookDetail(bookId).then((res)=>{
+            book = res.data;
+        })
+    })
     return (
-        <PageContainer>
-            <ItemsBrowse
-                bookList={bookList} />
-        </PageContainer>);
+            <div>{bookId}</div>
+        );
 };
+
+
+export default ItemDetail;

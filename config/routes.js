@@ -54,7 +54,7 @@ export default [
                 routes: [
                   {
                     name: 'book-detail',
-                    path: '/item/detail',
+                    path: '/item/detail/:itemId',
                     hideInMenu: true,
                     component: './Shop/ItemDetail',
                     authority: ['user'],
@@ -74,6 +74,15 @@ export default [
                 icon: 'dollar',
                 component: './Order/OrdersBrowse',
                 authority: ['user'],
+                routes:[
+                  {
+                    name: 'order-detail',
+                    path: '/order/detail/:orderId',
+                    hideInMenu:true,
+                    component: './Order/OrderDetail',
+                    authority: ['user'],
+                  }
+                ]
               },              
               {
                 path: '/home',
