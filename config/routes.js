@@ -4,70 +4,84 @@ export default [
     component: '../layouts/BlankLayout',
     routes: [
       {
+        path: '/user',
+        component: '../layouts/UserLayout',
+        routes: [
+          {
+            path: '/user',
+            redirect: '/User/login',
+          },
+          {
+            name: '注册结果',
+            path: '/user/register-result',
+            component: './User/register-result',
+          },
+          {
+            name: '注册',
+            path: '/user/register',
+            component: './User/register',
+          },
+          {
+            name: '登录',
+            icon: 'smile',
+            path: '/user/login',
+            component: './User/Login',
+          },
+          {
+            component: '404',
+          },
+        ],
+      },
+      {
         path: '/',
-        component: '../layouts/BlankLayout',
+        component: '../layouts/SecurityLayout',
         routes: [
           {
             path: '/',
             component: '../layouts/BasicLayout',
+            Routes: ['src/pages/Authorized'],
             routes: [
               {
                 path: '/',
-                redirect: '/cart/cart',
-              }, 
-              {
-                path: '/test',
-                name: 'test-page',
-                hideInMenu: true,
-                component: './test/test',
+                redirect: '/item/browse',
               },
+              {
+                path: '/item',
+                name: 'shop-container',
+                icon: 'shop',
+                component: './Item/ItemsBrowse',
+                authority: ['user', 'guest'],
+                routes: [
+                  {
+                    name: 'book-detail',
+                    path: '/item/detail',
+                    hideInMenu: true,
+                    component: './Item/ItemDetail',
+                    authority: ['user'],
+                  },
+                ],
+              },              
               {
                 path:'/cart',
                 name: 'cart-container',
-                icon: 'table',
-                routes: [
-                  {
-                    name: 'cart',
-                    path: '/cart/cart',
-                    component: './Cart/Cart',
-                  }
-                ]
+                icon: 'ShoppingCart',
+                component: './Cart/Cart',
+                authority: ['user', 'guest'],
               },
+              {
+                path:'/order',
+                name: 'order-container',
+                icon: 'dollar',
+                component: './Order/OrdersBrowse',
+                authority: ['user'],
+              },              
               {
                 path: '/home',
                 name: 'home-container',
-                icon: 'table',
-                routes: [
-                  {
-                    path: '/home/home',
-                    name: 'index',
-                    component: './Home/index',
-                  },
-                ],
-                
-              }, 
-              // {
-              //   path: '/statistics',
-              //   name: 'statistics',
-              //   icon: 'table',
-              //   routes: [
-              //     {
-              //       name: 'list.general-list',
-              //       path: '/statistics/general-statistics',
-              //       component: './Statistics/GeneralStatistics',
-              //     },
-              //     {
-              //       name: 'list.user-list',
-              //       path: '/statistics/user-statistics',
-              //       component: './Statistics/UserStatistics',
-              //     },
-              //     {
-              //       name: 'list.goods-list',
-              //       path: '/statistics/goods-statistics',
-              //       component: './Statistics/GoodsStatistics',
-              //     },
-              //   ],               
-              // },                                                        
+                icon: 'home',
+                component: './Account/Settings',
+                authority: ['user'],
+              },
               {
                 component: './404',
               },
