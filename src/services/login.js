@@ -6,3 +6,9 @@ export async function userAccountLogin(data) {
     data,
   })
 }
+
+export async function userAccountLogout() {
+  return request('/api/user/logout/', {
+    method: 'DELETE',
+  })
+}

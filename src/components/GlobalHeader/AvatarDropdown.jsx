@@ -47,7 +47,7 @@ class AvatarDropdown extends React.Component {
       </Menu>
     )
     const DefaultAvatar = require('../../assets/avatar.jpg')
-    if (currentUser.name === '') {
+    if (!currentUser.name) {
       currentUser.name = "亲，请登录"
     }
     return currentUser && currentUser.name ? (
@@ -71,4 +71,7 @@ class AvatarDropdown extends React.Component {
   }
 }
 
-export default AvatarDropdown;
+export default connect(({ user }) => ({
+  currentUser: user.currentUser,
+}))(AvatarDropdown)
+

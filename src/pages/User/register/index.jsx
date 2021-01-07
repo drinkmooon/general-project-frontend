@@ -134,6 +134,17 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
     <div className={styles.main}>
       <h3>注册</h3>
       <Form form={form} name='UserRegister' onFinish={onFinish}>
+      <FormItem
+          name='id'
+          rules={[
+            {
+              required: true,
+              message: '请输入用户名！',
+            },
+          ]}
+        >
+          <Input size='large' placeholder='用户名' />
+        </FormItem>       
         <FormItem
           name='email'
           rules={[
@@ -150,59 +161,26 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
           <Input size='large' placeholder='邮箱' />
         </FormItem>
         <FormItem
-          name='realname'
+          name='name'
           rules={[
             {
               required: true,
-              message: '请输入真实姓名！',
+              message: '请输入姓名！',
             },
           ]}
         >
-          <Input size='large' placeholder='真实姓名' />
+          <Input size='large' placeholder='姓名' />
         </FormItem>
         <FormItem
-          name='school_id'
+          name='gender'
           rules={[
             {
               required: true,
-              message: '请输入学校编号！',
+              message: '请输入性别！',
             },
           ]}
         >
-          <Input size='large' placeholder='学校编号' />
-        </FormItem>
-        <FormItem
-          name='university_id'
-          rules={[
-            {
-              required: true,
-              message: '请输入学院编号！',
-            },
-          ]}
-        >
-          <Input size='large' placeholder='学院编号' />
-        </FormItem>
-        <FormItem
-          name='character'
-          rules={[
-            {
-              required: true,
-              message: '请输入角色编号！',
-            },
-          ]}
-        >
-          <Input size='large' placeholder='角色编号' />
-        </FormItem>
-        <FormItem
-          name='personal_id'
-          rules={[
-            {
-              required: true,
-              message: '请输入学号！',
-            },
-          ]}
-        >
-          <Input size='large' placeholder='学号' />
+          <Input size='large' placeholder='性别' />
         </FormItem>
         <Popover
           getPopupContainer={(node) => {
