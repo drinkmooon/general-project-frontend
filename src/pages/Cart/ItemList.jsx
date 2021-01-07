@@ -124,7 +124,7 @@ export default () => {
                                 <Tag  color='#f50'><h1>{entity.price}</h1></Tag>
                                 ,
                                 <Button
-                                    ey='10'
+                                    key='10'
                                     onClick={() => { placeOrder(index) }} >
                                     下单
                             </Button>,

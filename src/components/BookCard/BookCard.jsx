@@ -1,4 +1,4 @@
-import { Button, Card } from 'antd';
+import { Button, Card, Tag } from 'antd';
 import { Link, history } from 'umi';
 const { Meta } = Card;
 
@@ -15,10 +15,10 @@ export default function BookCard({ book, action }) {
       <Link to={`/item/detail/${book.bookId}`}>
         <Meta title={
           <>
-            <p>{book.name}</p>
-            <p>售价：{book.price * book.discount}</p>
+            <p>{book.bookName}</p>
           </>
-        } {...book} />
+        } description={book.abstract.slice(0,30)+'...'} />
+        <Tag style={{float:'right'}}color='#f50'>{book.price * book.discount}</Tag>
       </Link>
     </Card>
   );
