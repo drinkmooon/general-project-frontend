@@ -39,23 +39,23 @@ const menuDataRender = (menuList) =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} JAVAEE Group`}
+    copyright={`${new Date().getFullYear()} Java EE 课程小组`}
     links={[
       {
         key: 'frontend',
-        title: <><GithubOutlined /><span>Frontend</span></>,
+        title: <><GithubOutlined /><span>前端仓库</span></>,
         href: 'https://github.com/drinkmooon/general-project-frontend/tree/JAVAEE',
         blankTarget: true,
       },
       {
         key: 'backend',
-        title: <><GithubOutlined /><span>Backend</span></>,
+        title: <><GithubOutlined /><span>后端仓库</span></>,
         href: 'https://github.com/ComposeC/Sell',
         blankTarget: true,
       },
       {
         key: 'service',
-        title: 'Contact',
+        title: '联系方式',
         href: 'https://sse.tongji.edu.cn/',
         blankTarget: true,
       },

@@ -1,9 +1,9 @@
 import { stringify } from 'querystring';
 import { history } from 'umi';
-import { fakeAccountLogin } from '@/services/login';
+import { userAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
-import { message } from 'antd';
+import { notification } from 'antd';
 
 const Model = {
   namespace: 'login',
@@ -12,16 +12,15 @@ const Model = {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(userAccountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
 
-      if (response.status === 'ok') {
+      if (response.status === '200') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
-        message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params;
 
         if (redirect) {
@@ -41,6 +40,12 @@ const Model = {
 
         history.replace(redirect || '/');
       }
+      else {
+        notification.error({
+          message: `登录失败`,
+          description: `用户名或密码错误。`,
+        })        
+      }      
     },
 
     logout() {
@@ -58,7 +63,7 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      setAuthority('user');
       return { ...state, status: payload.status, type: payload.type };
     },
   },

@@ -1,14 +1,13 @@
 const proSettings = {
   navTheme: 'light',
-  // 拂晓蓝
-  //taobaocheng
+  // 淘宝橙
   primaryColor: '#ff551c',//'#1890ff',
   layout: 'top',
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'BookHub',
+  title: '书汇',
   pwa: false,
   iconfontUrl: '',
 };
