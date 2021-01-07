@@ -12,7 +12,8 @@ const BookBoard = ({ bookList }) => {
     const addBook = (book) => {
         console.log(book)
         ApiUtils.addCart({ bookId: book.bookId, quantity: 1 }).then((res) => {
-            if (true || res.msg === 'OK') message.success('Add Book Successfully!');
+            if (res.success === true) message.success('添加购物车成功！');
+            else message.error('请先登录账户哦~~')
         })
     }
 

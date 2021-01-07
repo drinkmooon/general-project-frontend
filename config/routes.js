@@ -66,7 +66,7 @@ export default [
                 name: 'cart-container',
                 icon: 'ShoppingCart',
                 component: './Cart/Cart',
-                authority: ['user', 'guest'],
+                authority: ['user'],
               },
               {
                 path: '/order',
