@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button,Card,Modal } from 'antd';
 import AddressForm from './AddressForm';
 
-export default function AddrCard({addr,style}) {
+export default function AddrCard({addr,style,showAction=false}) {
 
     const [isModalVis, setIsModalVis] = useState(false);
     const handleCancel = () => {
@@ -17,7 +17,9 @@ export default function AddrCard({addr,style}) {
     return (<>
         <Card
             style={{...style,width: 300 }}
-            actions={[
+            actions={
+                (!showAction)?<></>
+                :[
                 <Button onClick={() => {
                     AddrStore.remove(addr)
                 }}>删除

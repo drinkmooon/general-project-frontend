@@ -30,11 +30,6 @@ export default [
                     name: 'cart',
                     path: '/cart/cart',
                     component: './Cart/Cart',
-                  },
-                  {
-                    name: 'create-order',
-                    path: '/cart/create-order',
-                    component: './Cart/CreateOrder'
                   }
                 ]
               },

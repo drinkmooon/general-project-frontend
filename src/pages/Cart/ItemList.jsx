@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Progress, Button, InputNumber, message,Modal } from 'antd';
+import { Progress, Button, InputNumber, message, Modal } from 'antd';
 import ProList from '@ant-design/pro-list';
 import { useParams } from 'umi';
 import ApiUtils from '@/utils/ApiUtils';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
+import CreateOrder from './CreateOrder';
 const dataSource = [
     {
         title: '语雀的天空',
@@ -47,9 +48,16 @@ export default () => {
     const [counts, setCounts] = useState([1, 1, 1, 10]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
+    const [selectedBooks,setSelectedBooks] = useState([]);
     const [isOrderModalVisable, setOrderModal] = useState(false);
-    const [isAddrModalVisable, setAddrOrderModal] = useState(false);
+    //const [isAddrModalVisable, setAddrOrderModal] = useState(false);
 
+    useEffect(()=>{
+        if(selectedBooks && selectedBooks.length!==0){
+            setOrderModal(true);
+        }
+        
+    },[selectedBooks]);
 
     useEffect(() => {
         ApiUtils.checkCart().then((res) => {
@@ -63,7 +71,6 @@ export default () => {
     const prevBookList = usePrevious(bookList);
 
     useEffect(() => {
-
         if (bookList && bookList.length != 0) {
             if (prevBookList) {
                 let delIndex = 0;
@@ -73,11 +80,13 @@ export default () => {
                         break;
                     }
                 }
-                setCounts(counts.filter((count, index) => { index != delIndex }))
+                setSelectedRowKeys(selectedRowKeys.filter((k,i)=>(i!=delIndex)))
+                setCounts(counts.filter((count, index) =>(index != delIndex )))
             }
         }
         else {
             setCounts([]);
+            setSelectedRowKeys([]);
         }
     }, [bookList]);
 
@@ -86,13 +95,23 @@ export default () => {
         onChange: (keys) => setSelectedRowKeys(keys),
     };
 
-    const deleteBook = index => {
-        ApiUtils.delCart(bookList[index].bookId)
-            .then((res) => {
+    const deleteBooks = bookIds => {
+        for(let i = 0;i<bookIds.length;i++){
+            ApiUtils.delCart(bookIds[i])
+            .then((res)=>{
+                if(true||res.msg==='OK'){
+                    setBookList(bookList.filter((b)=>(b.bookId!=bookIds[i])));
+                }
+            })
+        }
+    }
 
+    const deleteBook = bookId => {
+        ApiUtils.delCart(bookId)
+            .then((res) => {
                 if (true || res.msg === 'OK') {
                     message.success('Delete Book Successfully!');
-                    setBookList(bookList.filter((book, ind) => (ind !== index)));
+                    setBookList(bookList.filter((book) => (book.bookId !== bookId)));
                 }
                 else {
                     message.error('Something goes wrong. Please try it again.')
@@ -116,80 +135,77 @@ export default () => {
         });
     }
 
+
+    const placeSelected = () => {
+        setSelectedBooks(selectedRowKeys.map((key)=>({...bookList[key],quantity:counts[key]})));
+    }
+
     const placeOrder = index => {
+        setSelectedBooks([{...bookList[index],quantity:counts[index]}]);
     }
 
     return (
         <div>
-        <ProList
-            toolBarRender={() => {
-                return [<Button onClick={() => { console.log(counts); }}>DEBUG</Button>,
-                <Button key="3" type='primary' disabled={selectedRowKeys.length === 0 ? true : false} >
-                    下单
+            <ProList
+                toolBarRender={() => {
+                    return [<Button onClick={() => { console.log(counts); }}>DEBUG</Button>,
+                    <Button key="3" type='primary' disabled={selectedRowKeys.length === 0 ? true : false} onClick={placeSelected} >
+                        下单
           </Button>,
-                <Button key="3" danger onClick={deleteAllBooks} disabled={bookList.length === 0 ? true : false}>
-                    清空购物车
+                    <Button key="3" danger onClick={deleteAllBooks} disabled={bookList.length === 0 ? true : false}>
+                        清空购物车
         </Button>
-                ];
-            }}
-            metas={{
-                title: {},
-                description: {
-                    render: () => {
-                        return 'Ant Design, a design language for background applications, is refined by Ant UED Team';
+                    ];
+                }}
+                metas={{
+                    title: {},
+                    description: {
+                        render: () => {
+                            return 'Ant Design, a design language for background applications, is refined by Ant UED Team';
+                        },
                     },
-                },
-                avatar: {},
-                extra: {
-                    // render: () => (
-                    //     <div
-                    //         style={{
-                    //             minWidth: 200,
-                    //             flex: 1,
-                    //             display: 'flex',
-                    //             justifyContent: 'flex-end',
-                    //         }}
-                    //     >
-                    //         <div
-                    //             style={{
-                    //                 width: '200px',
-                    //             }}
-                    //         >
-                    //             <div>发布中</div>
-                    //             <Progress percent={80} />
-                    //         </div>
-                    //     </div>
-                    // ),
-                },
-                actions: {
-                    render: (dom, entity, index) => {
-                        return [
-                            <Button
-                                ey='10'
-                                onClick={() => { placeOrder(index) }} >
-                                下单
+                    avatar: {},
+                    actions: {
+                        render: (dom, entity, index) => {
+                            return [
+                                <Button
+                                    ey='10'
+                                    onClick={() => { placeOrder(index) }} >
+                                    下单
                             </Button>,
-                            <Button key='11'
-                                danger
-                                onClick={() => { deleteBook(index) }}>
-                                删除
+                                <Button key='11'
+                                    danger
+                                    onClick={() => { deleteBook(entity.bookId) }}>
+                                    删除
                             </Button>,
-                            <InputNumber
-                                min={1}
-                                defaultValue={counts[index]}
-                                onChange={value => { changeBookNum(index, value) }}
-                            />
-                        ];
+                                <InputNumber
+                                    min={1}
+                                    defaultValue={counts[index]}
+                                    onChange={value => { changeBookNum(index, value) }}
+                                />
+                            ];
+                        },
                     },
-                },
-            }}
-            rowKey="title"
-            headerTitle="支持选中的列表"
-            rowSelection={rowSelection}
-            dataSource={bookList}
-        />
-        <Modal></Modal>
+                }}
+                rowKey={(row,index)=>index}
+                rowSelection={rowSelection}
+                dataSource={bookList}
+            />
+            <Modal
+                visible={isOrderModalVisable}
+                width={1000}
+                style={{height:800}}
+                onCancel={()=>setOrderModal(false)}
+                footer={false}
+                >
+                
+                <CreateOrder
+                    style={{height:800}}
+                    bookWithCountList={selectedBooks}
+                    closeModal={() => { setOrderModal(false);deleteBooks(selectedBooks.map((b)=>(b.bookId))) }} />
+            </Modal>
         </div>
     );
 };
 
+//重写selectedBooks的相关逻辑
