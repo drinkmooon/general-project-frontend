@@ -7,13 +7,13 @@ export default function AddressForm( params ) {
 
     const {preAddr,closeModal} = params;
     const [updating, setUpdating] = useState(false);
-    const [prevAddr, setPrevAddr] = useState({});
+    const [prevAddr, setPrevAddr] = useState(preAddr);
 
     const onFinish = values => 
     {
         setUpdating(true);
         console.log(params)
-        if (prevAddr) {
+        if (preAddr) {
             ApiUtils.editAddr(prevAddr.id, values).then((res) => {
                 setUpdating(false);
                 closeModal();

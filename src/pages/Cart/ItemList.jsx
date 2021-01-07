@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Progress, Button, InputNumber, message, Modal } from 'antd';
+import { Progress, Button, InputNumber, message, Modal, Tag } from 'antd';
 import ProList from '@ant-design/pro-list';
 import { useParams } from 'umi';
 import ApiUtils from '@/utils/ApiUtils';
@@ -44,26 +44,24 @@ function usePrevious(value) {
 
 export default () => {
 
-    const [bookList, setBookList] = useState(dataSource);
-    const [counts, setCounts] = useState([2, 4, 6, 8]);
+    const [bookList, setBookList] = useState([]);
+    const [counts, setCounts] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-    const [selectedBooks,setSelectedBooks] = useState([]);
+    const [selectedBooks, setSelectedBooks] = useState([]);
     const [isOrderModalVisable, setOrderModal] = useState(false);
     //const [isAddrModalVisable, setAddrOrderModal] = useState(false);
 
-    useEffect(()=>{
-        if(selectedBooks && selectedBooks.length!==0){
+    useEffect(() => {
+        if (selectedBooks && selectedBooks.length !== 0) {
             setOrderModal(true);
         }
-        
-    },[selectedBooks]);
+
+    }, [selectedBooks]);
 
     useEffect(() => {
-        ApiUtils.checkCart().then((res) => {
-            if (res.message == 'OK') {
-                setBookList(res.data);
-            }
+        ApiUtils.checkCart().then((res) => {            
+            setBookList(res.data);
         })
     }, []);
 
@@ -72,11 +70,12 @@ export default () => {
     useEffect(() => {
         if (bookList && bookList.length != 0) {
             if (prevBookList) {
-                const delList = prevBookList.filter((p)=>(!bookList.includes(p))).map((bk)=>(prevBookList.indexOf(bk)))
-                setSelectedRowKeys(selectedRowKeys.filter((k,i)=>(!delList.includes(i))))
-                console.log(counts.filter((count, index) =>((!delList.includes(index)))))
-                setCounts(counts.filter((count, index) =>((!delList.includes(index)))))
+                const delList = prevBookList.filter((p) => (!bookList.includes(p))).map((bk) => (prevBookList.indexOf(bk)))
+                setSelectedRowKeys(selectedRowKeys.filter((k, i) => (!delList.includes(i))))
+                console.log(counts.filter((count, index) => ((!delList.includes(index)))))
+                setCounts(counts.filter((count, index) => ((!delList.includes(index)))))
             }
+            setCounts(bookList.map((b)=>(b.quantity)));
         }
         else {
             setCounts([]);
@@ -90,11 +89,11 @@ export default () => {
     };
 
     const deleteBooks = bookIds => {
-        
-        for(let i = 0;i<bookIds.length;i++){
+
+        for (let i = 0; i < bookIds.length; i++) {
             ApiUtils.delCart(bookIds[i])
         }
-        setBookList(bookList.filter((b)=> (!bookIds.includes(b.bookId))));
+        setBookList(bookList.filter((b) => (!bookIds.includes(b.bookId))));
     }
 
     const deleteBook = bookId => {
@@ -128,18 +127,18 @@ export default () => {
 
 
     const placeSelected = () => {
-        setSelectedBooks(selectedRowKeys.map((key)=>({...bookList[key],quantity:counts[key]})));
+        setSelectedBooks(selectedRowKeys.map((key) => ({ ...bookList[key], quantity: counts[key] })));
     }
 
     const placeOrder = index => {
-        setSelectedBooks([{...bookList[index],quantity:counts[index]}]);
+        setSelectedBooks([{ ...bookList[index], quantity: counts[index] }]);
     }
 
     return (
         <div>
             <ProList
                 toolBarRender={() => {
-                    return [<Button onClick={() => { console.log(counts); }}>DEBUG</Button>,
+                    return [<Button onClick={() => { console.log(bookList);console.log(counts); }}>DEBUG</Button>,
                     <Button key="3" type='primary' disabled={selectedRowKeys.length === 0 ? true : false} onClick={placeSelected} >
                         下单
           </Button>,
@@ -149,16 +148,18 @@ export default () => {
                     ];
                 }}
                 metas={{
-                    title: {},
+                    title: { render: (dom, entity) => (entity.bookName) },
                     description: {
                         render: () => {
                             return 'Ant Design, a design language for background applications, is refined by Ant UED Team';
                         },
                     },
-                    avatar: {},
+                    avatar: { render: (dom, entity) => (<img src={entity.image}/>) },
                     actions: {
                         render: (dom, entity, index) => {
                             return [
+                                <Tag color='#f50'>{entity.price}</Tag>
+                                ,
                                 <Button
                                     ey='10'
                                     onClick={() => { placeOrder(index) }} >
@@ -179,22 +180,22 @@ export default () => {
                         },
                     },
                 }}
-                rowKey={(row,index)=>index}
+                rowKey={(row, index) => index}
                 rowSelection={rowSelection}
                 dataSource={bookList}
             />
             <Modal
                 visible={isOrderModalVisable}
                 width={1000}
-                style={{height:800}}
-                onCancel={()=>setOrderModal(false)}
+                style={{ height: 800 }}
+                onCancel={() => setOrderModal(false)}
                 footer={false}
-                >
-                
+            >
+
                 <CreateOrder
-                    style={{height:800}}
+                    style={{ height: 800 }}
                     bookWithCountList={selectedBooks}
-                    closeModal={() => { setOrderModal(false);deleteBooks(selectedBooks.map((b)=>(b.bookId))) }} />
+                    closeModal={() => { setOrderModal(false); deleteBooks(selectedBooks.map((b) => (b.bookId))) }} />
             </Modal>
         </div>
     );

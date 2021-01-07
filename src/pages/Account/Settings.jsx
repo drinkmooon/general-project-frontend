@@ -17,7 +17,7 @@ export default () => {
         ApiUtils.getAddr().then((res) => {
             setAddrList(res.data);
         })
-    }, [])
+    }, [modalVisible])
 
     const fresh = () => {
         window.location.reload(true);
@@ -85,7 +85,9 @@ export default () => {
                 onCancel={()=>{setModalVisible(false)}}
                 
             >
-                <AddressForm closeModal={()=>{fresh();setModalVisible(false)}}/>
+                <AddressForm closeModal={()=>{
+                    // fresh();
+                    setModalVisible(false)}}/>
             </Modal>
         </PageHeaderWrapper>);
 };

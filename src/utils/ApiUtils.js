@@ -51,9 +51,8 @@ class ApiUtil{
   }
 
   delCart = async bookId => {
-    return request('/api/cart/DelCart', {
+    return request('/api/cart/DelCart?bookId='+bookId, {
       method: 'DELETE',
-      data: { bookId: bookId },
     });
   }
 
