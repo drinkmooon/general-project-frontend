@@ -92,10 +92,5 @@ class ApiUtil{
   payOrder = async orderId => {
     return request(`/api/order/PayOrder?orderId=${orderId}`);
   }
-
-  userRegister = async params => {
-    return request(`/api/user/register?username=${params.username}&password=${params.password}`);
-  }
-
 }
 export default new ApiUtil();

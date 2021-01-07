@@ -1,4 +1,4 @@
-import ApiUtil from '@/utils/ApiUtils'
+import { userAccountRegister } from './service'
 
 const Model = {
   namespace: 'register',
@@ -10,7 +10,7 @@ const Model = {
       const actualPayload = { ...payload, avatar: payload.avatar || {} }
       // TODO: to be removed in release version
       // eslint-disable-next-line no-console
-      const response = yield call(ApiUtil.userRegister, actualPayload)
+      const response = yield call(userAccountRegister, actualPayload)
       yield put({
         type: 'registerHandle',
         payload: response,

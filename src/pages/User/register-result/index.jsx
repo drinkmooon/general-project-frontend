@@ -16,12 +16,12 @@ const actions = (
   </div>
 )
 
-const RegisterResult = (props) => (
+const RegisterResult = () => (
   <Result
     className={styles.registerResult}
     status='success'
     title={<div className={styles.title}>注册成功</div>}
-    subTitle={`您的账号已经顺利激活，您的ID是${props.location.state.account}，请登录系统进行使用`}
+    subTitle={`您的账号已经顺利激活，请登录系统进行使用`}
     extra={actions}
   />
 )

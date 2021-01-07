@@ -9,7 +9,6 @@ const Model = {
   namespace: 'login',
   state: {
     status: undefined,
-    currentUser: {},
   },
   effects: {
     *login({ payload }, { call, put }) {
@@ -49,17 +48,17 @@ const Model = {
       }
     },
 
-    *logout(_, { call }) {
+    *logout(_, { call, put }) {
       const { redirect } = getPageQuery(); // Note: There may be security issues, please note
       const response = yield call(userAccountLogout)
+      console.log(response)
       yield put({
         type: 'removeLoginStatus',
         payload: response,
       });
-      console.log(response)
-      if (window.location.pathname !== '/user/login' && !redirect) {
+      if (window.location.pathname !== '/' && !redirect) {
         history.replace({
-          pathname: '/user/login',
+          pathname: '/',
           search: stringify({
             redirect: window.location.href,
           }),
@@ -72,14 +71,13 @@ const Model = {
       if (payload.success) {
         setAuthority(['user']);
       }
-      return { ...state, currentUser: {} }
+      return { ...state}
     },
     removeLoginStatus(state, { payload }) {
-      console.log(getAuthority())
       if (payload.success) {
         setAuthority(['guest']);
       }
-        return { ...state, currentUser: {} }
+        return { ...state }
     },
   },
 };
