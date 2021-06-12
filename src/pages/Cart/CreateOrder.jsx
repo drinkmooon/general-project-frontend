@@ -64,7 +64,7 @@ export default ({ bookWithCountList, closeModal }) => {
                         </div>
                     )}
                         size='large' style={{ width: 300 }} onSelect={(value) => setAddrId(value)}>
-                        {addrList.map((address) => (<Option value={address.id}>{`${address.name} ${address.location}`}</Option>))}
+                        {addrList?.map((address) => (<Option value={address.id}>{`${address.name} ${address.location}`}</Option>))}
                     </Select>
                     <AddrCard style={{ visibility: visibility }} addr={addrList.filter((add) => (add.d == addrId))[0]}></AddrCard></Col>
                 <Col span={8}>

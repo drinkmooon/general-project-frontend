@@ -26,23 +26,9 @@ export default () => {
             key: 'name',
         },
         {
-            title: '位置',
+            title: '配送地点',
             dataIndex: 'location',
             key: 'location',
-        },
-        {
-            title: '订单状态',
-            key: 'orderStatus',
-            dataIndex: 'orderStatus',
-            render:
-                status => {
-                    let color = status.length > 3 ? 'blue' : 'green';
-                    return (
-                        <Tag color={color} key={status}>
-                            {status}
-                        </Tag>
-                    );
-                }
         },
         {
             title: '总价',
