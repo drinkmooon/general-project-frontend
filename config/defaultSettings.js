@@ -2,12 +2,12 @@ const proSettings = {
   navTheme: 'dark',
   // 拂晓蓝
   primaryColor: '#1890ff',
-  layout: 'side',
+  layout: 'top',
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '云销售',
+  title: 'Business Intelligence',
   pwa: false,
   iconfontUrl: '',
 };

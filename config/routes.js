@@ -14,11 +14,19 @@ export default [
               {
                 path: '/',
                 redirect: '/statistics/general-statistics',
-              },         
+              },
+              {
+                path: '/search',
+                name: 'search',
+                icon: 'search',
+                component: './Search',
+                hideInMenu:true,
+              },        
               {
                 path: '/statistics',
                 name: 'statistics',
                 icon: 'table',
+                hideInMenu:true,
                 routes: [
                   {
                     name: 'list.general-list',
