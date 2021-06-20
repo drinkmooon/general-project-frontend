@@ -13,7 +13,7 @@ export default [
             routes: [
               {
                 path: '/',
-                redirect: '/statistics/general-statistics',
+                redirect: '/search',
               },
               {
                 path: '/search',
@@ -21,30 +21,7 @@ export default [
                 icon: 'search',
                 component: './Search',
                 hideInMenu:true,
-              },        
-              {
-                path: '/statistics',
-                name: 'statistics',
-                icon: 'table',
-                hideInMenu:true,
-                routes: [
-                  {
-                    name: 'list.general-list',
-                    path: '/statistics/general-statistics',
-                    component: './Statistics/GeneralStatistics',
-                  },
-                  {
-                    name: 'list.user-list',
-                    path: '/statistics/user-statistics',
-                    component: './Statistics/UserStatistics',
-                  },
-                  {
-                    name: 'list.goods-list',
-                    path: '/statistics/goods-statistics',
-                    component: './Statistics/GoodsStatistics',
-                  },
-                ],               
-              },                                                        
+              },                                                            
               {
                 component: './404',
               },
