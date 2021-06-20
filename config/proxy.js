@@ -6,11 +6,18 @@
  * https://pro.ant.design/docs/deploy
  */
 // const BASE_URL = 'http://mockjs.docway.net/mock/1b5MYNv513x';
-const BASE_URL = 'http://8.133.173.118:8899';
+const BASE_URL = 'http://139.196.106.96:3655';
 export default {
   
   dev: {
-    '/api/': {
+    '/personrate/': {
+      target: BASE_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^': '',
+      },
+    },
+    '/orgrate/': {
       target: BASE_URL,
       changeOrigin: true,
       pathRewrite: {
