@@ -1,13 +1,13 @@
 const proSettings = {
-  navTheme: 'light',
+  navTheme: 'dark',
   // 淘宝橙
-  primaryColor: '#ff551c',//'#1890ff',
+  primaryColor: '#37477e',//'#1890ff',
   layout: 'top',
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '书汇',
+  title: '论',
   pwa: false,
   iconfontUrl: '',
 };

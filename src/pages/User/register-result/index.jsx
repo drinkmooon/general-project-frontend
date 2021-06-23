@@ -21,7 +21,7 @@ const RegisterResult = () => (
     className={styles.registerResult}
     status='success'
     title={<div className={styles.title}>注册成功</div>}
-    subTitle={`您的账号已经顺利激活，请登录系统进行使用`}
+    subTitle={`您的账号已经顺利激活，请使用 用户名-密码 登录系统进行使用`}
     extra={actions}
   />
 )

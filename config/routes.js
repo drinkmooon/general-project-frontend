@@ -36,7 +36,6 @@ export default [
         path: '/',
         component: '../layouts/BlankLayout',
         routes: [
-
           {
             path: '/',
             component: '../layouts/BasicLayout',
@@ -44,52 +43,25 @@ export default [
             routes: [
               {
                 path: '/',
-                redirect: '/item/browse',
+                redirect: '/search',
               },
               {
-                name: 'book-detail',
-                path: '/item/detail/:itemId',
-                hideInMenu: true,
-                component: './Shop/ItemDetail',
-                authority: ['user', 'guest'],
+                name: 'search',
+                path: '/search',
+                component: './SearchBoard',
+                authority: ['guest','SchoolAdmin','Member'],
               },
               {
-                path: '/item/browse',
-                name: 'shop-container',
-                icon: 'shop',
-                component: './Shop/ItemsBrowse',
-                authority: ['user', 'guest'],
-              },
-
-              {
-                path: '/cart',
-                name: 'cart-container',
-                icon: 'ShoppingCart',
-                component: './Cart/Cart',
-                authority: ['user'],
+                name: 'Departments',
+                path: '/departments',
+                component: './Departments',
+                authority: ['SchoolAdmin','Member'],
               },
               {
-                path: '/order',
-                name: 'order-container',
-                icon: 'dollar',
-                component: './Order/OrdersBrowse',
-                authority: ['user'],
-                routes: [
-                  {
-                    name: 'order-detail',
-                    path: '/order/detail/:orderId',
-                    hideInMenu: true,
-                    component: './Order/OrderDetail',
-                    authority: ['user'],
-                  }
-                ]
-              },
-              {
-                path: '/home',
-                name: 'home-container',
-                icon: 'home',
-                component: './Account/Settings',
-                authority: ['user'],
+                name: 'Paper',
+                path: '/paper',
+                component: './Paper',
+                authority: ['SchoolAdmin'],
               },
               {
                 component: './404',

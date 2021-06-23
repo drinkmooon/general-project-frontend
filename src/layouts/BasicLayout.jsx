@@ -10,8 +10,9 @@ import { Result, Button } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
+import UploadPaper from '@/components/UploadPaper';
 import { getMatchMenu } from '@umijs/route-utils';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 const noMatch = (
   <Result
     status={403}
@@ -75,8 +76,9 @@ const BasicLayout = (props) => {
   const menuDataRef = useRef([]);
   useEffect(() => {
     if (dispatch) {
+      console.log('layout');
       dispatch({
-        type: 'user/fetchCurrent',
+        type: 'login/fetchCurrent',
       });
     }
   }, []);
@@ -144,6 +146,7 @@ const BasicLayout = (props) => {
     >
       <Authorized authority={authorized.authority} noMatch={noMatch}>
         {children}
+        <UploadPaper />
       </Authorized>
     </ProLayout>
   );

@@ -38,7 +38,7 @@ const NormalLoginForm = (props) => {
         onFinish={props.onFinish}
       >
         <Form.Item
-          name='id'
+          name='username'
           rules={[
             {
               required: true,

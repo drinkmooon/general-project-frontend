@@ -23,6 +23,7 @@ class AvatarDropdown extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const {
       currentUser = {
         avatar: '',
@@ -72,7 +73,7 @@ class AvatarDropdown extends React.Component {
   }
 }
 
-export default connect(({ user }) => ({
-  currentUser: user.currentUser,
+export default connect(({ login }) => ({
+  currentUser: login.currentUser,
 }))(AvatarDropdown)
 

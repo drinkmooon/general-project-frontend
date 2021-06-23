@@ -6,4 +6,9 @@ export default {
   'menu.order-container': '订单', 
   'menu.home-container': '个人中心', 
   'menu.home': '主页',
+  'menu.Paper': '论文',
+  'menu.Departments': '学院',
+  'menu.search':'搜索',
+  'menu.order-container.order-detail': 'a',
+  'menu.book-detail': 'b',
 };

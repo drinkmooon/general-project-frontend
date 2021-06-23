@@ -7,7 +7,6 @@ const namespace = 'register'
 
 const FormItem = Form.Item
 const { Option } = Select
-const InputGroup = Input.Group
 const passwordStatusMap = {
   ok: <div className={styles.success}>强度：强</div>,
   pass: <div className={styles.warning}>强度：中</div>,
@@ -55,7 +54,7 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
       payload: { ...values, prefix },
     }).then((response) => {
       console.log(response)
-      if (response.success) {
+      if (response.isSuccess) {
         message.success('注册成功！')
         history.push({
           pathname: '/user/register-result',
@@ -64,8 +63,8 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
       else {
         notification.error({
           message: `注册失败`,
-          description: `注册申请不符合要求。`,
-        })        
+          description: `该账号已被注册！`,
+        })
       }
     })
   }
@@ -130,7 +129,7 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
       <h3>注册</h3>
       <Form form={form} name='UserRegister' onFinish={onFinish}>
       <FormItem
-          name='id'
+          name='username'
           rules={[
             {
               required: true,
@@ -141,41 +140,34 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
           <Input size='large' placeholder='用户名' />
         </FormItem>       
         <FormItem
-          name='email'
+          name='role'
           rules={[
             {
               required: true,
-              message: '请输入邮箱地址！',
-            },
-            {
-              type: 'email',
-              message: '邮箱地址格式错误！',
+              message: '请选择您的注册角色',
             },
           ]}
         >
-          <Input size='large' placeholder='邮箱' />
+          <Select size='large' placeholder='角色'>
+            <Option value='SchoolAdmin'>教师</Option>
+            <Option value='Member'>学生</Option>
+          </Select>
         </FormItem>
         <FormItem
-          name='name'
+          name='deptId'
           rules={[
             {
               required: true,
-              message: '请输入姓名！',
+              message: '请选择学院！',
             },
           ]}
         >
-          <Input size='large' placeholder='姓名' />
-        </FormItem>
-        <FormItem
-          name='gender'
-          rules={[
-            {
-              required: true,
-              message: '请输入性别！',
-            },
-          ]}
-        >
-          <Input size='large' placeholder='性别' />
+          <Select size='large' placeholder='学院'>
+            <Option value={1}>软件学院</Option>
+            <Option value={2}>电信学院</Option>
+            <Option value={3}>汽车学院</Option>
+            <Option value={4}>中德学院</Option>
+          </Select>
         </FormItem>
         <Popover
           getPopupContainer={(node) => {

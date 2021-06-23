@@ -31,10 +31,11 @@ const errorHandler = (error) => {
 
   if (response && response.status) {
   } else if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
+    console.log(error);
+    // notification.error({
+    //   description: '您的网络发生异常，无法连接服务器',
+    //   message: '网络异常',
+    // });
   }
 
   return response;

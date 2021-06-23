@@ -1,6 +1,6 @@
 import { stringify } from 'querystring';
 import { history } from 'umi';
-import { userAccountLogin, userAccountLogout } from '@/services/login';
+import { userAccountLogin, userAccountLogout, queryCurrent } from '@/services/user';
 import { getAuthority, setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { notification } from 'antd';
@@ -9,6 +9,7 @@ const Model = {
   namespace: 'login',
   state: {
     status: undefined,
+    currentUser: {},
   },
   effects: {
     *login({ payload }, { call, put }) {
@@ -18,7 +19,7 @@ const Model = {
         payload: response,
       }); // Login successfully
 
-      if (response.success) {
+      if (response.isSuccess) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -47,11 +48,16 @@ const Model = {
         })
       }
     },
-
+    *fetchCurrent(_, { call, put }) {
+      const response = yield call(queryCurrent);
+      yield put({
+        type: 'saveCurrentUser',
+        payload: response,
+      });
+    },
     *logout(_, { call, put }) {
       const { redirect } = getPageQuery(); // Note: There may be security issues, please note
       const response = yield call(userAccountLogout)
-      console.log(response)
       yield put({
         type: 'removeLoginStatus',
         payload: response,
@@ -69,16 +75,24 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      if (payload.success) {
-        setAuthority(['user']);
+      if (payload.isSuccess) {
+        setAuthority([payload.userInfo.role]);
+        return { ...state,currentUser:{...payload.userInfo,name:payload.userInfo.username,id:payload.userInfo.id}}
       }
-      return { ...state}
+      return { ...state, currentUser:{}}
     },
     removeLoginStatus(state, { payload }) {
-      if (payload.success) {
+      if (payload.isSuccess) {
         setAuthority(['guest']);
       }
-        return { ...state }
+      return { ...state, currentUser:{} }
+    },
+    saveCurrentUser(state, { payload }) {
+      console.log('save',payload);
+      if(payload?.info){
+        return { ...state, currentUser: {...payload.info,name:payload.info.username,id:payload.info.id} };
+      }
+        return { ...state, currentUser: {} }; 
     },
   },
 };

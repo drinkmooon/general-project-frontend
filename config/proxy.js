@@ -8,8 +8,9 @@
 // const BASE_URL = 'http://8.133.173.118:8848'; 
 
 const MOCK_URL = 'http://mockjs.docway.net/mock/1anTtSjfMYb/'
-const SERVER_URL = 'http://121.4.51.246:8081';
+const SERVER_URL = 'http://1.116.230.228:36913';
 const BASE_URL = SERVER_URL;
+const FILE_URL = 'http://dotnet-1304769744.cos.ap-shanghai.myqcloud.com'
 export default {
   
   dev: {
@@ -17,9 +18,16 @@ export default {
       target: SERVER_URL,
       changeOrigin: true,
       pathRewrite: {
-        '^': '',
+        '^/api': '',
       },
     },
+    '/file/':{
+      target: FILE_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        '^/file/': '',
+      },
+    }
     // '/api/user/info':{
     //   target: SERVER_URL,
     //   changeOrigin: true,

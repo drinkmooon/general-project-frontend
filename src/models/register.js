@@ -1,4 +1,4 @@
-import { userAccountRegister } from './service'
+import { userAccountRegister } from '@/services/user'
 
 const Model = {
   namespace: 'register',
@@ -8,8 +8,6 @@ const Model = {
   effects: {
     *submit({ payload }, { call, put }) {
       const actualPayload = { ...payload, avatar: payload.avatar || {} }
-      // TODO: to be removed in release version
-      // eslint-disable-next-line no-console
       const response = yield call(userAccountRegister, actualPayload)
       yield put({
         type: 'registerHandle',
