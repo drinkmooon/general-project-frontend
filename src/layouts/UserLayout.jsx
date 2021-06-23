@@ -3,7 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link, SelectLang, useIntl, connect, FormattedMessage } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import React from 'react';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 import styles from './UserLayout.less';
 
 const UserLayout = (props) => {
@@ -56,12 +56,12 @@ const UserLayout = (props) => {
           {children}
         </div>
         <DefaultFooter
-          copyright={`${new Date().getFullYear()} Java EE 课程小组`}
+          copyright={`${new Date().getFullYear()} .Net Course`}
           links={[
             {
               key: 'frontend',
               title: <><GithubOutlined /><span>前端仓库</span></>,
-              href: 'https://github.com/drinkmooon/general-project-frontend/tree/JAVAEE',
+              href: 'https://github.com/drinkmooon/general-project-frontend/tree/PaperHub',
               blankTarget: true,
             },
             {

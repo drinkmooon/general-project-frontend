@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllDepartments, createDepartment } from '@/services/department';
 import { Input, Button, Modal, Form } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-layout'
 import ProTable from '@ant-design/pro-table';
 import logo from '@/../public/favicon.png';
 import styles from './styles.less';
@@ -24,8 +25,8 @@ export default function () {
     },
     {
       title: '院系描述',
-      dataIndex: 'desciption',
-      key: 'desciption',
+      dataIndex: 'description',
+      key: 'description',
     },
     {
       title: '创建时间',
@@ -40,13 +41,13 @@ export default function () {
   }, []);
   const createDept = (newDept) => {
     createDepartment(newDept).then((res) => {
-      if (res?.data.isSuccess) {
-        setData((old) => [...old, res.data.department]);
+      if (res?.isSuccess) {
+        setData((old) => [...old, res.department]);
       }
     });
   };
   return (
-    <>
+    <PageContainer>
       <div>
         <ProTable
           className={data?.length === 0 ? styles.displaynone : styles.table}
@@ -95,6 +96,6 @@ export default function () {
           </Item>
         </Form>
       </Modal>
-    </>
+    </PageContainer>
   );
 }

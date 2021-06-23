@@ -11,4 +11,5 @@ export default {
   'menu.search':'搜索',
   'menu.order-container.order-detail': 'a',
   'menu.book-detail': 'b',
+  'menu.Statistic':'统计'
 };

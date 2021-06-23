@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { history, connect } from 'umi';
-import { searchPaper } from '@/services/paper';
+import { searchPaper, markPaper } from '@/services/paper';
 import { addDownloadCount } from '@/services/download';
-import { Input, Table, Modal } from 'antd';
+import { getAuthority } from '@/utils/authority';
+import { Input, Table, Modal, Divider, InputNumber } from 'antd';
 import logo from '@/../public/favicon.png';
 import styles from './styles.less';
 
@@ -13,7 +14,7 @@ export default connect(({ login, users, departments }) => ({
   departments: departments.departments,
 }))(function ({ currentUser, users, departments, dispatch }) {
   const [data, setData] = useState([]);
-
+  const [scores, setScores] = useState({});
   useEffect((_) => {
     dispatch({
       type: 'users/getAllUsers',
@@ -37,11 +38,11 @@ export default connect(({ login, users, departments }) => ({
   const unique = (arr) => {
     const set = new Set();
     return arr.filter((a) => {
-      if(set.has(a.value)){
-        return false
+      if (set.has(a.value)) {
+        return false;
       }
-      set.add(a.value)
-      return true
+      set.add(a.value);
+      return true;
     });
   };
 
@@ -66,7 +67,7 @@ export default connect(({ login, users, departments }) => ({
       dataIndex: 'writerId',
       key: 'writerId',
       filters: unique(
-        data?.map((d,i) => ({ key:i,text: users[0]?.get(d.writerId), value: d.writerId })),
+        data?.map((d, i) => ({ key: i, text: users[0]?.get(d.writerId), value: d.writerId })),
       ),
       onFilter: (value, record) => record.writerId === value,
       render: (text) => users[0]?.get(text),
@@ -85,7 +86,9 @@ export default connect(({ login, users, departments }) => ({
       title: '学院',
       dataIndex: 'deptId',
       key: 'deptId',
-      filters: unique(data.map((d,i) => ({key:i, text: departments[0]?.get(d.deptId), value: d.deptId }))),
+      filters: unique(
+        data.map((d, i) => ({ key: i, text: departments[0]?.get(d.deptId), value: d.deptId })),
+      ),
       onFilter: (value, record) => record.deptId === value,
       render: (text) => departments[0]?.get(text),
     },
@@ -93,26 +96,53 @@ export default connect(({ login, users, departments }) => ({
       title: '分数',
       dataIndex: 'score',
       key: 'score',
+      render: (text, record) =>
+        getAuthority()[0] === 'SchoolAdmin' ? (
+          <>
+            <InputNumber
+              defaultValue={text}
+              keyboard={false}
+              max={100}
+              min={0}
+              step={10}
+              onChange={(v) => {
+                setScores((old) => ({ ...old, [record.id]: v }));
+              }}
+            ></InputNumber>
+            <Divider type="vertical" />
+            <a
+              onClick={() => {
+                markPaper({ Id: record.id, Score: scores[record.id] });
+              }}
+            >
+              赋分
+            </a>
+          </>
+        ) : (
+          text
+        ),
     },
     {
       title: '操作',
       key: 'action',
       dataIndex: '',
       render: (text, record) => (
-        <a
-          target={currentUser.id?"_blank":'_self'}
-          onClick={() => {
-            if (currentUser.id) {
-              addDownloadCount({ UserId: currentUser.id, PapperId: record.id });
-            } else {
-              showModal();
-            }
-          }}
-          href={currentUser.id?record.url:'javascript:;'}
-          rel="noreferrer"
-        >
-          下载
-        </a>
+        <>
+          <a
+            target={currentUser.id ? '_blank' : '_self'}
+            onClick={() => {
+              if (currentUser.id) {
+                addDownloadCount({ UserId: currentUser.id, PapperId: record.id });
+              } else {
+                showModal();
+              }
+            }}
+            href={currentUser.id ? record.url : 'javascript:;'}
+            rel="noreferrer"
+          >
+            下载
+          </a>
+        </>
       ),
     },
   ];
@@ -138,16 +168,16 @@ export default connect(({ login, users, departments }) => ({
         </div>
       </div>
       <div>
-        <Table
-          className={data?.length === 0 ? styles.displaynone : styles.table}
-          dataSource={data}
-          columns={columns} // expandable={{
-          //   expandedRowRender: (record) => (
-          //     <embed src={record.url} frameBorder="0" width="100%" height="200" />
-          //   ),
-          //   rowExpandable: (record) => record.id !== 1,
-          // }}
-        />
+          <Table
+            className={data?.length === 0 ? styles.displaynone : styles.table}
+            dataSource={data}
+            columns={columns} // expandable={{
+            //   expandedRowRender: (record) => (
+            //     <embed src={record.url} frameBorder="0" width="100%" height="200" />
+            //   ),
+            //   rowExpandable: (record) => record.id !== 1,
+            // }}
+          />
       </div>
     </>
   );

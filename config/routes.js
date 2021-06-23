@@ -64,6 +64,12 @@ export default [
                 authority: ['SchoolAdmin'],
               },
               {
+                name: 'Statistic',
+                path: '/statistic',
+                component: './Statistic',
+                authority: ['SchoolAdmin'],
+              },
+              {
                 component: './404',
               },
             ],

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { history, connect } from 'umi';
 import { Table, Modal } from 'antd';
+import { PageContainer } from '@ant-design/pro-layout'
 import { getPaperList } from '@/services/paper';
 import { addDownloadCount } from '@/services/download';
 
@@ -90,7 +91,8 @@ export default connect(({ login }) => ({ currentUser: login.currentUser }))(func
     });
   }, []);
   return (
-    <>
+    <PageContainer>
+    
       <Table
         dataSource={data}
         columns={columns}
@@ -101,6 +103,6 @@ export default connect(({ login }) => ({ currentUser: login.currentUser }))(func
         //   rowExpandable: (record) => record.id !== 1,
         // }}
       />
-    </>
+    </PageContainer>
   );
 });

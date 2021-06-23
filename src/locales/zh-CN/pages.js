@@ -1,5 +1,5 @@
 export default {
-  'pages.layouts.userLayout.title': '书云天下事，汇水自成流。',
+  'pages.layouts.userLayout.title': '论心虽所共，文会一何悦。',
   'pages.login.accountLogin.tab': '账户密码登录',
   'pages.login.accountLogin.errorMessage': '错误的用户名和密码（admin/ant.design)',
   'pages.login.username.placeholder': '用户名: admin or user',

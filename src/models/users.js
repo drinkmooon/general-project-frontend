@@ -19,7 +19,7 @@ const UserModel = {
     saveUsers(state, {payload}) {
       const id2Name = new Map();
       const name2Id = new Map();
-      payload.users.map((u) => {
+      payload?.users.map((u) => {
         id2Name.set(u.id, u.username);
         name2Id.set(u.username, u.id);
         return 1

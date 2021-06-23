@@ -59,36 +59,45 @@ export default connect(({ login }) => ({ currentUser: login.currentUser }))(func
           style={{padding:20}}
             onFinish={onFinish}
           >
-            <Item name="title" rules={[{ required: true, message: 'Please input your username!' }]}>
+            <Item 
+              name="title"
+              label='标题'
+              rules={[{ required: true, message: '请输入标题' }]}>
               <Input placeholder={'title'}/>
             </Item>
             <Item
+              label='导师Id'
               name="instructorId"
-              rules={[{ required: true, message: 'Please input your username!' }]}
+              rules={[{ required: true, message: '请输入导师Id' }]}
             >
               <Input placeholder={'instructorId'}/>
             </Item>
             {compVisible === 'SchoolAdmin' && (
               <Item
-                name="writerId"
-                rules={[{ required: true, message: 'Please input your username!' }]}
+              label='作者Id'
+              name="writerId"
+                rules={[{ required: true, message: '请输入作者Id' }]}
               >
                 <Input placeholder={'writerId'}/>
               </Item>
             )}
             <Item
+              label='摘要'
               name="digest"
-              rules={[{ required: true, message: 'Please input your username!' }]}
+              rules={[{ required: true, message: '请输入摘要!' }]}
             >
               <Input.TextArea placeholder={'digest'}/>
             </Item>
-            <Item name="type" rules={[{ required: true, message: 'Please input your username!' }]}>
+            <Item name="type" 
+              label='论文类别'
+              rules={[{ required: true, message: '请输入论文类别' }]}>
               <Input placeholder={'type'}/>
             </Item>
             {compVisible === 'SchoolAdmin' && (
               <Item
                 name="deptId"
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                label="院系Id"
+                rules={[{ required: true, message: '请输入院系Id' }]}
               >
                 <Input placeholder={'deptId'}/>
               </Item>
@@ -97,7 +106,8 @@ export default connect(({ login }) => ({ currentUser: login.currentUser }))(func
               name="upload"         
               valuePropName="fileList"
               getValueFromEvent={normFile}
-              rules={[{ required: true, message: 'Please input your username!' }]}
+              label='论文文件'
+              rules={[{ required: true, message: '请提交论文文件' }]}
             >
               <Upload name="logo" action={(v)=>{setFile(v)}} listType="picture">
                 <Button icon={<UploadOutlined style={{color:'#1890ff'}}/>}>上传文件</Button>
