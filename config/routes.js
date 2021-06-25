@@ -85,13 +85,6 @@ export default [
                 ]
               },
               {
-                path: '/home',
-                name: 'home-container',
-                icon: 'home',
-                component: './Account/Settings',
-                authority: ['user'],
-              },
-              {
                 component: './404',
               },
             ],

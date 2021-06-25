@@ -39,18 +39,18 @@ const menuDataRender = (menuList) =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} Java EE 课程小组`}
+    copyright={`${new Date().getFullYear()} Moreonenight`}
     links={[
       {
         key: 'frontend',
         title: <><GithubOutlined /><span>前端仓库</span></>,
-        href: 'https://github.com/drinkmooon/general-project-frontend/tree/JAVAEE',
+        href: 'https://github.com/Moreonenight',
         blankTarget: true,
       },
       {
         key: 'backend',
         title: <><GithubOutlined /><span>后端仓库</span></>,
-        href: 'https://github.com/Nntraveler/BookHub_backend',
+        href: 'https://github.com/Moreonenight',
         blankTarget: true,
       },
       {

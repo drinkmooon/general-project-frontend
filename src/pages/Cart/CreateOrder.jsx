@@ -1,34 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
-import AddressForm from '@/components/UserAddress/AddressForm';
-import AddrCard from '@/components/UserAddress/AddrCard';
 import ApiUtils from '@/utils/ApiUtils';
 import { Select, Tag, List, Col, Row, Button, message, Divider, Input, Avatar, Card } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, RetweetOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 export default ({ bookWithCountList, closeModal }) => {
 
     const [loading, setLoading] = useState(false);
     const [visibility, setVisibility] = useState('hidden');//visible
-    const [addrId, setAddrId] = useState();
-    const [addrList, setAddrList] = useState([]);
+    const [addr, setAddr] = useState();
+    const [telephone, setTelephone] = useState();
+    const [receiverName, setReceiverName] = useState();
     const [modalVisible,setModalVisible] = useState(false);
     useEffect(() => {
-        if (addrId == null) { return }
+        if (addr == null) { return }
         setVisibility('visible');
-    }, [addrId])
-    useEffect(() => {
-        ApiUtils.getAddr().then((res) => {
-            setAddrList(res.data);
-        })
-    }, [])
+    }, [addr])
 
     const placeOrder = () => {
+        if(addr == null || telephone == null || receiverName == null){
+            message.error('请填写全部字段！');
+            return
+        }
         setLoading(true);
         ApiUtils.addOrder({
-            addrId: addrId,
-            data: bookWithCountList.map((bk) => (
+            address: addr,
+            telephone: telephone,
+            receiverName: receiverName,
+            orderItems: bookWithCountList.map((bk) => (
                 {
                     bookId: bk.bookId,
                     quantity: bk.quantity
@@ -36,7 +36,7 @@ export default ({ bookWithCountList, closeModal }) => {
         })
             .then((res) => {
                 if (true || res.msg == 'OK') {
-                    message.success('Place an order successfully!');
+                    message.success('下单成功！');
                     closeModal();
                     setLoading(false);
                 }
@@ -45,45 +45,45 @@ export default ({ bookWithCountList, closeModal }) => {
 
     return (
         <>
-            <Row style={{ height: 400 }}>
+            <Row>
                 <Col span={8}>
-                    <Select dropdownRender={menu => (
-                        <div>
-                            {menu}
-                            <Divider style={{ margin: '4px 0' }} />
-                            <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-                                <Button
-                                type='primary'
-                                    style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
-                                    onClick={()=>{console.log(1)}}          
-                                    icon={<PlusOutlined /> }
-                                >
-                                添加地址
-                                </Button>
-                            </div>
-                        </div>
-                    )}
-                        size='large' style={{ width: 300 }} onSelect={(value) => setAddrId(value)}>
-                        {addrList?.map((address) => (<Option value={address.id}>{`${address.name} ${address.location}`}</Option>))}
-                    </Select>
-                    <AddrCard style={{ visibility: visibility }} addr={addrList.filter((add) => (add.d == addrId))[0]}></AddrCard></Col>
+                </Col>                
+                <Col span={8}>
+                <Input addonBefore="收货地址" onChange={e => setAddr(e.target.value)}/>
+                <br />
+                <br />
+                <Input addonBefore="收货人电话" onChange={e => setTelephone(e.target.value)}/>
+                <br />
+                <br />
+                <Input addonBefore="收货人姓名" onChange={e => setReceiverName(e.target.value)}/>
+                </Col>
+            </Row>
+            <Row><Divider /></Row>
+            <Row>
+                <Col span={8}>
+                </Col>
                 <Col span={8}>
                     <List
                         bordered
                         dataSource={bookWithCountList}
                         renderItem={item => (
-                            <List.Item>
+                            <List.Item key={item.bookId}>  
                                 <List.Item.Meta
-                                    title={item.bookName}
-                                    description={item.publisher}
+                                    title={item.name}
+                                    description={item.author}
                                 />
-                                <Tag color='#f50'>{item.quantity}</Tag>
+                                <Tag color='#1890ff'>{item.quantity} 本</Tag>
                             </List.Item>)
                         } />
                 </Col>
             </Row>
+            <Row><Divider /></Row>
             <Row>
-                <Button type='primary' onClick={placeOrder} loading={loading}>下单！</Button>
+                <Col span={10}>
+                </Col>
+                <Col span={4}>
+                <Button type='primary' onClick={placeOrder} loading={loading}>下单</Button>
+                </Col>
             </Row>
         </>
     )

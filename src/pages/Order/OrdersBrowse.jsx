@@ -21,21 +21,26 @@ export default () => {
             sorter: (a, b) => a.orderId - b.orderId,
         },
         {
-            title: '姓名',
-            dataIndex: 'name',
-            key: 'name',
+            title: '收货人姓名',
+            dataIndex: 'receiverName',
+            key: 'receiverName',
         },
         {
             title: '配送地点',
-            dataIndex: 'location',
-            key: 'location',
+            dataIndex: 'address',
+            key: 'address',
         },
         {
+            title: '收货人电话',
+            dataIndex: 'telephone',
+            key: 'telephone',
+        },        
+        {
             title: '总价',
-            key: 'total',
-            dataIndex: 'total',
+            key: 'totalPrice',
+            dataIndex: 'totalPrice',
             render: (val) =>
-            `${val}${' 元 '}`,            
+            `${val.toFixed(2)}${' 元 '}`,            
             sorter: (a, b) => a.total - b.total,
         },        
         // {

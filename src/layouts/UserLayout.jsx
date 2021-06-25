@@ -43,31 +43,31 @@ const UserLayout = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>书汇</span>
+                <span className={styles.title}>书云</span>
               </Link>
             </div>
             <div className={styles.desc}>
               <FormattedMessage
                 id="pages.layouts.userLayout.title"
-                defaultMessage="书汇是作为 Java EE 课程项目的在线书城"
+                defaultMessage="书云是用作 Dotnet 课程项目的在线书城"
               />
             </div>
           </div>
           {children}
         </div>
         <DefaultFooter
-          copyright={`${new Date().getFullYear()} Java EE 课程小组`}
+          copyright={`${new Date().getFullYear()} Moreonenight`}
           links={[
             {
               key: 'frontend',
               title: <><GithubOutlined /><span>前端仓库</span></>,
-              href: 'https://github.com/drinkmooon/general-project-frontend/tree/JAVAEE',
+              href: 'https://github.com/Moreonenight',
               blankTarget: true,
             },
             {
               key: 'backend',
               title: <><GithubOutlined /><span>后端仓库</span></>,
-              href: 'https://github.com/Nntraveler/BookHub_backend',
+              href: 'https://github.com/Moreonenight',
               blankTarget: true,
             },
             {

@@ -1,5 +1,7 @@
-import React from 'react';
-import { Button, Col, Row, Space, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Row, Space, message, Divider, Input } from 'antd';
+
+const { Search } = Input;
 
 import BookCard from '@/components/BookCard';
 import ApiUtils from '@/utils/ApiUtils';
@@ -15,16 +17,23 @@ const BookBoard = ({ bookList }) => {
       else message.error('请先登录账户哦~~');
     });
   };
+  const [loginStatus, setLoginStatus] = useState([]);
 
-  const ITEM_PER_ROW = 4;
+  useEffect(() => {
+    ApiUtils.getLoginStatus().then((res) => {
+      setLoginStatus(res.success);
+    });
+  }, []);
+
+  const ITEM_PER_ROW = 5;
   const cardList = () => {
     if (bookList) {
       let list = [];
       for (let i = 0; i < bookList.length / ITEM_PER_ROW; i++) {
         list.push(
-          <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
+          <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]} key={`row${i}`}>
             {bookList.slice(i * ITEM_PER_ROW, (i + 1) * ITEM_PER_ROW).map((book) => (
-              <Col className="gutter-row" flex="auto">
+              <Col className="gutter-row" flex="auto" key={`col${book.bookId}`}>
                 <BookCard
                   book={book}
                   action={[
@@ -40,6 +49,10 @@ const BookBoard = ({ bookList }) => {
                       icon={<DollarCircleOutlined />}
                       type="primary"
                       onClick={() => {
+                        if(!loginStatus){
+                          message.error('请先登录账户哦~~');
+                          return
+                        }
                         console.log(book);
                         const createOrderModal = modal.info({
                           closable: true,
@@ -58,12 +71,15 @@ const BookBoard = ({ bookList }) => {
                         });
                       }}
                     >
-                      立即下单！
+                      立即下单
                     </Button>,
                   ]}
                 />
               </Col>
             ))}
+          </Row>,
+          <Row key={`row_addtional${i}`}>
+            <Divider></Divider>
           </Row>,
         );
       }

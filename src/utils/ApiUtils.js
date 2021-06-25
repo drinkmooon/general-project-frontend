@@ -2,84 +2,73 @@ import request from '@/utils/request';
 import { method } from 'lodash';
 
 class ApiUtil{
+  getLoginStatus= async ()=>{
+    return request('/api/LoginStatus/LoginStatus');
+  }
+
   searchBook= async name=>{
-    return request(`/api/book/SearchBook?query=${name}`);
+    return request('/api/Book/SearchBook', {
+      method: 'POST',
+      data: { name },      
+    });
   }
 
   getAllBook = async () => {
-    return request('/api/book/GetAllBook');
+    return request('/api/Book/GetAllBook');
   }
 
   getBookDetail = async bookId => {
-    return request(`/api/book/GetBookDetail?bookId=${bookId}`);
-  }
-
-  getAddr = async () => {
-    return request(`/api/addresses/GetAddr`);
-  }
-
-  //@params: new Addr. of current user
-  addAddr = async params => {
-    return request('/api/addresses/AddAddr', {
+    return request('/api/Book/GetBookDetail', {
       method: 'POST',
-      data: { ...params,},
-    });
-  }
-
-  delAddr = async addrId => {
-    return request(`/api/addresses/DelAddr/${addrId}`, {
-      method: 'DELETE',
-    });
-  }
-
-  editAddr = async (addrId, params) =>{
-    return request(`/api/addresses/EditAddr/${addrId}`, {
-      method: 'POST',
-      data: { ...params },
+      data: { bookId },      
     })
-  }  
+  }
 
   checkCart = async () => {
-    return request('/api/cart/CheckCart');
+    return request('/api/Cart/CheckCart');
   }
 
   addCart = async params => {
-    return request('/api/cart/AddCart', {
+    return request('/api/Cart/AddCart', {
       method: 'POST',
       data: { ...params, }
     });
   }
 
   delCart = async bookId => {
-    return request('/api/cart/DelCart?bookId='+bookId, {
-      method: 'DELETE',
+    return request('/api/Cart/DelCart', {
+      method: 'POST',
+      data: { bookId }
     });
   }
 
   editCart = async params => {
-    return request('/api/cart/EditCart/', {
+    return request('/api/Cart/EditCart', {
       method: 'POST',
       data: { ...params }
     });
   }
 
   addOrder = async params => {
-    return request('/api/order/addOrder', {
+    return request('/api/Order/AddOrder', {
       method: 'POST',
       data: {...params},
     });
   }
 
   getOrders = async () => {
-    return request('/api/order/GetOrders');
+    return request('/api/Order/GetOrders');
   }
 
   getOrderDetail = async orderId => {
-    return request(`/api/order/GetOrderDetail?orderId=${orderId}`);
+    return request('/api/Order/GetOrderDetail', {
+      method: 'POST',
+      data: { orderId }
+    });
   }
 
   editOrder = async params => {
-    return request('/api/order/EditOrder', {
+    return request('/api/Order/EditOrder', {
       method: 'POST',
       data: { ...params },
     })
@@ -87,13 +76,9 @@ class ApiUtil{
 
   delOrder = async orderId => {
     return request('/api/order/DelOrder', {
-      method: 'DELETE',
+      method: 'POST',
       data: { orderId },
     })
-  }
-
-  payOrder = async orderId => {
-    return request(`/api/order/PayOrder?orderId=${orderId}`);
   }
 }
 export default new ApiUtil();

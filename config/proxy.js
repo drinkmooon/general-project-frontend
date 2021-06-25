@@ -5,16 +5,16 @@
  * For details, please see
  * https://pro.ant.design/docs/deploy
  */
-// const BASE_URL = 'http://8.133.173.118:8848'; 
 
-const MOCK_URL = 'http://mockjs.docway.net/mock/1anTtSjfMYb/'
-const SERVER_URL = 'http://121.4.51.246:8081';
-const BASE_URL = SERVER_URL;
+const MOCK_URL = 'http://mockjs.docway.net/mock/1anTtSjfMYb/';
+const SERVER_URL = 'http://[ip]:[port]';
+const LOCAL_SERVER_URL = 'http://127.0.0.1:5000/';
+const BASE_URL = LOCAL_SERVER_URL;
 export default {
   
   dev: {
     '/api/':{
-      target: SERVER_URL,
+      target: LOCAL_SERVER_URL,
       changeOrigin: true,
       pathRewrite: {
         '^': '',

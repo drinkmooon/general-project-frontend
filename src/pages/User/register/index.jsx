@@ -130,7 +130,7 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
       <h3>注册</h3>
       <Form form={form} name='UserRegister' onFinish={onFinish}>
       <FormItem
-          name='id'
+          name='name'
           rules={[
             {
               required: true,
@@ -154,28 +154,6 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
           ]}
         >
           <Input size='large' placeholder='邮箱' />
-        </FormItem>
-        <FormItem
-          name='name'
-          rules={[
-            {
-              required: true,
-              message: '请输入姓名！',
-            },
-          ]}
-        >
-          <Input size='large' placeholder='姓名' />
-        </FormItem>
-        <FormItem
-          name='gender'
-          rules={[
-            {
-              required: true,
-              message: '请输入性别！',
-            },
-          ]}
-        >
-          <Input size='large' placeholder='性别' />
         </FormItem>
         <Popover
           getPopupContainer={(node) => {

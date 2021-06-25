@@ -70,7 +70,7 @@ export default () => {
     const deleteBook = bookId => {
         ApiUtils.delCart(bookId)
             .then((res) => {
-                    message.success('Delete Book Successfully!');
+                    message.success('删除成功');
                     setBookList(bookList.filter((book) => (book.bookId !== bookId)));
 
 
@@ -106,39 +106,41 @@ export default () => {
             <ProList
                 toolBarRender={() => {
                     return [
-                    <Button key="3" type='primary' disabled={selectedRowKeys.length === 0 ? true : false} onClick={placeSelected} >
+                    <Button key="pre_defined3" type='primary' disabled={selectedRowKeys.length === 0 ? true : false} onClick={placeSelected} >
                         下单
                     </Button>,
-                    <Button key="3" danger onClick={deleteAllBooks} disabled={bookList.length === 0 ? true : false}>
+                    <Button key="pre_defined4" danger onClick={deleteAllBooks} disabled={bookList.length === 0 ? true : false}>
                         清空购物车
                     </Button>
                     ];
                 }}
                 metas={{
-                    title: { render: (dom, entity) => (entity.bookName) },
+                    title: { render: (dom, entity) => (entity.name) },
                     description: {},
-                    avatar: { render: (dom, entity) => (<img src={entity.image}/>) },
+                    avatar: { render: (dom, entity) => (<img src={`http://101.226.16.95:8089/jpg/${entity.image}.jpg`} height="200" width="200"/>) },
                     actions: {
                         render: (dom, entity, index) => {
                             return [
-                                <Tag  color='#f50'><h1>{entity.price}</h1></Tag>
+                                <Tag  key={`pre_defined9${index}`} color='#1890ff'>{entity.price} 元/本</Tag>
                                 ,
                                 <Button
-                                    key='10'
+                                    key={`pre_defined10${index}`}
                                     onClick={() => { placeOrder(index) }} >
                                     下单
                             </Button>,
-                                <Button key='11'
+                                <Button key={`pre_defined11${index}`}
                                     danger
                                     onClick={() => { deleteBook(entity.bookId) }}>
                                     删除
                             </Button>,
                                 <InputNumber
+                                    key={`pre_defined12${index}`}
                                     min={1}
                                     defaultValue={counts[index]}
                                     value={counts[index]}
                                     onChange={value => { changeBookNum(index, value) }}
                                 />
+                                ,<span key={`pre_defined13${index}`}>本</span>
                             ];
                         },
                     },

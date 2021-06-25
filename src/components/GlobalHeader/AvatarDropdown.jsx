@@ -49,7 +49,7 @@ class AvatarDropdown extends React.Component {
     let DefaultAvatar = require('../../assets/avatar.jpg')
     if (!currentUser.name) {
       DefaultAvatar = require('../../assets/anony_avatar.jpg')
-      currentUser.name = "亲，请登录"
+      currentUser.name = "点我登录"
     }
     return currentUser && currentUser.name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
