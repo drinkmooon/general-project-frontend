@@ -22,7 +22,7 @@ class ApiUtil{
   addAddr = async params => {
     return request('/api/addresses/AddAddr', {
       method: 'POST',
-      data: { ...params,},
+      data: { ...params,postCode:Number(params.postCode)},
     });
   }
 
@@ -35,7 +35,7 @@ class ApiUtil{
   editAddr = async (addrId, params) =>{
     return request(`/api/addresses/EditAddr/${addrId}`, {
       method: 'POST',
-      data: { ...params },
+      data: { ...params,postCode:Number(params.postCode) },
     })
   }  
 
@@ -51,7 +51,7 @@ class ApiUtil{
   }
 
   delCart = async bookId => {
-    return request('/api/cart/DelCart?bookId='+bookId, {
+    return request(`/api/cart/DelCart/${bookId}`, {
       method: 'DELETE',
     });
   }

@@ -29,13 +29,13 @@ const codeMessage = {
 const errorHandler = (error) => {
   const { response } = error;
 
-  if (response && response.status) {
-  } else if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
-  }
+  // if (response && response.status) {
+  // } else if (!response) {
+  //   notification.error({
+  //     description: '您的网络发生异常，无法连接服务器',
+  //     message: '网络异常',
+  //   });
+  // }
 
   return response;
 };

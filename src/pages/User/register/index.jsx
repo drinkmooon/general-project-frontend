@@ -55,7 +55,7 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
       payload: { ...values, prefix },
     }).then((response) => {
       console.log(response)
-      if (response.success) {
+      if (response.msg === 'OK') {
         message.success('注册成功！')
         history.push({
           pathname: '/user/register-result',

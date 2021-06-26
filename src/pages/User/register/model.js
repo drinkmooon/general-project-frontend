@@ -20,7 +20,7 @@ const Model = {
   },
   reducers: {
     registerHandle(state, { payload }) {
-      return { ...state, status: payload.success }
+      return { ...state, status: payload.msg }
     },
   },
 }

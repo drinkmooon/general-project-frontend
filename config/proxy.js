@@ -8,7 +8,8 @@
 // const BASE_URL = 'http://8.133.173.118:8848'; 
 
 const MOCK_URL = 'http://mockjs.docway.net/mock/1anTtSjfMYb/'
-const SERVER_URL = 'http://121.4.51.246:8081';
+// const SERVER_URL = 'http://121.4.51.246:8081';
+const SERVER_URL = 'http://localhost:2074'
 const BASE_URL = SERVER_URL;
 export default {
   

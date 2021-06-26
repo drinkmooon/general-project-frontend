@@ -109,7 +109,7 @@ export default () => {
                     <Button key="3" type='primary' disabled={selectedRowKeys.length === 0 ? true : false} onClick={placeSelected} >
                         下单
                     </Button>,
-                    <Button key="3" danger onClick={deleteAllBooks} disabled={bookList.length === 0 ? true : false}>
+                    <Button key="3" danger onClick={deleteAllBooks} disabled={bookList?.length === 0 ? true : false}>
                         清空购物车
                     </Button>
                     ];

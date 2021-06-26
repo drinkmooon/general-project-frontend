@@ -18,7 +18,7 @@ const Model = {
         payload: response,
       }); // Login successfully
 
-      if (response.success) {
+      if (response.msg === 'OK') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -69,13 +69,13 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      if (payload.success) {
+      if (payload.msg==='OK') {
         setAuthority(['user']);
       }
       return { ...state}
     },
     removeLoginStatus(state, { payload }) {
-      if (payload.success) {
+      if (payload.msg==='OK') {
         setAuthority(['guest']);
       }
         return { ...state }
